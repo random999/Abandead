@@ -25,6 +25,8 @@ public class Game {
 			Display.update();
 		}
 		
+		This is a bit different...
+		
 		Display.destroy();
 		
 	}
