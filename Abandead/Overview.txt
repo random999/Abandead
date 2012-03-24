@@ -66,4 +66,8 @@ Stats
 	Strength
 		Power of hits
 		Negotiates damage
-
+		Carry weight
+End Game
+	Keep Character, lose map
+	Get highscore based on time/zombies killed
+	Highscore unlocks perks for character
