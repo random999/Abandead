@@ -2,6 +2,7 @@ package net.scylla.abandead.core;
 
 
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -24,11 +25,6 @@ public class Game {
 		while(!Display.isCloseRequested()) {
 			Display.update();
 		}
-		
-		//This is a bit different...
-		
 		Display.destroy();
-		
 	}
-	
 }
