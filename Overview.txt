@@ -1,0 +1,69 @@
+Top-Down
+Tile based
+	128 X for streets/floors
+Randomly generated map
+	Spawn algorithms for different sized maps
+	Connect nearby blocks
+	Save already loaded tiles
+	Chunk system?
+Enterable houses
+	Barricade-able
+	Gain supplies
+Weapons
+	Melee
+		Higher attack, but straight forward
+		Lower attack, but swings in a circle
+	Projectile
+	Splash
+	Randomly generated stats…
+	durability
+Tools
+	Barricade fixing tools
+	Item repairing tools
+	Multi-purpose tools
+		Weapon/Tool
+		Tool/Tool
+Enemies
+	Zombies
+	Witches
+	Tanks
+	Jockeys
+	Mother zombie
+Health
+Hunger
+Thirst? Rest? Fatigue?
+	Swing weapon, lose fatigue
+	Any physical activity, lose fatigue
+Survivor base
+	Always the same
+	Trade kind of
+	NOT SHOP, just trade a little bit to get the player started
+Buy supplies/houses from factions
+	Randomly generated
+	Further out from base, better houses
+	Customizable house
+Quest system
+	Randomly generated for factions
+	Prebuilt for survivor base
+Saving system
+	Usernames
+GUI
+	Menus
+		Pause
+		Title
+		Inventory
+		Crafting
+		Stats/Health
+		Combine Inventory and Stats/Health?
+Stats
+	Lvls
+	Constitution
+		Health
+		Rate of hunger loss
+	Dexterity
+		Speed
+		Rate of attack
+	Strength
+		Power of hits
+		Negotiates damage
+
