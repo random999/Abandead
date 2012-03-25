@@ -59,8 +59,24 @@ public class Game {
 			System.out.println("Mouse pressed at " + x + ", " + y);
 		}
 
-		if (Keyboard.isKeyDown(1)) {
+		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Display.destroy();
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
+			//yScroll++;
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)) {
+			//yScroll--;
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
+			//xScroll--;
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
+			//xScroll++;
 		}
 
 	}
@@ -110,8 +126,11 @@ public class Game {
 			yScroll = 0;
 		}
 		
+		xScroll=0;
+		yScroll=0;
+		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glColor3f(0.5f, 0.5f, 1.0f);
+		//glColor3f(0.5f, 0.5f, 1.0f);
 		glBegin(GL_QUADS);
 			glVertex2d(xScroll, yScroll);
 			glVertex2d(200+xScroll, yScroll);
@@ -119,8 +138,8 @@ public class Game {
 			glVertex2d(xScroll, 200+yScroll);
 		glEnd();
 
-		xScroll++;
-		yScroll++;
+		//xScroll++;
+		//yScroll++;
 		
 		Display.update();
 	}
