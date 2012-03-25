@@ -118,15 +118,40 @@ public class Game {
 
 	private void draw() {
 		
-		if(xScroll+200 > Display.getWidth()) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		if(xScroll > Display.getWidth()) {
 			xScroll = 0;
+		} else if (xScroll < 0) {
+			xScroll = Display.getWidth();
+		}
+		
+		if(yScroll > Display.getHeight()) {
+			yScroll = 0;
+		} else if (yScroll < 0) {
+			yScroll = Display.getHeight();
 		}
 		
 		if(yScroll+200 > Display.getHeight()) {
-			yScroll = 0;
+			glColor3f(0.5f, 0.5f, 1.0f);
+			glBegin(GL_QUADS);
+				glVertex2d(xScroll, 0);
+				glVertex2d(200+xScroll, 0);
+				glVertex2d(200+xScroll, yScroll-Display.getHeight()+200);
+				glVertex2d(xScroll, yScroll-Display.getHeight()+200);
+			glEnd();
 		}
 		
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if(xScroll+200 > Display.getWidth()) {
+			glColor3f(0.5f, 0.5f, 1.0f);
+			glBegin(GL_QUADS);
+				glVertex2d(0, yScroll);
+				glVertex2d(200+xScroll-Display.getWidth(), yScroll);
+				glVertex2d(200+xScroll-Display.getWidth(), yScroll+200);
+				glVertex2d(0, yScroll+200);
+			glEnd();
+		}
+		
 		glColor3f(0.5f, 0.5f, 1.0f);
 		glBegin(GL_QUADS);
 			glVertex2d(xScroll, yScroll);
