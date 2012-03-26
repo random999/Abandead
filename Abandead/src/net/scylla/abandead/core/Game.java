@@ -155,19 +155,24 @@ public class Game {
 	}
 	
 	private void fixScrollAmount() {
+		int leftBound = (Display.getWidth()-player.getWidth())/2;
+		int rightBound = -TILE_SIZE*MAP_WIDTH + (Display.getWidth()+player.getWidth())/2;
+		int topBound = (Display.getHeight()-player.getHeight())/2;
+		int bottomBound = -TILE_SIZE*MAP_HEIGHT + (Display.getHeight()+player.getHeight())/2;
+		
 		float xStop = Display.getWidth()/ 2;
 		float yStop = Display.getHeight() / 2;
 		
-		if(this.xScroll > xStop) {
-			this.xScroll = (int) xStop;
-		} else if (this.xScroll < -TILE_SIZE * MAP_WIDTH+xStop) {
-			this.xScroll = (int) (-TILE_SIZE * MAP_WIDTH+xStop);
+		if(this.xScroll > leftBound) {
+			this.xScroll = leftBound;
+		} else if (this.xScroll < rightBound) {
+			this.xScroll = rightBound;
 		}
 		
-		if(this.yScroll > yStop) {
-			this.yScroll = (int) yStop;
-		} else if (this.yScroll < -TILE_SIZE * MAP_HEIGHT+yStop) {
-			this.yScroll = (int) (-TILE_SIZE * MAP_HEIGHT+yStop);
+		if(this.yScroll > topBound) {
+			this.yScroll = topBound;
+		} else if (this.yScroll < bottomBound) {
+			this.yScroll = bottomBound;
 		}
 	}
 	
