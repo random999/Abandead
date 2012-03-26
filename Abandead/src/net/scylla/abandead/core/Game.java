@@ -1,9 +1,5 @@
 package net.scylla.abandead.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import net.scylla.abandead.tiles.QuadTile;
@@ -13,9 +9,6 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public class Game {
@@ -67,7 +60,7 @@ public class Game {
 		
 		int counter = 0;
 		for(QuadTile tile : tileList) {
-			System.out.println(++counter + "-- X: " + tile.getX() + " Y: " + tile.getY());
+			//System.out.println(++counter + "-- X: " + tile.getX() + " Y: " + tile.getY());
 			
 		}
 		System.out.println("Exiting game...");

@@ -27,11 +27,13 @@ public class Map {
 				
 				glColor3f(R, G, G);
 				
-				if (x % 2 == 0 && y % 2 == 0) {
-					new TileWood(xPos, yPos);
-				} else {
-					new QuadTile(xPos, yPos);
-				}
+				new QuadTile(xPos, yPos);
+				
+//				if (x % 2 == 0 && y % 2 == 0) {
+//					new TileWood(xPos, yPos);
+//				} else {
+//					new QuadTile(xPos, yPos);
+//				}
 			}
 		}
 
