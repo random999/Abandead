@@ -25,7 +25,8 @@ public class Map {
 				float xPos = x * TILE_SIZE + xScroll;
 				float yPos = y * TILE_SIZE + yScroll;
 				
-				glColor3f(R, G, G);
+				//glColor3f(R, G, G);
+				glColor3f(1,1,1);
 				
 				new TileWood(xPos, yPos);
 				//new QuadTile(xPos, yPos);

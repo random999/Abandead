@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import net.scylla.abandead.entities.Player;
 import net.scylla.abandead.tiles.QuadTile;
 
 import org.lwjgl.LWJGLException;
@@ -28,12 +29,13 @@ public class Game {
 	private ArrayList<QuadTile> tileList;
 
 	public static final int TILE_SIZE = 128;
-	public static final int MAP_WIDTH = 3;
-	public static final int MAP_HEIGHT = 3;
+	public static final int MAP_WIDTH = 5;
+	public static final int MAP_HEIGHT = 5;
 	
 	public static Texture WOOD;
 	
 	private Map map;
+	private Player player;
 
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
@@ -62,6 +64,7 @@ public class Game {
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
 		loadTextures();
+		player = new Player();
 		
 		while (running) {
 			pollInput();
@@ -88,7 +91,7 @@ public class Game {
 
 		fixScrollAmount();
 		map.create(xScroll, yScroll);
-		drawSprite();
+		player.render();
 		Display.update();
 	}
 
@@ -152,19 +155,19 @@ public class Game {
 	}
 	
 	private void fixScrollAmount() {
-		float xStop = TILE_SIZE * MAP_WIDTH / 2;
-		float yStop = TILE_SIZE * MAP_HEIGHT / 2;
+		float xStop = Display.getWidth()/ 2;
+		float yStop = Display.getHeight() / 2;
 		
 		if(this.xScroll > xStop) {
 			this.xScroll = (int) xStop;
-		} else if (this.xScroll < -xStop) {
-			this.xScroll = (int) -xStop;
+		} else if (this.xScroll < -TILE_SIZE * MAP_WIDTH+xStop) {
+			this.xScroll = (int) (-TILE_SIZE * MAP_WIDTH+xStop);
 		}
 		
 		if(this.yScroll > yStop) {
 			this.yScroll = (int) yStop;
-		} else if (this.yScroll < -yStop) {
-			this.yScroll = (int) -yStop;
+		} else if (this.yScroll < -TILE_SIZE * MAP_HEIGHT+yStop) {
+			this.yScroll = (int) (-TILE_SIZE * MAP_HEIGHT+yStop);
 		}
 	}
 	
