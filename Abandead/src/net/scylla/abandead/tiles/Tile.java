@@ -50,20 +50,16 @@ public class Tile {
 		//loadTexture(textureName).bind();
 		
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);	
-			glVertex2f(0,0);
-			glTexCoord2f(1,0);	
-			glVertex2f(Game.TILE_SIZE,0);
-			glTexCoord2f(1,1);	
-			glVertex2f(Game.TILE_SIZE,Game.TILE_SIZE);
-			glTexCoord2f(0,1);	
-			glVertex2f(0,Game.TILE_SIZE);
+			glTexCoord2f(0,0); glVertex2f(0,0);
+			glTexCoord2f(1,0); glVertex2f(Game.TILE_SIZE,0);
+			glTexCoord2f(1,1); glVertex2f(Game.TILE_SIZE,Game.TILE_SIZE);
+			glTexCoord2f(0,1); glVertex2f(0,Game.TILE_SIZE);
 		glEnd();
 		glBegin(GL_LINES);
 			glVertex2f(0,0);
-			glVertex2f(0, Display.getHeight());
+			glVertex2f(0,(Game.MAP_HEIGHT * Game.TILE_SIZE));
 			glVertex2f(0, 0);
-			glVertex2f(Display.getWidth(), 0);
+			glVertex2f((Game.MAP_WIDTH * Game.TILE_SIZE), 0);
 		glEnd();
 	}
 	
