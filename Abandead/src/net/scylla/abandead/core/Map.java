@@ -42,7 +42,7 @@ public class Map {
 				float R = x / MAP_WIDTH;
 				float G = y / MAP_HEIGHT;
 				glColor3f(R, G, G);
-				if (1 == 1) {
+				if (x % 2 == 0 && y % 2 == 0) {
 					QuadTile tile = new QuadTile(x * TILE_SIZE + xScroll, y
 							* TILE_SIZE + yScroll, tex);
 				} else {

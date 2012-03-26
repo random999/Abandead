@@ -76,6 +76,10 @@ public class Game {
 	private void draw() {
 
 		glClear(GL_COLOR_BUFFER_BIT);
+		
+		glLoadIdentity();
+
+		loadTexture("wood").bind();
 
 		fixScrollAmount();
 		map.create(xScroll, yScroll);
@@ -150,6 +154,7 @@ public class Game {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("No texture found...");
 		return null;
 	}
 	
