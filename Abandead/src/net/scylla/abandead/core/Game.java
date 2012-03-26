@@ -112,7 +112,7 @@ public class Game {
 	private void drawBackground() {
 		
 		tileList.clear();
-
+		
 		for (float x = 0; x < MAP_WIDTH; x++) {
 			for (float y = 0; y < MAP_HEIGHT; y++) {
 				glLoadIdentity();
@@ -127,16 +127,16 @@ public class Game {
 
 		glLoadIdentity();
 
-		if (xScroll > Display.getWidth()) {
-			xScroll = 0;
+		if (xScroll > MAP_WIDTH*TILE_SIZE) {
+			xScroll = xScroll - 1;
 		} else if (xScroll < 0) {
-			xScroll = Display.getWidth();
+			xScroll = xScroll + 1;
 		}
 
-		if (yScroll > Display.getHeight()) {
-			yScroll = 0;
+		if (yScroll > MAP_HEIGHT*TILE_SIZE) {
+			yScroll = yScroll - 1;
 		} else if (yScroll < 0) {
-			yScroll = Display.getHeight();
+			yScroll = yScroll + 1;
 		}
 
 		//if (yScroll + 200 > Display.getHeight()) {
