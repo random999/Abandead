@@ -15,6 +15,8 @@ import net.scylla.abandead.core.Game;
 
 public class Tile {
 	
+	
+	
 	public void createTile(float x, float y) {
 		
 		float R = x / Game.MAP_WIDTH;
@@ -44,7 +46,7 @@ public class Tile {
 	public void createTileTextured(float x, float y, String textureName) {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
-		loadTexture(textureName).bind();
+		Game.WOOD.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0);
 			glVertex2i(0,0);
@@ -55,25 +57,15 @@ public class Tile {
 			glTexCoord2f(0,1);
 			glVertex2i(0,Game.TILE_SIZE);
 		glEnd();
-		glColor3f(.2f, .3f, .4f);
+		glColor3f(1, 0, 0);
 		glBegin(GL_LINES);
-			glVertex2f(x,0);
-			glVertex2f(x, Display.getHeight());
-			glVertex2f(0, y);
-			glVertex2f(Display.getWidth(), y);
+			glVertex2f(0,0);
+			glVertex2f(0, Display.getHeight());
+			glVertex2f(0, 0);
+			glVertex2f(Display.getWidth(), 0);
 		glEnd();
 	}
 	
-	private Texture loadTexture(String tex) {
-		try {
-			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("No texture found...");
-		return null;
-	}
+
 
 }

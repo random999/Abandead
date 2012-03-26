@@ -1,5 +1,11 @@
 package net.scylla.abandead.core;
 
+import static org.lwjgl.opengl.GL11.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import net.scylla.abandead.tiles.QuadTile;
@@ -9,7 +15,8 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import static org.lwjgl.opengl.GL11.*;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 public class Game {
 
@@ -23,6 +30,8 @@ public class Game {
 	public static final int TILE_SIZE = 128;
 	public static final int MAP_WIDTH = 3;
 	public static final int MAP_HEIGHT = 3;
+	
+	public static Texture WOOD;
 	
 	private Map map;
 
@@ -51,6 +60,8 @@ public class Game {
 		glLoadIdentity();
 		glOrtho(0, 800, 0, 600, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_TEXTURE_2D);
+		loadTextures();
 		
 		while (running) {
 			pollInput();
@@ -155,5 +166,21 @@ public class Game {
 		} else if (this.yScroll < -yStop) {
 			this.yScroll = (int) -yStop;
 		}
+	}
+	
+	public void loadTextures() {
+		WOOD = loadTexture("wood");
+	}
+	
+	private Texture loadTexture(String tex) {
+		try {
+			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("No texture found...");
+		return null;
 	}
 }

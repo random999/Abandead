@@ -27,7 +27,7 @@ public class Map {
 				
 				glColor3f(R, G, G);
 				
-				new QuadTile(xPos, yPos);
+				new TileWood(xPos, yPos);
 				
 				//glRectf(5,5,123,123);
 //				if (x % 2 == 0 && y % 2 == 0) {
