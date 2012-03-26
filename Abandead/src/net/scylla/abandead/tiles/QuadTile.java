@@ -1,4 +1,4 @@
-package net.scylla.abandead.core;
+package net.scylla.abandead.tiles;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -7,16 +7,17 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import net.scylla.abandead.core.Game;
+
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public class QuadTile {
+public class QuadTile extends Tile {
 	
 	float xOffset;
 	float yOffset;
 	
 	public QuadTile(float x, float y, String tex) {
-		float size = Game.TILE_SIZE;
 		glLoadIdentity();
 		glTranslatef(x, y, 0f);
 		loadTexture(tex).bind();
@@ -34,14 +35,14 @@ public class QuadTile {
 		this.yOffset = y;
 		}
 
-	public QuadTile(float x, float y, float size) {
+	public QuadTile(float x, float y) {
 		glLoadIdentity();
 		glTranslatef(x, y, 0f);
 		glBegin(GL_QUADS);
 			glVertex2d(0,0);
-			glVertex2d(size,0);
-			glVertex2d(size,size);
-			glVertex2d(0,size);
+			glVertex2d(Game.TILE_SIZE,0);
+			glVertex2d(Game.TILE_SIZE,Game.TILE_SIZE);
+			glVertex2d(0,Game.TILE_SIZE);
 		glEnd();
 		this.xOffset = x;
 		this.yOffset = y;
