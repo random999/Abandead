@@ -42,9 +42,8 @@ public class Player {
 		float XDistance = centerX - mX;
 		float YDistance = centerY - mY;
 		
-		double rotation = Math.atan2(YDistance , XDistance);
-		double degerees = rotation * (180/Math.PI);
-		return (float)degerees;
+		double angle = Math.atan2(YDistance , XDistance) * 180/Math.PI;
+		return (float)angle;
 
 	}
 	
