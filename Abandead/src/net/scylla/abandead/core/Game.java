@@ -7,9 +7,6 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public class Game {
@@ -127,78 +124,21 @@ public class Game {
 
 		glLoadIdentity();
 
-		if (xScroll > MAP_WIDTH*TILE_SIZE) {
-			xScroll = xScroll - 1;
-		} else if (xScroll < 0) {
-			xScroll = xScroll + 1;
-		}
+		  if (xScroll > MAP_WIDTH*TILE_SIZE) {
+			   xScroll = 0;
+		  } else if (xScroll < 0) {
+			   xScroll = (int)MAP_WIDTH * (int)TILE_SIZE;
+		  }
 
-		if (yScroll > MAP_HEIGHT*TILE_SIZE) {
-			yScroll = yScroll - 1;
-		} else if (yScroll < 0) {
-			yScroll = yScroll + 1;
-		}
-
-		//if (yScroll + 200 > Display.getHeight()) {
-		//	glLoadIdentity();
-		//	glTranslatef(xScroll, 0f, 0f);
-		//	glColor3f(0.5f, 0.5f, 1.0f);
-		//	glBegin(GL_QUADS);
-		//		glVertex2d(0, 0);
-		//		glColor3f(1.0f, 0.0f, 0.0f);
-		//		glVertex2d(200, 0);
-		//		glColor3f(0.0f, 1.0f, 0.0f);
-		//		glVertex2d(200, yScroll - Display.getHeight() + 200);
-		//		glColor3f(0.0f, 0.0f, 1.0f);
-		//		glVertex2d(0, yScroll - Display.getHeight() + 200);
-		//	glEnd();
-		//}
-
-		//if (xScroll + 200 > Display.getWidth()) {
-		//	glLoadIdentity();
-		//	glColor3f(0.5f, 0.5f, 1.0f);
-		//	glTranslatef(0f, yScroll, 0f);
-		//	glBegin(GL_QUADS);
-		//		glVertex2d(0, 0);
-		//		glColor3f(1.0f, 0.0f, 0.0f);
-		//		glVertex2d(200 + xScroll - Display.getWidth(), 0);
-		//		glColor3f(0.0f, 1.0f, 0.0f);
-		//		glVertex2d(200 + xScroll - Display.getWidth(), 200);
-		//		glColor3f(0.0f, 0.0f, 1.0f);
-		//		glVertex2d(0, 200);
-		//	glEnd();
-		//}
-
-		//glColor3f(0.5f, 0.5f, 1.0f);
-		//glLoadIdentity();
-		//glBegin(GL_QUADS);
-		//	glVertex2d(xScroll, yScroll);
-		//	glColor3f(1.0f, 0.0f, 0.0f);
-		//	glVertex2d(200 + xScroll, yScroll);
-		//	glColor3f(0.0f, 1.0f, 0.0f);
-		//	glVertex2d(200 + xScroll, 200 + yScroll);
-		//	glColor3f(0.0f, 0.0f, 1.0f);
-		//	glVertex2d(xScroll, 200 + yScroll);
-		//glEnd();
-
-		// xScroll++;
-		// yScroll++;
-		glLoadIdentity();
+		  if (yScroll > MAP_HEIGHT*TILE_SIZE) {
+			  yScroll = 0;
+		  } else if (yScroll < 0) {
+			  yScroll = (int)MAP_HEIGHT * (int)TILE_SIZE;
+		  }
+		
 		glBegin(GL_LINES);
 			glVertex2d(xScroll, 0);
-			glVertex2d(xScroll, Display.getHeight());
-			glVertex2d(0, yScroll);
-			glVertex2d(Display.getWidth(), yScroll);
-			glVertex2d(xScroll + 200, 0);
-			glVertex2d(xScroll + 200, Display.getHeight());
-			glVertex2d(0, yScroll + 200);
-			glVertex2d(Display.getWidth(), yScroll + 200);
-		glEnd();
-		glBegin(GL_LINE_LOOP);
-			glVertex2d(0, 0);
-			glVertex2d(Display.getWidth(), 0);
-			glVertex2d(Display.getWidth(), Display.getHeight());
-			glVertex2d(0, Display.getHeight());
+			glVertex2d(xScroll, 200);
 		glEnd();
 	}
 
@@ -216,7 +156,7 @@ public class Game {
 
 	private void drawSprite() {
 		glLoadIdentity();
-		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
+		glTranslatef((TILE_SIZE*MAP_WIDTH) / 2, (TILE_SIZE*MAP_HEIGHT) / 2, 0.0f);
 		glRotatef(xScroll, 0.0f, 0.0f, 1.0f);
 		glColor3f(0.2f, 0.7f, 0.3f);
 		glBegin(GL_TRIANGLES);
