@@ -26,11 +26,9 @@ public class Game {
 	private int frameCount = 0;
 	private boolean running = true;
 	
-	private ArrayList<QuadTile> tileList;
-
 	public static final int TILE_SIZE = 128;
-	public static final int MAP_WIDTH = 5;
-	public static final int MAP_HEIGHT = 5;
+	public static final int MAP_WIDTH = 10;
+	public static final int MAP_HEIGHT = 10;
 	
 	public static Texture WOOD;
 	
@@ -45,7 +43,7 @@ public class Game {
 	}
 
 	private void start() {
-		tileList = new ArrayList<QuadTile>();
+		new ArrayList<QuadTile>();
 		IGDisplay.create(800, 600);
 		try {
 			Display.setTitle("AbanDead");
@@ -71,12 +69,7 @@ public class Game {
 			draw();
 			outputFPS();
 		}
-		
-		int counter = 0;
-		for(QuadTile tile : tileList) {
-			//System.out.println(++counter + "-- X: " + tile.getX() + " Y: " + tile.getY());
-			
-		}
+
 		System.out.println("Exiting game...");
 		Display.destroy();
 	}
@@ -141,27 +134,12 @@ public class Game {
 		}
 		frameCount++;
 	}
-
-	private void drawSprite() {
-		glLoadIdentity();
-		glTranslatef((TILE_SIZE*MAP_WIDTH) / 2, (TILE_SIZE*MAP_HEIGHT) / 2, 0.0f);
-		//glRotatef(xScroll, 0.0f, 0.0f, 1.0f);
-		glColor3f(.1f, 1, .1f);
-		glBegin(GL_TRIANGLES);
-		glVertex2d(-20, -30);
-		glVertex2d(20, -30);
-		glVertex2d(0, 30);
-		glEnd();
-	}
 	
 	private void fixScrollAmount() {
 		int leftBound = (Display.getWidth()-player.getWidth())/2;
 		int rightBound = -TILE_SIZE*MAP_WIDTH + (Display.getWidth()+player.getWidth())/2;
 		int topBound = (Display.getHeight()-player.getHeight())/2;
 		int bottomBound = -TILE_SIZE*MAP_HEIGHT + (Display.getHeight()+player.getHeight())/2;
-		
-		float xStop = Display.getWidth()/ 2;
-		float yStop = Display.getHeight() / 2;
 		
 		if(this.xScroll > leftBound) {
 			this.xScroll = leftBound;
