@@ -1,11 +1,6 @@
 package net.scylla.abandead.core;
 
-import static org.lwjgl.opengl.GL11.GL_LINES;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glColor3f;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glVertex2d;
+import static org.lwjgl.opengl.GL11.*;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -14,12 +9,6 @@ public class Map {
 	private static final float TILE_SIZE = Game.TILE_SIZE;
 	private static final float MAP_WIDTH = Game.MAP_WIDTH;
 	private static final float MAP_HEIGHT = Game.MAP_WIDTH;
-
-	private Texture tex;
-
-	public Map(Texture texture) {
-		this.tex = texture;
-	}
 
 	public void create(float xScroll, float yScroll) {
 
@@ -43,12 +32,11 @@ public class Map {
 				float G = y / MAP_HEIGHT;
 				glColor3f(R, G, G);
 				if (x % 2 == 0 && y % 2 == 0) {
-					tex.bind();
-					QuadTile tile = new QuadTile(x * TILE_SIZE + xScroll, y
-							* TILE_SIZE + yScroll, tex);
+					new TileWood(x * TILE_SIZE + xScroll, y * TILE_SIZE
+							+ yScroll);
 				} else {
-					QuadTile tile = new QuadTile(x * TILE_SIZE + xScroll, y
-							* TILE_SIZE + yScroll, TILE_SIZE);
+					new QuadTile(x * TILE_SIZE + xScroll, y * TILE_SIZE
+							+ yScroll, TILE_SIZE);
 				}
 			}
 		}

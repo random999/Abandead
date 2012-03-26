@@ -25,9 +25,9 @@ public class Game {
 	
 	private ArrayList<QuadTile> tileList;
 
-	public static final float TILE_SIZE = 128;
-	public static final float MAP_WIDTH = 5;
-	public static final float MAP_HEIGHT = 5;
+	public static final int TILE_SIZE = 128;
+	public static final int MAP_WIDTH = 5;
+	public static final int MAP_HEIGHT = 5;
 	
 	private Map map;
 
@@ -50,7 +50,7 @@ public class Game {
 			e.printStackTrace();
 		}
 		
-		map = new Map(loadTexture("wood"));
+		map = new Map();
 
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
@@ -78,7 +78,7 @@ public class Game {
 		
 		glLoadIdentity();
 
-		loadTexture("wood").bind();
+	//	loadTexture("wood").bind();
 
 		fixScrollAmount();
 		map.create(xScroll, yScroll);
@@ -143,18 +143,6 @@ public class Game {
 		glVertex2d(20, -30);
 		glVertex2d(0, 30);
 		glEnd();
-	}
-	
-	private Texture loadTexture(String key) {
-		try {
-			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+key+".png")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("No texture found...");
-		return null;
 	}
 	
 	private void fixScrollAmount() {
