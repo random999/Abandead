@@ -143,7 +143,7 @@ public class Game {
 		glLoadIdentity();
 		glTranslatef((TILE_SIZE*MAP_WIDTH) / 2, (TILE_SIZE*MAP_HEIGHT) / 2, 0.0f);
 		//glRotatef(xScroll, 0.0f, 0.0f, 1.0f);
-		glColor3f(0.2f, 0.7f, 0.3f);
+		glColor3f(.1f, 1, .1f);
 		glBegin(GL_TRIANGLES);
 		glVertex2d(-20, -30);
 		glVertex2d(20, -30);

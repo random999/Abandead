@@ -25,10 +25,10 @@ public class Tile {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
 
-		glColor3f(.5f, .6f, .7f);
+		//glColor3f(0, 0, 1);
 		glBegin(GL_QUADS);
 			glVertex2f(0,0);
-			glVertex2f(0,Game.TILE_SIZE);
+			glVertex2f(Game.TILE_SIZE,0);
 			glVertex2f(Game.TILE_SIZE,Game.TILE_SIZE);
 			glVertex2f(0,Game.TILE_SIZE);
 		glEnd();
@@ -47,17 +47,18 @@ public class Tile {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
 		Game.WOOD.bind();
+		//loadTexture(textureName).bind();
+		
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);
-			glVertex2i(0,0);
-			glTexCoord2f(0,1);
-			glVertex2i(0,Game.TILE_SIZE);
-			glTexCoord2f(1,1);
-			glVertex2i(Game.TILE_SIZE,Game.TILE_SIZE);
-			glTexCoord2f(0,1);
-			glVertex2i(0,Game.TILE_SIZE);
+			glTexCoord2f(0,0);	
+			glVertex2f(0,0);
+			glTexCoord2f(1,0);	
+			glVertex2f(Game.TILE_SIZE,0);
+			glTexCoord2f(1,1);	
+			glVertex2f(Game.TILE_SIZE,Game.TILE_SIZE);
+			glTexCoord2f(0,1);	
+			glVertex2f(0,Game.TILE_SIZE);
 		glEnd();
-		glColor3f(1, 0, 0);
 		glBegin(GL_LINES);
 			glVertex2f(0,0);
 			glVertex2f(0, Display.getHeight());
