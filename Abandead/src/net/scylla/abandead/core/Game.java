@@ -25,6 +25,7 @@ public class Game {
 	private int yScroll = 0;
 	private int frameCount = 0;
 	private boolean running = true;
+	private Player player;
 	
 	public static final int TILE_SIZE = 128;
 	public static final int MAP_WIDTH = 10;
@@ -33,7 +34,6 @@ public class Game {
 	public static Texture WOOD;
 	
 	private Map map;
-	private Player player;
 
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
@@ -89,12 +89,17 @@ public class Game {
 	}
 
 	private void pollInput() {
-
+		
+		int mouseX = Mouse.getX();
+		int mouseY = Mouse.getY();
+		player.setMouseX(mouseX);
+		player.setMouseY(mouseY);
+		
 		if (Mouse.isButtonDown(0)) {
-			int x = Mouse.getX();
-			int y = Mouse.getY();
+			 mouseX = Mouse.getX();
+			 mouseY = Mouse.getY();
 
-			System.out.println("Mouse pressed at " + x + ", " + y);
+			//System.out.println("Mouse pressed at " + x + ", " + y);
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
