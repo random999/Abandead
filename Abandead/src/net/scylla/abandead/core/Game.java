@@ -128,15 +128,15 @@ public class Game {
 		glLoadIdentity();
 
 		if (xScroll > MAP_WIDTH*TILE_SIZE) {
-			xScroll = xScroll - 1;
+			xScroll = 0;
 		} else if (xScroll < 0) {
-			xScroll = xScroll + 1;
+			xScroll = (int)MAP_WIDTH * (int)TILE_SIZE;
 		}
 
 		if (yScroll > MAP_HEIGHT*TILE_SIZE) {
-			yScroll = yScroll - 1;
+			yScroll = 0;
 		} else if (yScroll < 0) {
-			yScroll = yScroll + 1;
+			yScroll = (int)MAP_HEIGHT * (int)TILE_SIZE;
 		}
 
 		//if (yScroll + 200 > Display.getHeight()) {
