@@ -21,8 +21,8 @@ public class Game {
 	private ArrayList<QuadTile> tileList;
 
 	public static final int TILE_SIZE = 128;
-	public static final int MAP_WIDTH = 5;
-	public static final int MAP_HEIGHT = 5;
+	public static final int MAP_WIDTH = 3;
+	public static final int MAP_HEIGHT = 3;
 	
 	private Map map;
 

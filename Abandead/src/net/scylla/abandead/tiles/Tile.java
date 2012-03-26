@@ -30,6 +30,7 @@ public class Tile {
 			glVertex2f(Game.TILE_SIZE,Game.TILE_SIZE);
 			glVertex2f(0,Game.TILE_SIZE);
 		glEnd();
+		glRectf(5,5,Game.TILE_SIZE-5,Game.TILE_SIZE-5);
 		glBegin(GL_LINES);
 			glVertex2f(x,0);
 			glVertex2f(x, Display.getHeight());
@@ -37,7 +38,7 @@ public class Tile {
 			glVertex2f(Display.getWidth(), y);
 		glEnd();
 			
-		System.out.println("Created generic tile at " + x + ", " + y + " with color " + R + "," + G + "," + G);
+		//System.out.println("Created generic tile at " + x + ", " + y + " with color " + R + "," + G + "," + G);
 	}
 	
 	public void createTileTextured(float x, float y, String textureName) {

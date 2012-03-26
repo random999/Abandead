@@ -19,7 +19,7 @@ public class Map {
 		glEnd();
 		for (float x = 0; x < MAP_WIDTH; x++) {
 			for (float y = 0; y < MAP_HEIGHT; y++) {
-				glLoadIdentity();
+				//glLoadIdentity();
 				float R = x / MAP_WIDTH;
 				float G = y / MAP_HEIGHT;
 				float xPos = x * TILE_SIZE + xScroll;
@@ -29,6 +29,7 @@ public class Map {
 				
 				new QuadTile(xPos, yPos);
 				
+				//glRectf(5,5,123,123);
 //				if (x % 2 == 0 && y % 2 == 0) {
 //					new TileWood(xPos, yPos);
 //				} else {
