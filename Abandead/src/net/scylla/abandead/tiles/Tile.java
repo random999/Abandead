@@ -32,10 +32,10 @@ public class Tile {
 		glEnd();
 		glRectf(5,5,Game.TILE_SIZE-5,Game.TILE_SIZE-5);
 		glBegin(GL_LINES);
-			glVertex2f(x,0);
-			glVertex2f(x, Display.getHeight());
-			glVertex2f(0, y);
-			glVertex2f(Display.getWidth(), y);
+			glVertex2f(0,0);
+			glVertex2f(0, Display.getHeight());
+			glVertex2f(0, 0);
+			glVertex2f(Display.getWidth(), 0);
 		glEnd();
 			
 		//System.out.println("Created generic tile at " + x + ", " + y + " with color " + R + "," + G + "," + G);
