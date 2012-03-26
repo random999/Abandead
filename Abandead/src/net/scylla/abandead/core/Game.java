@@ -1,5 +1,7 @@
 package net.scylla.abandead.core;
 
+import java.util.ArrayList;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -16,9 +18,12 @@ public class Game {
 	private int yScroll = 0;
 	private int frameCount = 0;
 	private boolean running = true;
+	
+	private ArrayList<QuadTile> tileList;
 
-	private static final float TILE_SIZE = 32;
-	private static final float MAP_SIZE = 60;
+	private static final float TILE_SIZE = 128;
+	private static final float MAP_WIDTH = 5;
+	private static final float MAP_HEIGHT = 5;
 
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
@@ -28,8 +33,9 @@ public class Game {
 	}
 
 	private void start() {
+		tileList = new ArrayList<QuadTile>();
+		IGDisplay.create(800, 600);
 		try {
-			setDisplayMode();
 			Display.setTitle("AbanDead");
 			// Display.setFullscreen(true);
 			System.out.println("Initializing AbanDead...");
@@ -48,6 +54,12 @@ public class Game {
 			pollInput();
 			draw();
 			outputFPS();
+		}
+		
+		int counter = 0;
+		for(QuadTile tile : tileList) {
+			System.out.println(++counter + "-- X: " + tile.getX() + " Y: " + tile.getY());
+			
 		}
 		System.out.println("Exiting game...");
 		Display.destroy();
@@ -97,56 +109,19 @@ public class Game {
 
 	}
 
-	private void setDisplayMode() {
-		DisplayMode[] modes = null;
-		DisplayMode mode = null;
-		try {
-			modes = Display.getAvailableDisplayModes();
-		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (modes == null) {
-			System.out.println("Unable to find any display modes");
-			System.exit(-1);
-		}
-
-		for (DisplayMode mode1 : modes) {
-			if (mode1.getWidth() == 800 && mode1.getHeight() == 600) {
-				mode = mode1;
-				break;
-			}
-		}
-
-		if (mode == null) {
-			System.out.println("No compatible display mode found");
-			System.exit(-1);
-		}
-
-		try {
-			Display.setDisplayMode(mode);
-		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	private void drawBackground() {
+		
+		tileList.clear();
 
-		for (float x = 0; x < MAP_SIZE; x++) {
-			for (float y = 0; y < MAP_SIZE; y++) {
+		for (float x = 0; x < MAP_WIDTH; x++) {
+			for (float y = 0; y < MAP_HEIGHT; y++) {
 				glLoadIdentity();
-				glTranslatef(x*TILE_SIZE,y*TILE_SIZE,0f);
-				float R = x/MAP_SIZE;
-				float G = y/MAP_SIZE;
+				//glTranslatef(x*TILE_SIZE,y*TILE_SIZE,0f);
+				float R = x/MAP_WIDTH;
+				float G = y/MAP_HEIGHT;
 				glColor3f(R,G,0f);
-				glBegin(GL_QUADS);
-					glVertex2d(0, 0);
-					glVertex2d(TILE_SIZE, 0);
-					glVertex2d(TILE_SIZE, TILE_SIZE);
-					glVertex2d(0, TILE_SIZE);
-				glEnd();
+				QuadTile tile = new QuadTile(x*TILE_SIZE+xScroll, y*TILE_SIZE+yScroll, TILE_SIZE);
+				tileList.add(tile);
 			}
 		}
 
@@ -164,47 +139,47 @@ public class Game {
 			yScroll = Display.getHeight();
 		}
 
-		if (yScroll + 200 > Display.getHeight()) {
-			glLoadIdentity();
-			glTranslatef(xScroll, 0f, 0f);
-			glColor3f(0.5f, 0.5f, 1.0f);
-			glBegin(GL_QUADS);
-				glVertex2d(0, 0);
-				glColor3f(1.0f, 0.0f, 0.0f);
-				glVertex2d(200, 0);
-				glColor3f(0.0f, 1.0f, 0.0f);
-				glVertex2d(200, yScroll - Display.getHeight() + 200);
-				glColor3f(0.0f, 0.0f, 1.0f);
-				glVertex2d(0, yScroll - Display.getHeight() + 200);
-			glEnd();
-		}
+		//if (yScroll + 200 > Display.getHeight()) {
+		//	glLoadIdentity();
+		//	glTranslatef(xScroll, 0f, 0f);
+		//	glColor3f(0.5f, 0.5f, 1.0f);
+		//	glBegin(GL_QUADS);
+		//		glVertex2d(0, 0);
+		//		glColor3f(1.0f, 0.0f, 0.0f);
+		//		glVertex2d(200, 0);
+		//		glColor3f(0.0f, 1.0f, 0.0f);
+		//		glVertex2d(200, yScroll - Display.getHeight() + 200);
+		//		glColor3f(0.0f, 0.0f, 1.0f);
+		//		glVertex2d(0, yScroll - Display.getHeight() + 200);
+		//	glEnd();
+		//}
 
-		if (xScroll + 200 > Display.getWidth()) {
-			glLoadIdentity();
-			glColor3f(0.5f, 0.5f, 1.0f);
-			glTranslatef(0f, yScroll, 0f);
-			glBegin(GL_QUADS);
-				glVertex2d(0, 0);
-				glColor3f(1.0f, 0.0f, 0.0f);
-				glVertex2d(200 + xScroll - Display.getWidth(), 0);
-				glColor3f(0.0f, 1.0f, 0.0f);
-				glVertex2d(200 + xScroll - Display.getWidth(), 200);
-				glColor3f(0.0f, 0.0f, 1.0f);
-				glVertex2d(0, 200);
-			glEnd();
-		}
+		//if (xScroll + 200 > Display.getWidth()) {
+		//	glLoadIdentity();
+		//	glColor3f(0.5f, 0.5f, 1.0f);
+		//	glTranslatef(0f, yScroll, 0f);
+		//	glBegin(GL_QUADS);
+		//		glVertex2d(0, 0);
+		//		glColor3f(1.0f, 0.0f, 0.0f);
+		//		glVertex2d(200 + xScroll - Display.getWidth(), 0);
+		//		glColor3f(0.0f, 1.0f, 0.0f);
+		//		glVertex2d(200 + xScroll - Display.getWidth(), 200);
+		//		glColor3f(0.0f, 0.0f, 1.0f);
+		//		glVertex2d(0, 200);
+		//	glEnd();
+		//}
 
-		glColor3f(0.5f, 0.5f, 1.0f);
-		glLoadIdentity();
-		glBegin(GL_QUADS);
-			glVertex2d(xScroll, yScroll);
-			glColor3f(1.0f, 0.0f, 0.0f);
-			glVertex2d(200 + xScroll, yScroll);
-			glColor3f(0.0f, 1.0f, 0.0f);
-			glVertex2d(200 + xScroll, 200 + yScroll);
-			glColor3f(0.0f, 0.0f, 1.0f);
-			glVertex2d(xScroll, 200 + yScroll);
-		glEnd();
+		//glColor3f(0.5f, 0.5f, 1.0f);
+		//glLoadIdentity();
+		//glBegin(GL_QUADS);
+		//	glVertex2d(xScroll, yScroll);
+		//	glColor3f(1.0f, 0.0f, 0.0f);
+		//	glVertex2d(200 + xScroll, yScroll);
+		//	glColor3f(0.0f, 1.0f, 0.0f);
+		//	glVertex2d(200 + xScroll, 200 + yScroll);
+		//	glColor3f(0.0f, 0.0f, 1.0f);
+		//	glVertex2d(xScroll, 200 + yScroll);
+		//glEnd();
 
 		// xScroll++;
 		// yScroll++;
