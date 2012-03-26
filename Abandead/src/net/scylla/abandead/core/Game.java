@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import net.scylla.abandead.entities.Player;
-import net.scylla.abandead.tiles.QuadTile;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -43,7 +41,6 @@ public class Game {
 	}
 
 	private void start() {
-		new ArrayList<QuadTile>();
 		IGDisplay.create(800, 600);
 		try {
 			Display.setTitle("AbanDead");
@@ -63,6 +60,7 @@ public class Game {
 		glEnable(GL_TEXTURE_2D);
 		loadTextures();
 		player = new Player();
+		map.create(xScroll, yScroll);
 		
 		while (running) {
 			pollInput();
@@ -79,11 +77,8 @@ public class Game {
 		glClear(GL_COLOR_BUFFER_BIT);
 		
 		glLoadIdentity();
-
-	//	loadTexture("wood").bind();
-
 		fixScrollAmount();
-		map.create(xScroll, yScroll);
+		map.render(xScroll, yScroll);
 		player.render();
 		Display.update();
 	}
@@ -94,7 +89,7 @@ public class Game {
 			int x = Mouse.getX();
 			int y = Mouse.getY();
 
-			System.out.println("Mouse pressed at " + x + ", " + y);
+			//System.out.println("Mouse pressed at " + x + ", " + y);
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {

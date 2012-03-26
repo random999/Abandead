@@ -6,27 +6,23 @@ import net.scylla.abandead.core.Game;
 
 public class Tile {
 	
-	
-	
-	public void createTile(float x, float y) {
-		
-		glLoadIdentity();
-		glTranslatef(x,y,0f);
+	private float x;
+	private float y;
+	private TileType type;
 
-		glBegin(GL_QUADS);
-			glVertex2f(0,0);
-			glVertex2f(Game.TILE_SIZE,0);
-			glVertex2f(Game.TILE_SIZE,Game.TILE_SIZE);
-			glVertex2f(0,Game.TILE_SIZE);
-		glEnd();
-		glRectf(5,5,Game.TILE_SIZE-5,Game.TILE_SIZE-5);
-			
-		}
-	
-	public void createTileTextured(float x, float y, String textureName) {
+	public float getX() {
+		return x;
+	}
+	public float getY() {
+		return y;
+	}
+	public TileType getType() {
+		return type;
+	}
+	public void render(float x, float y, TileType type) {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
-		Game.WOOD.bind();
+		type.texture.bind();
 		
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0); glVertex2f(0,0);
@@ -35,4 +31,5 @@ public class Tile {
 			glTexCoord2f(0,1); glVertex2f(0,Game.TILE_SIZE);
 		glEnd();
 	}
+	
 }
