@@ -11,6 +11,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 public enum TileType {
 	
 	WOOD("wood"),
+	SAND("sand"),
 	DEFAULT("default");
 	Texture texture;
 	TileType(String tex) {

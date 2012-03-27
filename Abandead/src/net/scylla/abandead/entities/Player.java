@@ -2,8 +2,6 @@ package net.scylla.abandead.entities;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import org.lwjgl.input.Mouse;
-
 import org.lwjgl.opengl.Display;
 
 public class Player {

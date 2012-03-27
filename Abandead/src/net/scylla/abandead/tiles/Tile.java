@@ -10,6 +10,9 @@ public class Tile {
 	private float y;
 	private TileType type;
 
+	public Tile(TileType type) {
+		this.type = type;
+	}
 	public float getX() {
 		return x;
 	}
@@ -19,7 +22,7 @@ public class Tile {
 	public TileType getType() {
 		return type;
 	}
-	public void render(float x, float y, TileType type) {
+	public void render(float x, float y) {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
 		type.texture.bind();

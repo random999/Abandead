@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-
 import net.scylla.abandead.entities.Player;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
