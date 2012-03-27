@@ -36,8 +36,8 @@ public class Player {
 	}
 	
 	private float calcRotation(){
-		centerX = centerX(width);
-		centerY = centerY(height);
+		centerX = Display.getWidth() / 2;
+		centerY = Display.getHeight() / 2;
 		
 		float XDistance = centerX - mX;
 		float YDistance = centerY - mY;
