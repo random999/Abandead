@@ -2,12 +2,13 @@ package net.scylla.abandead.core;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import net.scylla.abandead.tiles.Tile;
 import net.scylla.abandead.tiles.TileType;
 
-public class Map {
+public class Map implements Serializable{
 
 	private static final float TILE_SIZE = Game.TILE_SIZE;
 	private static final float MAP_WIDTH = Game.MAP_WIDTH;

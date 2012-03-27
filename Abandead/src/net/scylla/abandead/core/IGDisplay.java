@@ -1,10 +1,12 @@
 package net.scylla.abandead.core;
 
+import java.io.Serializable;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-public class IGDisplay {
+public class IGDisplay implements Serializable{
 	
 	public static void create(int width, int height) {
 		setDisplayMode();

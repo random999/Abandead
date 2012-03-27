@@ -2,9 +2,11 @@ package net.scylla.abandead.entities;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.Serializable;
+
 import org.lwjgl.opengl.Display;
 
-public class Player {
+public class Player implements Serializable{
 	
 	private int width;
 	private int height;

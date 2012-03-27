@@ -5,7 +5,12 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
 import net.scylla.abandead.entities.Player;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
@@ -15,13 +20,14 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public class Game {
+public class Game implements Serializable{
 
 	private int xScroll = 0;
 	private int yScroll = 0;
 	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
+	private File f = new File("c:\\myobj.obj");
 	
 	public static final int TILE_SIZE = 128;
 	public static final int MAP_WIDTH = 10;
@@ -59,6 +65,9 @@ public class Game {
 		loadTextures();
 		player = new Player();
 		map.create(xScroll, yScroll);
+		
+				
+				
 		
 		while (running) {
 			pollInput();
@@ -115,6 +124,14 @@ public class Game {
 			xScroll--;
 		}
 		
+		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
+			saveGame();
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
+			loadGame();
+		}
+		
 		if(Display.isCloseRequested()) {
 			running=false;
 		}
@@ -155,7 +172,45 @@ public class Game {
 	public void loadTextures() {
 		WOOD = loadTexture("wood");
 	}
-	
+	private void loadGame(){
+		
+		  ObjectInputStream in;
+		try {
+			in = new ObjectInputStream(new FileInputStream(f));
+			try {
+				map = (Map)in.readObject();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			in.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void saveGame(){	
+		
+		  ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(f));
+			out.writeObject(map);
+			out.flush();
+			out.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+	}
 	private Texture loadTexture(String tex) {
 		try {
 			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
