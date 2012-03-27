@@ -26,8 +26,9 @@ public class Game implements Serializable{
 	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
-	private File m = new File("c:\\map.obj");
-	private File p = new File("c:\\player.obj");
+	private String directory = "c:\\program files\\Abandead\\saves\\";
+	private File m = new File("c:\\program files\\Abandead\\saves\\map.obj");
+	private File p = new File("c:\\program files\\Abandead\\saves\\player.obj");
 	
 	public static final int TILE_SIZE = 128;
 	public static final int MAP_WIDTH = 10;
@@ -51,6 +52,14 @@ public class Game implements Serializable{
 		player = new Player();
 		
 		map = new Map(xScroll, yScroll);
+		
+		if(!new File(directory).exists()){
+			new File(directory).mkdir();
+		}
+		
+		if(!new File(directory).exists()){
+			new File(directory).mkdir();
+		}
 		
 		while (running) {
 			pollInput();
