@@ -12,8 +12,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 public enum TileType implements Serializable{
 	
 	WOOD("wood"),
-	SAND("sand"),
-	DEFAULT("default");
+	SAND("sand");
 	Texture texture;
 	TileType(String tex) {
 		try {

@@ -16,7 +16,7 @@ public class Map implements Serializable{
 
 	private Tile[][] map = new Tile[Game.MAP_WIDTH][Game.MAP_HEIGHT];
 
-	public void create(float xScroll, float yScroll) {
+	public Map(float xScroll, float yScroll) {
 		Random rand = new Random();
 		for (float x = 0; x < MAP_WIDTH; x++) {
 			for (float y = 0; y < MAP_HEIGHT; y++) {
@@ -40,7 +40,7 @@ public class Map implements Serializable{
 				float xPos = x * TILE_SIZE + dX;
 				float yPos = y * TILE_SIZE + dY;
 
-				glColor3f(R, G, G);
+				glColor3f(1, 1, 1);
 				tile.render(xPos, yPos);
 				y++;
 			}

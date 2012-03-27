@@ -9,10 +9,18 @@ import org.lwjgl.opengl.DisplayMode;
 public class IGDisplay implements Serializable{
 	
 	public static void create(int width, int height) {
-		setDisplayMode();
+		setDisplayMode(800, 600);
+		try {
+			Display.setTitle("AbanDead");
+			// Display.setFullscreen(true);
+			System.out.println("Initializing AbanDead...");
+			Display.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	private static void setDisplayMode() {
+	private static void setDisplayMode(int width, int height) {
 		DisplayMode[] modes = null;
 		DisplayMode mode = null;
 		try {
@@ -28,7 +36,7 @@ public class IGDisplay implements Serializable{
 		}
 
 		for (DisplayMode mode1 : modes) {
-			if (mode1.getWidth() == 800 && mode1.getHeight() == 600) {
+			if (mode1.getWidth() == width && mode1.getHeight() == height) {
 				mode = mode1;
 				break;
 			}

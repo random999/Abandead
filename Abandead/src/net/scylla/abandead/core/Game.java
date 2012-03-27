@@ -12,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -47,40 +46,32 @@ public class Game implements Serializable{
 
 	private void start() {
 		IGDisplay.create(800, 600);
-		try {
-			Display.setTitle("AbanDead");
-			// Display.setFullscreen(true);
-			System.out.println("Initializing AbanDead...");
-			Display.create();
-		} catch (LWJGLException e) {
-			e.printStackTrace();
-		}
+		enableOpenGL();
 		
-		map = new Map();
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, 800, 0, 600, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
-		glEnable(GL_TEXTURE_2D);
-		loadTextures();
 		player = new Player();
-		map.create(xScroll, yScroll);
 		
-				
-				
+		map = new Map(xScroll, yScroll);
 		
 		while (running) {
 			pollInput();
-			draw();
+			render();
 			outputFPS();
 		}
 
 		System.out.println("Exiting game...");
 		Display.destroy();
 	}
+	
+	private void enableOpenGL() {
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, 800, 0, 600, 1, -1);
+		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_TEXTURE_2D);
+		loadTextures();
+	}
 
-	private void draw() {
+	private void render() {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		
