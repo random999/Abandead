@@ -4,22 +4,17 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Random;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import net.scylla.abandead.tiles.Region;
 import net.scylla.abandead.tiles.Tile;
 import net.scylla.abandead.tiles.TileType;
 
 public class Map implements Serializable {
+
 	private Tile[][] map = new Tile[Game.MAP_WIDTH][Game.MAP_HEIGHT];
 	private ArrayList<ArrayList<Region>> regionList;
 
 	public Map(float xScroll, float yScroll) {
 		regionList = new ArrayList<ArrayList<Region>>();
-		Random rand = new Random();
-		
 		
 		for (int x = 0; x < 3; x++) {
 			ArrayList<Region> regions = new ArrayList<Region>();

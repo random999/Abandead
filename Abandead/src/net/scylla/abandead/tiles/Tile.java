@@ -9,8 +9,6 @@ import net.scylla.abandead.entities.Location;
 
 public class Tile implements Serializable{
 	
-	private float x;
-	private float y;
 	private TileType type;
 	private Location location;
 

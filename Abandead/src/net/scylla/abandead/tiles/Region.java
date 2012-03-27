@@ -1,12 +1,13 @@
 package net.scylla.abandead.tiles;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Location;
 
-public class Region {
+public class Region implements Serializable {
 
 	ArrayList<ArrayList<Tile>> tileList;
 	private Location location;
@@ -37,7 +38,6 @@ public class Region {
 	
 	
 	public void render(int xStart, int yStart) {
-		Random rand = new Random();
 		int x = 0;
 		for(ArrayList<Tile> list : tileList) {
 			float y = 0;

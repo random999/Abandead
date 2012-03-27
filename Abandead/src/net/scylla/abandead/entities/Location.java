@@ -1,6 +1,8 @@
 package net.scylla.abandead.entities;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
 	
 	private float x;
 	private float y;

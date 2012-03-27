@@ -12,9 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
-import net.scylla.abandead.tiles.Tile;
-import net.scylla.abandead.tiles.TileType;
-
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -24,8 +21,8 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Game implements Serializable {
 
-	private static int xPosition = 0;
-	private static int yPosition = 0;
+	private int xPosition = 0;
+	private int yPosition = 0;
 	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
@@ -92,14 +89,6 @@ public class Game implements Serializable {
 		map.render((int) -xPosition, (int) -yPosition);
 		player.render();
 		Display.update();
-	}
-	
-	public static int getxScroll() {
-		return xPosition;
-	}
-	
-	public static int getyScroll() {
-		return yPosition;
 	}
 
 	private void pollInput() {
