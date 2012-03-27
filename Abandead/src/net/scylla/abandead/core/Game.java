@@ -40,37 +40,31 @@ public class Game {
 
 	private void start() {
 		IGDisplay.create(800, 600);
-		try {
-			Display.setTitle("AbanDead");
-			// Display.setFullscreen(true);
-			System.out.println("Initializing AbanDead...");
-			Display.create();
-		} catch (LWJGLException e) {
-			e.printStackTrace();
-		}
+		enableOpenGL();
 		
-		map = new Map();
-
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, 800, 0, 600, 1, -1);
-		glMatrixMode(GL_MODELVIEW);
-		glEnable(GL_TEXTURE_2D);
-		loadTextures();
 		player = new Player();
-		map.create(xScroll, yScroll);
+		map = new Map(xScroll, yScroll);
 		
 		while (running) {
 			pollInput();
-			draw();
+			render();
 			outputFPS();
 		}
 
 		System.out.println("Exiting game...");
 		Display.destroy();
 	}
+	
+	private void enableOpenGL() {
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0, 800, 0, 600, 1, -1);
+		glMatrixMode(GL_MODELVIEW);
+		glEnable(GL_TEXTURE_2D);
+		loadTextures();
+	}
 
-	private void draw() {
+	private void render() {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		
@@ -100,19 +94,19 @@ public class Game {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN) || Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			yScroll++;
+			yScroll+=2;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP) || Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			yScroll--;
+			yScroll-=2;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT) || Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			xScroll++;
+			xScroll+=2;
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT) || Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			xScroll--;
+			xScroll-=2;
 		}
 		
 		if(Display.isCloseRequested()) {
