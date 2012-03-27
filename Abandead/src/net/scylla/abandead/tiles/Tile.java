@@ -5,29 +5,33 @@ import static org.lwjgl.opengl.GL11.*;
 import java.io.Serializable;
 
 import net.scylla.abandead.core.Game;
+import net.scylla.abandead.entities.Location;
 
 public class Tile implements Serializable{
 	
-	private float x;
-	private float y;
 	private TileType type;
+	private Location location;
 
 	public Tile(TileType type) {
+		location = new Location();
 		this.type = type;
 	}
-	public float getX() {
-		return x;
-	}
-	public float getY() {
-		return y;
+	public Location getLocation() {
+		return location;
 	}
 	public TileType getType() {
 		return type;
+	}
+	
+	public void render() {
+		render(location.getX(), location.getY());
 	}
 	public void render(float x, float y) {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
 		type.texture.bind();
+		location.setX(x);
+		location.setY(y);
 		
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0); glVertex2f(0,0);
