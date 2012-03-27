@@ -19,7 +19,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public class Game implements Serializable{
+public class Game implements Runnable,Serializable{
 
 	private int xScroll = 0;
 	private int yScroll = 0;
@@ -42,10 +42,11 @@ public class Game implements Serializable{
 
 	public static void main(String[] args) {
 		Game game = new Game();
-		game.start();
+		game.run();
 	}
-
-	private void start() {
+	
+	@Override
+	public void run() {
 		IGDisplay.create(800, 600);
 		enableOpenGL();
 		
@@ -246,4 +247,6 @@ public class Game implements Serializable{
 		System.out.println("No texture found...");
 		return null;
 	}
+
+
 }
