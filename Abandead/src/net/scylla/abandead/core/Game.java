@@ -27,7 +27,8 @@ public class Game implements Serializable{
 	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
-	private File f = new File("c:\\myobj.obj");
+	private File m = new File("c:\\map.obj");
+	private File p = new File("c:\\player.obj");
 	
 	public static final int TILE_SIZE = 128;
 	public static final int MAP_WIDTH = 10;
@@ -172,18 +173,25 @@ public class Game implements Serializable{
 	public void loadTextures() {
 		WOOD = loadTexture("wood");
 	}
+	/**
+	 * Loads the game from object files.
+	 */
 	private void loadGame(){
 		
-		  ObjectInputStream in;
+		  ObjectInputStream inM;
+		  ObjectInputStream inP;
 		try {
-			in = new ObjectInputStream(new FileInputStream(f));
+			inM = new ObjectInputStream(new FileInputStream(m));
+			inP = new ObjectInputStream(new FileInputStream(p));
 			try {
-				map = (Map)in.readObject();
+				map = (Map)inM.readObject();
+				player = (Player)inP.readObject();
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			in.close();
+			inP.close();
+			inM.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -193,14 +201,24 @@ public class Game implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Saves game objects to object files.
+	 */
 	private void saveGame(){	
 		
-		  ObjectOutputStream out;
+		  ObjectOutputStream outM;
+		  ObjectOutputStream outP;
+		  
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(f));
-			out.writeObject(map);
-			out.flush();
-			out.close();
+			outM = new ObjectOutputStream(new FileOutputStream(m));
+			outP = new ObjectOutputStream(new FileOutputStream(p));
+			outM.writeObject(map);
+			outP.writeObject(player);
+			outM.flush();
+			outP.flush();
+			outM.close();
+			outP.close();
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -211,6 +229,12 @@ public class Game implements Serializable{
 		}
 		 
 	}
+	
+	/**
+	 * Loads textures.
+	 * @param tex
+	 * @return
+	 */
 	private Texture loadTexture(String tex) {
 		try {
 			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
