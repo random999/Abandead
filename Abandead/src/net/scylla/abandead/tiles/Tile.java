@@ -2,9 +2,11 @@ package net.scylla.abandead.tiles;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.Serializable;
+
 import net.scylla.abandead.core.Game;
 
-public class Tile {
+public class Tile implements Serializable{
 	
 	private float x;
 	private float y;
