@@ -19,11 +19,9 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-<<<<<<< HEAD
-public class Game implements Runnable,Serializable{
-=======
+
 public class Game implements Serializable {
->>>>>>> branch 'master' of git@github.com:InsanerGamer/Abandead
+
 
 	private int xPosition = 0;
 	private int yPosition = 0;
@@ -52,7 +50,7 @@ public class Game implements Serializable {
 		System.out.println(homeDir);
 
 		Game game = new Game();
-		game.run();
+		game.start();
 	}
 
 
