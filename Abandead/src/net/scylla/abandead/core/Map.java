@@ -37,10 +37,10 @@ public class Map implements Serializable {
 	public void render(Player player) {
 		glColor3f(1, 1, 1);
 		Location playerLoc = player.getRegionLocation();
-		///*
+
 		for (int x = 0; x <= Game.LOADED_REGIONS-1; x++) {
 			for (int y = 0; y <= Game.LOADED_REGIONS-1; y++) {
-				Region region = getRegionAt(playerLoc.getX()+x-1, playerLoc.getY()+x-1);
+				Region region = getRegionAt(playerLoc.getX(), playerLoc.getY());
 				if (region == null) {
 					
 					region = new Region((int) player.getLocation().getX()+(x-1)*Region.sizeCorrection, (int) player.getLocation().getY()+(y-1)*Region.sizeCorrection);
@@ -60,9 +60,10 @@ public class Map implements Serializable {
 				if (Math.abs(diffX) <= 1 && Math.abs(diffY) <= 1) {
 					region.render(-player.getLocation().getX(), -player
 							.getLocation().getY());
-				}
+				} 
 			}
-		}//*/
+		}
+		
 		/*
 		for (Region region : mapRegions) {
 			Location regionLoc = region.getLocation();
