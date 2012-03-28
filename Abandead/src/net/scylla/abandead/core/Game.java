@@ -63,12 +63,13 @@ public class Game implements Serializable {
 		enableOpenGL();
 
 		player = new Player();
-		map = new Map(xPosition, yPosition);
+		map = new Map();
 
 		while (running) {
 			pollInput();
 			render();
 			outputFPS();
+			System.out.println("Player Tile Coordinate: " + xPosition/TILE_SIZE + " -- Player Region Coordinate: " + (xPosition/TILE_SIZE)/REGION_SIZE);
 		}
 
 		System.out.println("Exiting game...");
