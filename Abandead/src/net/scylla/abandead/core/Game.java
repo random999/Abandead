@@ -32,7 +32,7 @@ public class Game implements Serializable {
 	private static File mapFile = new File(directory + "map.obj");
 	private static File playerFile = new File(directory + "player.obj");
 
-	public static final int TILE_SIZE = 16;
+	public static final int TILE_SIZE = 32;
 	public static final int MAP_WIDTH = 10;
 	public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 6;

@@ -21,61 +21,27 @@ public class Map implements Serializable {
 	public Map() {
 		mapRegions = new ArrayList<Region>();
 
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
-				glColor3f(1, 1, 1);
-				int newX = x * Game.REGION_SIZE * Game.TILE_SIZE;
-				int newY = y * Game.REGION_SIZE * Game.TILE_SIZE;
-				Region region = new Region(newX, newY);
-				// System.out.println("Region: " + region.getLocation().getX() +
-				// ", " + region.getLocation().getY());
-				mapRegions.add(region);
-			}
-		}
+		glColor3f(1, 1, 1);
 	}
 
 	public void render(Player player) {
 		glColor3f(1, 1, 1);
 		Location playerLoc = player.getRegionLocation();
-		///*
-		for (int x = 0; x <= Game.LOADED_REGIONS-1; x++) {
-			for (int y = 0; y <= Game.LOADED_REGIONS-1; y++) {
-				Region region = getRegionAt(playerLoc.getX()+x-1, playerLoc.getY()+x-1);
-				if (region == null) {
-					
-					region = new Region((int) player.getLocation().getX()+(x-1)*Region.sizeCorrection, (int) player.getLocation().getY()+(y-1)*Region.sizeCorrection);
-					
-					
-					//region = new Region((int) player.getLocation().getX()-x*Game.REGION_SIZE*Game.TILE_SIZE, (int) (player.getLocation().getY()-y*Game.REGION_SIZE*Game.TILE_SIZE));
-					mapRegions.add(region);
-					System.out.println("could not find region");
-				} else {
-					System.out.println("region found!");
-				}
+		for (int x = -1; x <= 1; x++) {
+			for (int y = -1; y <= 1; y++) {
+				float newX = (float) Math.floor(playerLoc.getX()) + x;
+				float newY = (float) Math.floor(playerLoc.getY()) + y;
+				Region region = getRegionAt(newX, newY);
 				Location regionLoc = region.getLocation();
 				int diffX = (int) (regionLoc.getX() - playerLoc.getX());
 				int diffY = (int) (regionLoc.getY() - playerLoc.getY());
-				System.out.println(diffX + ", " + diffY);
 
 				if (Math.abs(diffX) <= 1 && Math.abs(diffY) <= 1) {
 					region.render(-player.getLocation().getX(), -player
 							.getLocation().getY());
 				}
 			}
-		}//*/
-		/*
-		for (Region region : mapRegions) {
-			Location regionLoc = region.getLocation();
-			int diffX = (int) (regionLoc.getX() - playerLoc.getX());
-			int diffY = (int) (regionLoc.getY() - playerLoc.getY());
-			System.out.println(diffX + ", " + diffY);
-			//region = getRegionAt(player.getRegionLocation().getX()-1, player.getRegionLocation().getY()-1);
-
-			if (Math.abs(diffX) <= 1 && Math.abs(diffY) <= 1) {
-				region.render(-player.getLocation().getX(), -player
-						.getLocation().getY());
-			}
-		}//*/
+		}
 	}
 
 	public void setTileAt(float x, float y, TileType type) {
@@ -85,13 +51,13 @@ public class Map implements Serializable {
 	public Region getRegionAt(float x, float y) {
 		for (Region region : mapRegions) {
 			Location regionLoc = region.getLocation();
-			if ((regionLoc.getX()-x) <=1 && (regionLoc.getY()-y) <=1) {
+			if (Math.floor(regionLoc.getX()) == x
+					&& Math.floor(regionLoc.getY()) == y) {
 				return region;
 			}
 		}
-		return null;
-		//Region region = new Region((int) x, (int) y);
-		//mapRegions.get((int) x).add(region);
-		//return region;
+		Region region = new Region((int) x, (int) y);
+		mapRegions.add(region);
+		return region;
 	}
 }

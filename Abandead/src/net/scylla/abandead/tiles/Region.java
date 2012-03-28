@@ -18,8 +18,8 @@ public class Region implements Serializable {
 	
 	public Region(int xx, int yy) {
 		location = new Location();
-		location.setX(xx/sizeCorrection);
-		location.setY(yy/sizeCorrection);
+		location.setX(xx);
+		location.setY(yy);
 		
 		tileList = new ArrayList<ArrayList<Tile>>();
 		Random rand = new Random();
