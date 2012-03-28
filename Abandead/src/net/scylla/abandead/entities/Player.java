@@ -38,7 +38,7 @@ public class Player implements Serializable {
 		tileLocation.setY(y / Game.TILE_SIZE);
 		regionLocation.setX(tileLocation.getX() / Game.REGION_SIZE);
 		regionLocation.setY(tileLocation.getY() / Game.REGION_SIZE);
-		System.out.println(Math.floor(regionLocation.getX()) + ", " + Math.floor(regionLocation.getY()));
+		//System.out.println(Math.floor(regionLocation.getX()) + ", " + Math.floor(regionLocation.getY()));
 
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
