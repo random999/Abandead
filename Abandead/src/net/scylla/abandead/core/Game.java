@@ -33,9 +33,10 @@ public class Game implements Serializable {
 	private static File playerFile = new File(directory + "player.obj");
 
 	public static final int TILE_SIZE = 16;
-	public static int MAP_WIDTH = 10;
+	public static final int MAP_WIDTH = 10;
 	public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 6;
+	public static final int LOADED_REGIONS = 3;
 
 	public static Texture WOOD;
 

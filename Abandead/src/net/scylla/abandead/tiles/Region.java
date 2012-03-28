@@ -8,12 +8,13 @@ import org.lwjgl.opengl.Display;
 
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Location;
+import net.scylla.abandead.entities.Player;
 
 public class Region implements Serializable {
 
 	ArrayList<ArrayList<Tile>> tileList;
 	private Location location;
-	private int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
+	public static final int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
 	
 	public Region(int xx, int yy) {
 		location = new Location();
@@ -51,6 +52,20 @@ public class Region implements Serializable {
 			for(Tile tile : list) {
 				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE + xStart + Display.getWidth()/2);
 				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE + yStart + Display.getHeight()/2);
+				tile.render();
+				y++;
+			}
+			x++;
+		}
+	}
+	
+	public void render(Player player) {
+		int x = 0;
+		for(ArrayList<Tile> list : tileList) {
+			float y = 0;
+			for(Tile tile : list) {
+				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE - player.getLocation().getX() + Display.getWidth()/2);
+				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE - player.getLocation().getY() + Display.getHeight()/2);
 				tile.render();
 				y++;
 			}
