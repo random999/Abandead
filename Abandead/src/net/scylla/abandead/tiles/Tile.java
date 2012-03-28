@@ -50,7 +50,7 @@ public class Tile implements Serializable{
 		points[1][1] = y;
 		
 		points[2][0] = x + Game.TILE_SIZE;
-		points[2][1] = x + Game.TILE_SIZE;
+		points[2][1] = y + Game.TILE_SIZE;
 		
 		points[3][0] = x;
 		points[3][1] = y + Game.TILE_SIZE;
