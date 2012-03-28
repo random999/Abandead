@@ -19,9 +19,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-
 public class Game implements Serializable {
-
 
 	private static int xPosition = 0;
 	private static int yPosition = 0;
@@ -34,7 +32,7 @@ public class Game implements Serializable {
 	private static File mapFile = new File(directory + "map.obj");
 	private static File playerFile = new File(directory + "player.obj");
 
-	public static final int TILE_SIZE = 128;
+	public static final int TILE_SIZE = 16;
 	public static int MAP_WIDTH = 10;
 	public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 6;
@@ -53,11 +51,8 @@ public class Game implements Serializable {
 		game.start();
 	}
 
-
-
 	private void start() {
 		createFiles();
-		
 
 		IGDisplay.create(800, 600);
 		enableOpenGL();
@@ -69,7 +64,6 @@ public class Game implements Serializable {
 			pollInput();
 			render();
 			outputFPS();
-			System.out.println("Player Tile Coordinate: " + xPosition/TILE_SIZE + " -- Player Region Coordinate: " + (xPosition/TILE_SIZE)/REGION_SIZE);
 		}
 
 		System.out.println("Exiting game...");
@@ -92,9 +86,8 @@ public class Game implements Serializable {
 		glLoadIdentity();
 		fixScrollAmount();
 
-		map.render((int) -xPosition, (int) -yPosition);
-		map.getCurrentRegion(player.location.getX(), player.location.getY());
-		player.render();
+		map.render(player);
+		player.render(xPosition, yPosition);
 		Display.update();
 	}
 
@@ -171,15 +164,15 @@ public class Game implements Serializable {
 				+ (Display.getHeight() + player.getHeight()) / 2;
 
 		if (this.xPosition > leftBound) {
-			//this.xScroll = leftBound;
+			// this.xScroll = leftBound;
 		} else if (this.xPosition < rightBound) {
-			//this.xScroll = rightBound;
+			// this.xScroll = rightBound;
 		}
 
 		if (this.yPosition > topBound) {
-			//this.yScroll = topBound;
+			// this.yScroll = topBound;
 		} else if (this.yPosition < bottomBound) {
-			//this.yScroll = bottomBound;
+			// this.yScroll = bottomBound;
 		}
 	}
 
@@ -258,14 +251,14 @@ public class Game implements Serializable {
 		}
 
 	}
-	
-	public static int getxScroll(){
+
+	public static int getxScroll() {
 		return xPosition;
 	}
-	
-	public static int getyScroll(){
+
+	public static int getyScroll() {
 		return yPosition;
-		
+
 	}
 
 	/**
@@ -286,6 +279,5 @@ public class Game implements Serializable {
 		System.out.println("No texture found...");
 		return null;
 	}
-
 
 }
