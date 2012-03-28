@@ -72,7 +72,7 @@ public class Region implements Serializable {
 		float num3 = (x + y) - (r.points[2][0] - r.points[3][1]);
 		float num4 = (x + y) - (r.points[3][0] - r.points[0][1]);
 		
-		System.out.println("Nums: " + num1 + ", " + num2 + ", " + num3 + ", " + num4);
+		//System.out.println("Nums: " + num1 + ", " + num2 + ", " + num3 + ", " + num4);
 	}
 
 	public float getX() {
