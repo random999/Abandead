@@ -4,6 +4,10 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.io.Serializable;
 
+import javax.swing.plaf.synth.Region;
+
+import net.scylla.abandead.core.Game;
+
 import org.lwjgl.opengl.Display;
 
 public class Player implements Serializable{
@@ -14,7 +18,7 @@ public class Player implements Serializable{
 	private static int mX;
 	private float centerX;
 	private float centerY;
-	private Location location;
+	public Location location;
 	
 	public Player() {
 		this.width = 40;
@@ -36,16 +40,18 @@ public class Player implements Serializable{
 			glVertex2d(-width/2, height/2);
 		glEnd();
 		
-		//updateLocation();
+		updateLocation();
 		}
-	/*
+	
 	private void updateLocation() {
 		float playerX = (float)(Display.getWidth()/2 + Game.getxScroll())/Game.TILE_SIZE;
 		this.location.setX(playerX);
 		
 		float playerY = (float)(Display.getHeight()/2 + Game.getyScroll())/Game.TILE_SIZE;
 		this.location.setY(playerY);
-	}*/
+		
+		//System.out.println("Player x: " + playerX + "Player y: " + playerY);
+	}
 
 	private float calcRotation(){
 		centerX = Display.getWidth() / 2;
@@ -58,6 +64,8 @@ public class Player implements Serializable{
 		return (float)angle;
 
 	}
+	
+
 	
 	public void setMouseX(int x){
 		mX = x;

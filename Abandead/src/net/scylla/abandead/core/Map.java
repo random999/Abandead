@@ -11,10 +11,10 @@ import net.scylla.abandead.tiles.TileType;
 public class Map implements Serializable {
 
 	private Tile[][] map = new Tile[Game.MAP_WIDTH][Game.MAP_HEIGHT];
-	private ArrayList<ArrayList<Region>> regionList;
+	private ArrayList<ArrayList<Region>> mapRegions;
 
 	public Map(float xScroll, float yScroll) {
-		regionList = new ArrayList<ArrayList<Region>>();
+		mapRegions = new ArrayList<ArrayList<Region>>();
 		
 		for (int x = 0; x < 3; x++) {
 			ArrayList<Region> regions = new ArrayList<Region>();
@@ -25,18 +25,32 @@ public class Map implements Serializable {
 				Region region = new Region(newX, newY);
 				regions.add(region);
 			}
-			regionList.add(regions);
+			mapRegions.add(regions);
 		}
 	}
 
 	public void render(int dX, int dY) {
 		glColor3f(1, 1, 1);
-		for(ArrayList<Region> regions : regionList) {
+		for(ArrayList<Region> regions : mapRegions) {
 			for(Region region : regions) {
 				region.render(dX, dY);
 			}
 		}
 	}
+	
+	public void getCurrentRegion(float x, float y){
+		for(int a = 0; a < mapRegions.size(); a ++){
+			for(int b = 0; b < mapRegions.get(a).size(); b ++){
+				if(1 == 1){
+					 mapRegions.get(a).get(b).pointInRegion(mapRegions.get(a).get(b), x, y);
+				}
+				
+			}
+		}
+		
+		
+	}
+	
 
 	public void setTileAt(float x, float y, TileType type) {
 		map[(int) x][(int) y] = new Tile(type);

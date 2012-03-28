@@ -23,8 +23,8 @@ import org.newdawn.slick.opengl.TextureLoader;
 public class Game implements Serializable {
 
 
-	private int xPosition = 0;
-	private int yPosition = 0;
+	private static int xPosition = 0;
+	private static int yPosition = 0;
 	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
@@ -92,6 +92,7 @@ public class Game implements Serializable {
 		fixScrollAmount();
 
 		map.render((int) -xPosition, (int) -yPosition);
+		map.getCurrentRegion(player.location.getX(), player.location.getY());
 		player.render();
 		Display.update();
 	}
@@ -255,6 +256,15 @@ public class Game implements Serializable {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public static int getxScroll(){
+		return xPosition;
+	}
+	
+	public static int getyScroll(){
+		return yPosition;
+		
 	}
 
 	/**
