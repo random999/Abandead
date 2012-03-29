@@ -108,7 +108,7 @@ public class Game implements Serializable {
 		
 		map.render(player);
 		player.render(xPosition, yPosition);
-		hud.renderHud();
+		//hud.renderHud();
 		
 		
 		Display.update();
