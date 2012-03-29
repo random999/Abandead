@@ -13,6 +13,7 @@ public enum TileType implements Serializable{
 	
 	WOOD("wood"),
 	PLAYER("player"),
+	STONE("stone"),
 	SAND("sand");
 	Texture texture;
 	TileType(String tex) {
@@ -24,5 +25,4 @@ public enum TileType implements Serializable{
 			e.printStackTrace();
 		}
 	}
-
 }
