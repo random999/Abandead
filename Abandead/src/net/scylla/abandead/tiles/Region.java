@@ -67,13 +67,17 @@ public class Region implements Serializable {
 						tile.setType(TileType.WOOD);
 					}
 				} else if (regType == RegionType.CITY) {
-					if(!tileLeft(tile, TileType.SAND, 3) && tileRight(tile, TileType.SAND, 1)) {
-						tile.setType(TileType.SAND);
+					if(!tileLeft(tile, TileType.SAND, 5) && tileRight(tile, TileType.WOOD, 1) && !tileLeft(tile, TileType.STONE, 1)) {
+						tile.setType(TileType.STONE);
 					}
+					//tileList.get(0).get(1).setType(TileType.STONE);
+					//if(tileUp(tile, TileType.STONE, 1)) {
+					//	tile.setType(TileType.DIRT);
+					//}
 				} else if (regType == RegionType.HOUSE) {
 					
 				} else if (regType == RegionType.QUARRY) {
-					
+					tileList.get(x/2 + x/2).get(y/2 + y/2).setType(TileType.STONE);
 				}
 
 				tile.getLocation().setX(

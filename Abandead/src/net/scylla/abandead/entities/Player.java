@@ -28,7 +28,7 @@ public class Player implements Serializable {
 	private Location tileLocation;
 	private Location regionLocation;
 	private Location location;
-	private Texture skin;
+	private Skin skin;
 	
 	public Player() {
 		this.width = 40;
@@ -36,22 +36,9 @@ public class Player implements Serializable {
 		this.location = new Location(0,0);
 		this.tileLocation = new Location(0,0);
 		this.regionLocation = new Location(0,0);
-		loadSkin("player");
-	}
-	
-	public void loadSkin(String tex){
-		try {
-			skin = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		this.skin = Skin.PLAYER;
 	}
 
-	
 	public void render(float x, float y) {
 		location.setX(x);
 		location.setY(y);
@@ -63,7 +50,7 @@ public class Player implements Serializable {
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
-		skin.bind();
+		skin.texture.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0);glVertex2d(-width / 2, -height / 2);
 			glTexCoord2f(1,0);glVertex2d(width / 2, -height / 2);

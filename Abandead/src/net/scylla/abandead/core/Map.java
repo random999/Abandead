@@ -16,8 +16,6 @@ import net.scylla.abandead.tiles.Tile;
 import net.scylla.abandead.tiles.TileType;
 
 public class Map implements Serializable {
-
-	private Tile[][] map = new Tile[Game.MAP_WIDTH][Game.MAP_HEIGHT];
 	private ArrayList<Region> mapRegions;
 	private Random rand;
 
@@ -50,11 +48,6 @@ public class Map implements Serializable {
 		}
 
 	}
-		
-	public void setTileAt(float x, float y, TileType type) {
-		map[(int) x][(int) y] = new Tile();
-		map[(int) x][(int) y].setType(type);
-	}
 
 	public Region getRegionAt(float x, float y, Player p) {
 		for (Region region : mapRegions) {
@@ -66,7 +59,7 @@ public class Map implements Serializable {
 			}
 		}
 		Region region;
-		int chance = rand.nextInt(100);
+		int chance = rand.nextInt(300);
 		if(chance < 50) {
 			region = new Region((int) x, (int) y,-p.getLocation().getX(), -p.getLocation().getY(), RegionType.DESERT);
 		} else if (chance >= 50 && chance < 75) {

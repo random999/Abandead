@@ -14,6 +14,7 @@ public enum TileType implements Serializable{
 	WOOD("wood"),
 	PLAYER("player"),
 	STONE("stone"),
+	DIRT("dirt"),
 	SAND("sand");
 	Texture texture;
 	TileType(String tex) {
