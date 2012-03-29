@@ -186,8 +186,5 @@ public class Region implements Serializable {
 			}
 			x++;
 		}
-		for(Wall wall : walls){
-			wall.render();
-		}
 	}
 }
