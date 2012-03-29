@@ -20,8 +20,6 @@ public class Map implements Serializable {
 
 	public Map() {
 		mapRegions = new ArrayList<Region>();
-
-		glColor3f(1, 1, 1);
 	}
 
 	public void render(Player player) {
