@@ -19,9 +19,7 @@ public class Region implements Serializable {
 	public static final int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
 	
 	public Region(int xx, int yy, float sX, float sY) {
-		location = new Location();
-		location.setX(xx);
-		location.setY(yy);
+		location = new Location(xx, yy);
 		
 		tileList = new ArrayList<ArrayList<Tile>>();
 		
@@ -29,8 +27,9 @@ public class Region implements Serializable {
 			cols = new ArrayList<Tile>();
 			for(int y=0; y < Game.REGION_SIZE; y++) {
 				Tile tile = new Tile();
-				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE + sX + Display.getWidth()/2);
-				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE + sY + Display.getHeight()/2);
+				float newX = location.getX()*sizeCorrection + x*Game.TILE_SIZE + sX + Display.getWidth()/2;
+				float newY = location.getY()*sizeCorrection + y*Game.TILE_SIZE + sY + Display.getHeight()/2;
+				tile.setLocation(new Location(newX, newY));
 				tile.setType(TileType.SAND);
 				
 				cols.add(tile);
@@ -168,8 +167,11 @@ public class Region implements Serializable {
 		for(ArrayList<Tile> list : tileList) {
 			float y = 0;
 			for(Tile tile : list) {
-				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE + xStart + Display.getWidth()/2);
-				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE + yStart + Display.getHeight()/2);
+				float newX = location.getX()*sizeCorrection + x*Game.TILE_SIZE + xStart + Display.getWidth()/2;
+				float newY = location.getY()*sizeCorrection + y*Game.TILE_SIZE + yStart + Display.getHeight()/2;
+				tile.setLocation(new Location(newX, newY));
+				tile.getLocation().setX(newX);
+				tile.getLocation().setY(newY);
 				tile.render();
 				y++;
 			}

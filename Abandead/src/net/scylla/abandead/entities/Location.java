@@ -7,6 +7,11 @@ public class Location implements Serializable{
 	private float x;
 	private float y;
 	
+	public Location(float x, float y) {
+		this.x = x;
+		this.y = y;
+	}
+	
 	public float getX() {
 		return x;
 	}

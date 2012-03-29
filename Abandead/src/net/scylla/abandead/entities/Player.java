@@ -25,9 +25,9 @@ public class Player implements Serializable {
 	public Player() {
 		this.width = 40;
 		this.height = 40;
-		this.location = new Location();
-		this.tileLocation = new Location();
-		this.regionLocation = new Location();
+		this.location = new Location(0,0);
+		this.tileLocation = new Location(0,0);
+		this.regionLocation = new Location(0,0);
 	}
 
 	public void render(float x, float y) {
