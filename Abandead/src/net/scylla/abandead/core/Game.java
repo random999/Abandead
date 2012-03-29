@@ -122,6 +122,14 @@ public class Game implements Serializable {
 			yPosition -= player.getSpeed();
 			
 		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS) && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
+			player.setSpeed(player.getSpeed() + 1);
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_MINUS)) {
+			player.setSpeed(player.getSpeed() - 1);
+		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {

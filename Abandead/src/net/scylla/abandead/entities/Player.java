@@ -77,6 +77,10 @@ public class Player implements Serializable {
 		return speed;
 	}
 	
+	public void setSpeed(int newSpeed) {
+		this.speed = newSpeed;
+	}
+	
 	public Location getRegionLocation() {
 		return new Location(location.getX()/Region.sizeCorrection, location.getY()/Region.sizeCorrection);
 	}
