@@ -14,6 +14,7 @@ import java.io.Serializable;
 import net.scylla.abandead.core.Animation;
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.tiles.Region;
+import net.scylla.abandead.tiles.TileType;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
@@ -23,6 +24,7 @@ public class Player implements Serializable {
 
 	private int width;
 	private int height;
+	private int speed = 3;
 	private static int mY;
 	private static int mX;
 	private float centerX;
@@ -30,7 +32,6 @@ public class Player implements Serializable {
 	private Location location;
 	private Location tileLocation;
 	private Location regionLocation;
-	private Texture player;
 	private Skin skin;
 
 	
@@ -40,33 +41,16 @@ public class Player implements Serializable {
 		this.location = new Location();
 		this.tileLocation = new Location();
 		this.regionLocation = new Location();
-		loadAnimation();
+		skin = Skin.PLAYER;
 	}
 	
-	public void loadAnimation(){
-		try {
-			player = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/player.png")));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		this.height = 40;
-		this.location = new Location(0,0);
-		this.skin = Skin.PLAYER;
-
-	}
-
 	public void render(float x, float y) {
-		location = new Location(x,y);
+		location.setX(x);
+		location.setY(y);
 
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
-		player.bind();
 		skin.texture.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0);glVertex2d(-width / 2, -height / 2);
@@ -87,6 +71,10 @@ public class Player implements Serializable {
 		double angle = Math.atan2(YDistance, XDistance) * 180 / Math.PI;
 		return (float) angle;
 
+	}
+	
+	public int getSpeed(){
+		return speed;
 	}
 	
 	public Location getRegionLocation() {

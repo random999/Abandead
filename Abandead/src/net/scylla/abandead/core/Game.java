@@ -39,10 +39,11 @@ public class Game implements Serializable {
 	//public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 8;
 	public static final int LOADED_REGIONS = 3;
-
-	public static Texture WOOD;
-
 	private Map map;
+	
+	private boolean updateTime;
+	private int FPS = 60;
+	private int currentTime;
 
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
@@ -64,9 +65,11 @@ public class Game implements Serializable {
 		map = new Map();
 
 		while (running) {
-			pollInput();
-			render();
-			outputFPS();
+			if(updateTime){
+				pollInput();
+				render();
+			}
+			updateTime();
 		}
 
 		System.out.println("Exiting game...");
@@ -116,25 +119,25 @@ public class Game implements Serializable {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			yPosition--;
+			yPosition -= player.getSpeed();
 			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			yPosition++;
+			yPosition += player.getSpeed();
 			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			xPosition--;
+			xPosition -= player.getSpeed();
 			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			xPosition++;
+			xPosition += player.getSpeed();
 			
 		}
 
@@ -150,6 +153,20 @@ public class Game implements Serializable {
 			running = false;
 		}
 
+	}
+	
+	private void updateTime(){
+		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
+		if (newTime - prevTime >= 1000/FPS) {
+			updateTime = true;
+			currentTime++;
+			System.out.print("Current Time: " + currentTime + "\n");
+			prevTime = newTime;
+		} else {
+			updateTime = false;
+		}
+	
+		
 	}
 
 	private void outputFPS() {
@@ -236,7 +253,7 @@ public class Game implements Serializable {
 			outP = new ObjectOutputStream(new FileOutputStream(playerFile));
 			outG = new ObjectOutputStream(new FileOutputStream(gameFile));
 			outM.writeObject(map);
-			outP.writeObject(player);
+		    outP.writeObject(player);
 			outG.writeObject(this);
 			outM.flush();
 			outP.flush();

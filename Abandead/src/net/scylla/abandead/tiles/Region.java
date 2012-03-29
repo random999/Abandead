@@ -69,14 +69,6 @@ public class Region implements Serializable {
 		for (int x = 0; x < Game.REGION_SIZE; x++) {
 			for (int y = 0; y < Game.REGION_SIZE; y++) {
 				Tile tile = tileList.get(x).get(y);
-				// Tile c1 = new Tile();
-				// Tile c2 = new Tile();
-				int TN = 0;
-
-
-				// c1.setType(TileType.WOOD);
-				// c2.setType(TileType.SAND);
-
 				if (regType == RegionType.DESERT) {
 					if ((!tileLeft(tile, TileType.WOOD, 1) && !tileRight(tile,
 							TileType.WOOD, 1))
