@@ -74,6 +74,8 @@ public class Game implements Serializable {
 	}
 
 	private void enableOpenGL() {
+		glEnable(GL_BLEND);
+    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, 800, 0, 600, 1, -1);

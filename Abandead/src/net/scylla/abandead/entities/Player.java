@@ -2,6 +2,11 @@ package net.scylla.abandead.entities;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.swing.plaf.synth.Region;
@@ -9,6 +14,8 @@ import javax.swing.plaf.synth.Region;
 import net.scylla.abandead.core.Game;
 
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.opengl.TextureLoader;
 
 public class Player implements Serializable {
 
@@ -21,17 +28,31 @@ public class Player implements Serializable {
 	private Location tileLocation;
 	private Location regionLocation;
 	private Location location;
-
+	private Texture skin;
+	
 	public Player() {
 		this.width = 40;
 		this.height = 40;
 		this.location = new Location();
 		this.tileLocation = new Location();
 		this.regionLocation = new Location();
+		loadSkin("player");
+	}
+	
+	public void loadSkin(String tex){
+		try {
+			skin = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
+	
 	public void render(float x, float y) {
-
 		location.setX(x);
 		location.setY(y);
 		tileLocation.setX(x / Game.TILE_SIZE);
@@ -43,12 +64,12 @@ public class Player implements Serializable {
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
-		glColor3f(.1f, 1, .1f);
+		skin.bind();
 		glBegin(GL_QUADS);
-		glVertex2d(-width / 2, -height / 2);
-		glVertex2d(width / 2, -height / 2);
-		glVertex2d(width / 2, height / 2);
-		glVertex2d(-width / 2, height / 2);
+			glTexCoord2f(0,0);glVertex2d(-width / 2, -height / 2);
+			glTexCoord2f(1,0);glVertex2d(width / 2, -height / 2);
+			glTexCoord2f(1,1);glVertex2d(width / 2, height / 2);
+			glTexCoord2f(0,1);glVertex2d(-width / 2, height / 2);
 		glEnd();
 
 	}
