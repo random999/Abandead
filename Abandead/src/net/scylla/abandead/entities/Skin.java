@@ -1,25 +1,20 @@
-package net.scylla.abandead.tiles;
+package net.scylla.abandead.entities;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Serializable;
 
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 
-public enum TileType implements Serializable{
-	
-	WOOD("wood"),
+public enum Skin {
 	PLAYER("player"),
-	STONE("stone"),
-	DIRT("dirt"),
-	SAND("sand");
+	ZOMBIE("zombie");
 	Texture texture;
-	TileType(String tex) {
+	Skin(String textureName) {
 		try {
-			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
+			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/" + textureName + ".png")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

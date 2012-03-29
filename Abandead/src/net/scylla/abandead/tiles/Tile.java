@@ -14,7 +14,7 @@ public class Tile implements Serializable{
 	private Location location;
 
 	public Tile() {
-		location = new Location();
+		location = new Location(0,0);
 	}
 	
 	public void setType(TileType t){
@@ -31,13 +31,14 @@ public class Tile implements Serializable{
 	public void render() {
 		render(location.getX(), location.getY());
 	}
+	public void setLocation(Location loc) {
+		this.location = loc;
+	}
 	public void render(float x, float y) {
 		glLoadIdentity();
 		glTranslatef(x,y,0f);
 		type.texture.bind();
-		location.setX(x);
-		location.setY(y);
-		
+		setLocation(new Location(x, y));
 		
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0); glVertex2f(0,0);

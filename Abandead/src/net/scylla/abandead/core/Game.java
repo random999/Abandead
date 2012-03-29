@@ -35,8 +35,8 @@ public class Game implements Serializable {
 	private static File gameFile = new File(directory + "game.obj");
 
 	public static final int TILE_SIZE = 64;
-	public static final int MAP_WIDTH = 10;
-	public static final int MAP_HEIGHT = 10;
+	//public static final int MAP_WIDTH = 10;
+	//public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 8;
 	public static final int LOADED_REGIONS = 3;
 
@@ -88,7 +88,6 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-		fixScrollAmount();
 
 		map.render(player);
 		player.render(xPosition, yPosition);
@@ -158,32 +157,11 @@ public class Game implements Serializable {
 		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
 		if (newTime - prevTime >= 1000) {
-			//System.out.println(frameCount + " fps");
+			System.out.println(frameCount + " fps");
 			frameCount = 0;
 			prevTime = newTime;
 		}
 		frameCount++;
-	}
-
-	private void fixScrollAmount() {
-		int leftBound = (Display.getWidth() - player.getWidth()) / 2;
-		int rightBound = -TILE_SIZE * MAP_WIDTH
-				+ (Display.getWidth() + player.getWidth()) / 2;
-		int topBound = (Display.getHeight() - player.getHeight()) / 2;
-		int bottomBound = -TILE_SIZE * MAP_HEIGHT
-				+ (Display.getHeight() + player.getHeight()) / 2;
-
-		if (this.xPosition > leftBound) {
-			// this.xScroll = leftBound;
-		} else if (this.xPosition < rightBound) {
-			// this.xScroll = rightBound;
-		}
-
-		if (this.yPosition > topBound) {
-			// this.yScroll = topBound;
-		} else if (this.yPosition < bottomBound) {
-			// this.yScroll = bottomBound;
-		}
 	}
 
 	private void createFiles() {
