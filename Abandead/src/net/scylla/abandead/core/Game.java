@@ -91,6 +91,8 @@ public class Game implements Serializable {
 
 		map.render(player);
 		player.render(xPosition, yPosition);
+		
+		
 		Display.update();
 	}
 
@@ -115,21 +117,25 @@ public class Game implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			yPosition--;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			yPosition++;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			xPosition--;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			xPosition++;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
@@ -138,7 +144,7 @@ public class Game implements Serializable {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
 			loadGame();
-		}
+		}		
 
 		if (Display.isCloseRequested()) {
 			running = false;

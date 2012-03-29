@@ -1,6 +1,9 @@
 package net.scylla.abandead.tiles;
 
-public enum RegionType {
+
+import java.io.Serializable;
+
+public enum RegionType  implements Serializable{
 	CITY(TileType.WOOD),
 	QUARRY(TileType.DIRT),
 	DESERT(TileType.SAND),
@@ -9,5 +12,6 @@ public enum RegionType {
 	RegionType(TileType type) {
 		baseType = type;
 	}
-
 }
+
+

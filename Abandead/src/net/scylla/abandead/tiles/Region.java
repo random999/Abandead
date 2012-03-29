@@ -14,10 +14,20 @@ public class Region implements Serializable {
 
 	ArrayList<ArrayList<Tile>> tileList;
 	ArrayList<Tile> cols;
+	ArrayList<Wall> walls;
 	private Location location;
 	private RegionType regType;
 	private Random rand;
-	public static final int sizeCorrection = Game.REGION_SIZE * Game.TILE_SIZE;
+	private RegionType type;
+	public static final int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
+	
+	public Region(int xx, int yy, float sX, float sY) {
+		location = new Location(xx,yy);
+		location.setX(xx);
+		location.setY(yy);
+		
+		rand = new Random();
+	}
 
 	public Region(int xx, int yy, float sX, float sY, RegionType type) {
 		this.regType = type;
@@ -29,13 +39,20 @@ public class Region implements Serializable {
 			cols = new ArrayList<Tile>();
 			for (int y = 0; y < Game.REGION_SIZE; y++) {
 				Tile tile = new Tile();
+
+				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE + sX + Display.getWidth()/2);
+				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE + sY + Display.getHeight()/2);
+				tile.setType(TileType.SAND);
+				
+						
+				
+
 				float newX = location.getX() * sizeCorrection + x
 						* Game.TILE_SIZE + sX + Display.getWidth() / 2;
 				float newY = location.getY() * sizeCorrection + y
 						* Game.TILE_SIZE + sY + Display.getHeight() / 2;
 				tile.setLocation(new Location(newX, newY));
 				tile.setType(regType.baseType);
-
 				cols.add(tile);
 			}
 			tileList.add(cols);
@@ -55,6 +72,7 @@ public class Region implements Serializable {
 				// Tile c1 = new Tile();
 				// Tile c2 = new Tile();
 				int TN = 0;
+
 
 				// c1.setType(TileType.WOOD);
 				// c2.setType(TileType.SAND);
@@ -78,6 +96,7 @@ public class Region implements Serializable {
 					
 				} else if (regType == RegionType.QUARRY) {
 					tileList.get(x/2 + x/2).get(y/2 + y/2).setType(TileType.STONE);
+
 				}
 
 				tile.getLocation().setX(

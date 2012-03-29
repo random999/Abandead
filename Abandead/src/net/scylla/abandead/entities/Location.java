@@ -12,6 +12,10 @@ public class Location implements Serializable{
 		this.y = y;
 	}
 	
+	public Location(){
+		
+	}
+	
 	public float getX() {
 		return x;
 	}

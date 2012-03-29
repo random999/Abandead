@@ -9,6 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
+
+
+import net.scylla.abandead.core.Animation;
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.tiles.Region;
 
@@ -25,13 +28,36 @@ public class Player implements Serializable {
 	private float centerX;
 	private float centerY;
 	private Location location;
+	private Location tileLocation;
+	private Location regionLocation;
+	private Texture player;
 	private Skin skin;
+
 	
 	public Player() {
 		this.width = 40;
 		this.height = 40;
+		this.location = new Location();
+		this.tileLocation = new Location();
+		this.regionLocation = new Location();
+		loadAnimation();
+	}
+	
+	public void loadAnimation(){
+		try {
+			player = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/player.png")));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		this.height = 40;
 		this.location = new Location(0,0);
 		this.skin = Skin.PLAYER;
+
 	}
 
 	public void render(float x, float y) {
@@ -40,6 +66,7 @@ public class Player implements Serializable {
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
+		player.bind();
 		skin.texture.bind();
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0);glVertex2d(-width / 2, -height / 2);
