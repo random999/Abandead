@@ -26,11 +26,13 @@ public class Game implements Serializable {
 	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
+	private static Game game;
 	private static String homeDir = System.getProperty("user.home");
 	private static String directory = homeDir + File.separator + "InsanerGamer"
-			+ File.separator + "Abandead" + File.separator + "Saves";
+			+ File.separator + "Abandead" + File.separator + "Saves" + File.separator;
 	private static File mapFile = new File(directory + "map.obj");
 	private static File playerFile = new File(directory + "player.obj");
+	private static File gameFile = new File(directory + "game.obj");
 
 	public static final int TILE_SIZE = 128;
 	public static final int MAP_WIDTH = 10;
@@ -48,7 +50,7 @@ public class Game implements Serializable {
 
 		System.out.println(homeDir);
 
-		Game game = new Game();
+		game = new Game();
 		game.start();
 	}
 
@@ -77,7 +79,6 @@ public class Game implements Serializable {
 		glOrtho(0, 800, 0, 600, 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
-		loadTextures();
 	}
 
 	private void render() {
@@ -149,7 +150,7 @@ public class Game implements Serializable {
 		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
 		if (newTime - prevTime >= 1000) {
-			System.out.println(frameCount + " fps");
+			//System.out.println(frameCount + " fps");
 			frameCount = 0;
 			prevTime = newTime;
 		}
@@ -177,10 +178,6 @@ public class Game implements Serializable {
 		}
 	}
 
-	public void loadTextures() {
-		WOOD = loadTexture("wood");
-	}
-
 	private void createFiles() {
 		if (new File(directory).exists() == false) {
 			new File(directory).mkdirs();
@@ -199,6 +196,14 @@ public class Game implements Serializable {
 				e.printStackTrace();
 			}
 		}
+		if(!gameFile.exists()){
+			try {
+				gameFile.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+			
 	}
 
 	/**
@@ -208,12 +213,16 @@ public class Game implements Serializable {
 
 		ObjectInputStream inM;
 		ObjectInputStream inP;
+		ObjectInputStream inG;
 		try {
 			inM = new ObjectInputStream(new FileInputStream(mapFile));
 			inP = new ObjectInputStream(new FileInputStream(playerFile));
+			inG = new ObjectInputStream(new FileInputStream(gameFile));
 			try {
-				map = (Map) inM.readObject();
 				player = (Player) inP.readObject();
+				map = (Map) inM.readObject();
+				game = (Game) inG.readObject();
+				
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -234,16 +243,21 @@ public class Game implements Serializable {
 
 		ObjectOutputStream outM;
 		ObjectOutputStream outP;
+		ObjectOutputStream outG;
 
 		try {
 			outM = new ObjectOutputStream(new FileOutputStream(mapFile));
 			outP = new ObjectOutputStream(new FileOutputStream(playerFile));
+			outG = new ObjectOutputStream(new FileOutputStream(gameFile));
 			outM.writeObject(map);
 			outP.writeObject(player);
+			outG.writeObject(this);
 			outM.flush();
 			outP.flush();
+			outG.flush();
 			outM.close();
 			outP.close();
+			outG.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
