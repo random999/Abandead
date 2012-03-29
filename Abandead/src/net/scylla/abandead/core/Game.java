@@ -34,10 +34,10 @@ public class Game implements Serializable {
 	private static File playerFile = new File(directory + "player.obj");
 	private static File gameFile = new File(directory + "game.obj");
 
-	public static final int TILE_SIZE = 128;
+	public static final int TILE_SIZE = 64;
 	public static final int MAP_WIDTH = 10;
 	public static final int MAP_HEIGHT = 10;
-	public static final int REGION_SIZE = 6;
+	public static final int REGION_SIZE = 8;
 	public static final int LOADED_REGIONS = 3;
 
 	public static Texture WOOD;
@@ -92,6 +92,8 @@ public class Game implements Serializable {
 
 		map.render(player);
 		player.render(xPosition, yPosition);
+		
+		
 		Display.update();
 	}
 
@@ -116,21 +118,25 @@ public class Game implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			yPosition--;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			yPosition++;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			xPosition--;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			xPosition++;
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
@@ -139,7 +145,7 @@ public class Game implements Serializable {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
 			loadGame();
-		}
+		}		
 
 		if (Display.isCloseRequested()) {
 			running = false;

@@ -14,8 +14,10 @@ public class Region implements Serializable {
 
 	ArrayList<ArrayList<Tile>> tileList;
 	ArrayList<Tile> cols;
+	ArrayList<Wall> walls;
 	private Location location;
 	private Random rand;
+	private RegionType type;
 	public static final int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
 	
 	public Region(int xx, int yy, float sX, float sY) {
@@ -23,6 +25,7 @@ public class Region implements Serializable {
 		location.setX(xx);
 		location.setY(yy);
 		
+		rand = new Random();
 		tileList = new ArrayList<ArrayList<Tile>>();
 		
 		for(int x=0; x < Game.REGION_SIZE; x++) {
@@ -32,6 +35,8 @@ public class Region implements Serializable {
 				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE + sX + Display.getWidth()/2);
 				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE + sY + Display.getHeight()/2);
 				tile.setType(TileType.SAND);
+				
+						
 				
 				cols.add(tile);
 			}
@@ -52,8 +57,14 @@ public class Region implements Serializable {
 				c1.setType(TileType.WOOD);
 				c2.setType(TileType.SAND);
 				
-				if(!tileLeft(tile,c1,1) && !tileRight(tile,c1,1)){
-						tile.setType(TileType.WOOD);
+				if(tileLeft(tile,c2,1) && tileRight(tile,c2,1)){
+							tile.setType(TileType.WOOD);
+						if(tileLeft(tile,c1,1) && tileRight(tile,c1,1)){
+							tile.setType(TileType.SAND);
+						}
+						if(tileUp(tile,c2,1) && tileDown(tile,c2,1)){
+							tile.setType(TileType.SAND);
+						}
 				}
 				
 				
@@ -64,7 +75,7 @@ public class Region implements Serializable {
 			}
 		}
 	}
-	
+
 	public Location getLocation() {
 		return location;
 	}
@@ -174,6 +185,9 @@ public class Region implements Serializable {
 				y++;
 			}
 			x++;
+		}
+		for(Wall wall : walls){
+			wall.render();
 		}
 	}
 }
