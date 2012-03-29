@@ -41,6 +41,9 @@ public class Game implements Serializable {
 	public static final int LOADED_REGIONS = 3;
 	private Map map;
 	
+	//GUI variables
+	private HUD hud;
+	
 	// Time variables
 	private boolean updateTime;
 	private int FPS = 60;
@@ -100,9 +103,12 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-
+		
+		hud = new HUD(player, true);
+		
 		map.render(player);
 		player.render(xPosition, yPosition);
+		hud.renderHud();
 		
 		
 		Display.update();
@@ -156,7 +162,15 @@ public class Game implements Serializable {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
 			loadGame();
-		}		
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
+			if(!hud.isOn()){
+				hud.turnOn();
+			} else {
+				hud.turnOff();
+			}
+		}
 
 		if (Display.isCloseRequested()) {
 			running = false;
@@ -178,6 +192,21 @@ public class Game implements Serializable {
 		
 	}
 	
+	public int getDay(){
+		return day;
+	}
+	
+	public int getHour(){
+		return hour;
+	}
+	
+	public int getMinute(){
+		return minute + minute1;
+	}
+	
+	public String getAMPM(){
+		return AmPm;
+	}
 	public void setTime(){
 
 	    	  seconds += 3;

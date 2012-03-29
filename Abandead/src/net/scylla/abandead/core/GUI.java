@@ -11,6 +11,7 @@ import static org.lwjgl.opengl.GL11.glVertex2f;
 
 import java.awt.Font;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import net.scylla.abandead.entities.Location;
@@ -20,18 +21,11 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class GUI {
-	ArrayList<Texture> textures;
-	TrueTypeFont font;
-	TrueTypeFont font2;
+public class GUI implements Serializable{
+	private TrueTypeFont font;
+	private TrueTypeFont font2;
 	
-	private void addTexture(Texture text){
-		textures.add(text);
-	}
-	
-	private void drawWindow(int sizeX, int sizeY, float x, float y, Texture text){
-		for(Texture te : textures){
-			if(te == text){
+	public void drawWindow(int sizeX, int sizeY, float x, float y, Texture text){
 				glLoadIdentity();
 				glTranslatef(x,y,0f);
 				text.bind();
@@ -42,15 +36,12 @@ public class GUI {
 					glTexCoord2f(1,1); glVertex2f(sizeX,sizeY);
 					glTexCoord2f(0,1); glVertex2f(0,sizeY);
 				glEnd();
-				
-			} 
-		}
 	}
 	
-	private void drawText(float x, float y, String s, Color c){
+	public void drawText(float x, float y, String s, Color c){
 		font2.drawString(x, y, s, c);
 	}
-	private  TrueTypeFont loadFont(String f){
+	public  TrueTypeFont loadFont(String f){
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
 		font = new TrueTypeFont(awtFont, false);
 	 
