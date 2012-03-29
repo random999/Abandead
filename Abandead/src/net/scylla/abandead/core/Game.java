@@ -41,9 +41,17 @@ public class Game implements Serializable {
 	public static final int LOADED_REGIONS = 3;
 	private Map map;
 	
+	// Time variables
 	private boolean updateTime;
 	private int FPS = 60;
 	private int currentTime;
+	private String AmPm = "AM";
+	private int halfDay;
+	private int seconds;
+	private int minute;
+	private int minute1;
+	private int hour = 1;
+	private int day;
 
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
@@ -66,6 +74,7 @@ public class Game implements Serializable {
 
 		while (running) {
 			if(updateTime){
+				setTime();
 				pollInput();
 				render();
 			}
@@ -168,7 +177,7 @@ public class Game implements Serializable {
 		if (newTime - prevTime >= 1000/FPS) {
 			updateTime = true;
 			currentTime++;
-			System.out.print("Current Time: " + currentTime + "\n");
+			System.out.print("Day: " + day + " " + hour + ":" + minute1 + minute + " " + AmPm + "\n");
 			prevTime = newTime;
 		} else {
 			updateTime = false;
@@ -176,6 +185,40 @@ public class Game implements Serializable {
 	
 		
 	}
+	
+	public void setTime(){
+
+	    	  seconds += 3;
+		      if(seconds > 60){
+		          minute++;
+		          seconds = 1;
+		          if(minute > 9){
+		              minute1++;
+		              minute = 0;
+		              if(minute1 == 5){
+		                  hour++;
+		                   minute1 = 0;
+		              if(hour == 12){
+		                  if(AmPm == "AM"){
+		                      AmPm = "PM";
+		                  } else {
+		                      AmPm = "AM";
+		                  }
+		                  
+		                  halfDay ++;
+		                    if(halfDay > 2){
+		                        day++;
+		                    }
+		                  } else if (hour > 12){
+		                	  hour = 1;
+		                  }
+		                  
+		              }
+		          }
+		      }
+			
+	      
+	  }
 
 	private void outputFPS() {
 
