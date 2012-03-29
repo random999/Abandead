@@ -9,9 +9,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
-import javax.swing.plaf.synth.Region;
-
 import net.scylla.abandead.core.Game;
+import net.scylla.abandead.tiles.Region;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
@@ -25,8 +24,6 @@ public class Player implements Serializable {
 	private static int mX;
 	private float centerX;
 	private float centerY;
-	private Location tileLocation;
-	private Location regionLocation;
 	private Location location;
 	private Skin skin;
 	
@@ -34,18 +31,11 @@ public class Player implements Serializable {
 		this.width = 40;
 		this.height = 40;
 		this.location = new Location(0,0);
-		this.tileLocation = new Location(0,0);
-		this.regionLocation = new Location(0,0);
 		this.skin = Skin.PLAYER;
 	}
 
 	public void render(float x, float y) {
-		location.setX(x);
-		location.setY(y);
-		tileLocation.setX(x / Game.TILE_SIZE);
-		tileLocation.setY(y / Game.TILE_SIZE);
-		regionLocation.setX(tileLocation.getX() / Game.REGION_SIZE);
-		regionLocation.setY(tileLocation.getY() / Game.REGION_SIZE);
+		location = new Location(x,y);
 
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
@@ -72,12 +62,8 @@ public class Player implements Serializable {
 
 	}
 	
-	public Location getTileLocation() {
-		return tileLocation;
-	}
-	
 	public Location getRegionLocation() {
-		return regionLocation;
+		return new Location(location.getX()/Region.sizeCorrection, location.getY()/Region.sizeCorrection);
 	}
 
 	public void setMouseX(int x) {

@@ -15,5 +15,14 @@ public class Zombie {
 	public void setLocation(Location loc) {
 		this.loc = loc;
 	}
+	
+	public void render(float x, float y) {
+		this.loc = new Location(x, y);
+		render();
+	}
+	
+	public void render() {
+		
+	}
 
 }
