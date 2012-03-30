@@ -25,7 +25,7 @@ public class Map implements Serializable {
 	}
 
 	public void render(Player player) {
-		glColor3f(1, 1, 1);
+		//glColor3f(1, 1, 1);
 		Location playerLoc = player.getRegionLocation();
 
 

@@ -16,6 +16,7 @@ import net.scylla.abandead.core.Game;
 import net.scylla.abandead.tiles.Region;
 import net.scylla.abandead.tiles.TileType;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
@@ -44,9 +45,8 @@ public class Player implements Serializable {
 		skin = Skin.PLAYER;
 	}
 	
-	public void render(float x, float y) {
-		location.setX(x);
-		location.setY(y);
+	public void render() {
+		updateLocation();
 
 		glLoadIdentity();
 		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
@@ -111,5 +111,47 @@ public class Player implements Serializable {
 
 	public Location getLocation() {
 		return location;
+	}
+	
+	private void updateLocation() {
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
+				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
+			location.setY(location.getY() - speed);
+			//yPosition = player.getLocation().getY();
+			//yPosition -= player.getSpeed();
+			
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS) && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
+			speed++;
+		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_MINUS)) {
+			speed--;
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
+				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
+			location.setY(location.getY() + speed);
+			//player.getLocation().setY(player.getLocation().getY() + player.getSpeed());
+			//yPosition = player.getLocation().getY();
+			//yPosition += player.getSpeed();
+			
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
+				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
+			location.setX(location.getX() - speed);
+			//xPosition -= player.getSpeed();
+			
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
+				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
+			location.setX(location.getX() + speed);
+			//xPosition += player.getSpeed();
+			
+		}
 	}
 }

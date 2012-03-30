@@ -12,7 +12,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -21,9 +20,6 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public class Game implements Serializable {
 
-	private static int xPosition = 0;
-	private static int yPosition = 0;
-	private int frameCount = 0;
 	private boolean running = true;
 	private Player player;
 	private static Game game;
@@ -40,20 +36,7 @@ public class Game implements Serializable {
 	public static final int REGION_SIZE = 8;
 	public static final int LOADED_REGIONS = 3;
 	private Map map;
-	
-	// Time variables
-	private boolean updateTime;
-	private int FPS = 60;
-	private int currentTime;
-	private String AmPm = "AM";
-	private int halfDay;
-	private int seconds;
-	private int minute;
-	private int minute1;
-	private int hour = 1;
-	private int day;
-
-	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
+	private Time time;
 
 	public static void main(String[] args) {
 
@@ -64,6 +47,7 @@ public class Game implements Serializable {
 	}
 
 	private void start() {
+		time = new Time();
 		createFiles();
 
 		IGDisplay.create(800, 600);
@@ -73,12 +57,13 @@ public class Game implements Serializable {
 		map = new Map();
 
 		while (running) {
-			if(updateTime){
-				setTime();
+			if(time.update()){
+				//setTime();
 				pollInput();
 				render();
+				//changeDayLight();
 			}
-			updateTime();
+			//updateTime();
 		}
 
 		System.out.println("Exiting game...");
@@ -101,8 +86,9 @@ public class Game implements Serializable {
 
 		glLoadIdentity();
 
+		//glColor3f(.2f,.2f,.2f);
 		map.render(player);
-		player.render(xPosition, yPosition);
+		player.render();
 		
 		
 		Display.update();
@@ -126,38 +112,6 @@ public class Game implements Serializable {
 			running = false;
 		}
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
-				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			yPosition -= player.getSpeed();
-			
-		}
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS) && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
-			player.setSpeed(player.getSpeed() + 1);
-		}
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_MINUS)) {
-			player.setSpeed(player.getSpeed() - 1);
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
-				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			yPosition += player.getSpeed();
-			
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
-				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			xPosition -= player.getSpeed();
-			
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
-				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			xPosition += player.getSpeed();
-			
-		}
-
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			saveGame();
 		}
@@ -169,67 +123,6 @@ public class Game implements Serializable {
 		if (Display.isCloseRequested()) {
 			running = false;
 		}
-
-	}
-	
-	private void updateTime(){
-		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
-		if (newTime - prevTime >= 1000/FPS) {
-			updateTime = true;
-			currentTime++;
-			System.out.print("Day: " + day + " " + hour + ":" + minute1 + minute + " " + AmPm + "\n");
-			prevTime = newTime;
-		} else {
-			updateTime = false;
-		}
-	
-		
-	}
-	
-	public void setTime(){
-
-	    	  seconds += 3;
-		      if(seconds > 60){
-		          minute++;
-		          seconds = 1;
-		          if(minute > 9){
-		              minute1++;
-		              minute = 0;
-		              if(minute1 == 5){
-		                  hour++;
-		                   minute1 = 0;
-		              if(hour == 12){
-		                  if(AmPm == "AM"){
-		                      AmPm = "PM";
-		                  } else {
-		                      AmPm = "AM";
-		                  }
-		                  
-		                  halfDay ++;
-		                    if(halfDay > 2){
-		                        day++;
-		                    }
-		                  } else if (hour > 12){
-		                	  hour = 1;
-		                  }
-		                  
-		              }
-		          }
-		      }
-			
-	      
-	  }
-
-	private void outputFPS() {
-
-		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
-
-		if (newTime - prevTime >= 1000) {
-			System.out.println(frameCount + " fps");
-			frameCount = 0;
-			prevTime = newTime;
-		}
-		frameCount++;
 	}
 
 	private void createFiles() {
@@ -318,35 +211,5 @@ public class Game implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
-
-	public static int getxScroll() {
-		return xPosition;
-	}
-
-	public static int getyScroll() {
-		return yPosition;
-
-	}
-
-	/**
-	 * Loads textures.
-	 * 
-	 * @param tex
-	 * @return
-	 */
-	private Texture loadTexture(String tex) {
-		try {
-			return TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("res/" + tex + ".png")));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println("No texture found...");
-		return null;
-	}
-
 }

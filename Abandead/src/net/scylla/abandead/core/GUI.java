@@ -22,6 +22,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class GUI {
 	ArrayList<Texture> textures;
+	Font font1;
 	TrueTypeFont font;
 	TrueTypeFont font2;
 	
