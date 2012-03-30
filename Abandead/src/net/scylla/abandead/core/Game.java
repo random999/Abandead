@@ -12,14 +12,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
-import net.scylla.abandead.entities.*;
-import net.scylla.abandead.gui.*;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureLoader;
 
 public class Game implements Serializable {
 
