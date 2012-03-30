@@ -1,4 +1,4 @@
-package net.scylla.abandead.core;
+package net.scylla.abandead.gui;
 
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
