@@ -34,7 +34,7 @@ public class Game implements Serializable {
 	public static final int TILE_SIZE = 64;
 	// public static final int MAP_WIDTH = 10;
 	// public static final int MAP_HEIGHT = 10;
-	public static final int REGION_SIZE = 8;
+	public static final int REGION_SIZE = 16;
 	public static final int LOADED_REGIONS = 3;
 	private Map map;
 	private Time time;

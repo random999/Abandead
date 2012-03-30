@@ -28,8 +28,6 @@ public class Map implements Serializable {
 		//glColor3f(1, 1, 1);
 		Location playerLoc = player.getRegionLocation();
 
-
-
 		for (int x = -1; x <= 1; x++) {
 			for (int y = -1; y <= 1; y++) {
 				float newX = (float) Math.floor(playerLoc.getX()) + x;
@@ -59,7 +57,8 @@ public class Map implements Serializable {
 			}
 		}
 		Region region;
-		int chance = rand.nextInt(300);
+		int chance = 49;
+		//int chance = rand.nextInt(51);
 		if(chance < 50) {
 			region = new Region((int) x, (int) y,-p.getLocation().getX(), -p.getLocation().getY(), RegionType.DESERT);
 		} else if (chance >= 50 && chance < 75) {

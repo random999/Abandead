@@ -66,37 +66,51 @@ public class Region implements Serializable {
 	public void populateTileTypes(float xStart, float yStart) {
 		Random rand = new Random();
 
-		for (int x = 0; x < Game.REGION_SIZE; x++) {
-			for (int y = 0; y < Game.REGION_SIZE; y++) {
+		for (int x = 0; x < Game.REGION_SIZE; x++)
+		{
+			for (int y = 0; y < Game.REGION_SIZE; y++)
+			{
 				Tile tile = tileList.get(x).get(y);
-				if (regType == RegionType.DESERT) {
-					if ((!tileLeft(tile, TileType.WOOD, 1) && !tileRight(tile,
-							TileType.WOOD, 1))
-							|| (!tileUp(tile, TileType.WOOD, 1) && !tileDown(
-									tile, TileType.WOOD, 1))) {
-						tile.setType(TileType.WOOD);
+				
+				if (regType == RegionType.DESERT)
+				{
+					int tillMoveOnX = x;
+					int tillMoveOnY = y;
+					if(tillMoveOnX == 0 && tillMoveOnY < 16){
+						tile.setType(TileType.DIRT);
 					}
-				} else if (regType == RegionType.CITY) {
-					if(!tileLeft(tile, TileType.SAND, 5) && tileRight(tile, TileType.WOOD, 1) && !tileLeft(tile, TileType.STONE, 1)) {
-						tile.setType(TileType.STONE);
+					else if(tillMoveOnX == 15 && tillMoveOnY < 16){
+						tile.setType(TileType.DIRT);
 					}
-					//tileList.get(0).get(1).setType(TileType.STONE);
-					//if(tileUp(tile, TileType.STONE, 1)) {
-					//	tile.setType(TileType.DIRT);
-					//}
-				} else if (regType == RegionType.HOUSE) {
-					
-				} else if (regType == RegionType.QUARRY) {
-					tileList.get(x/2 + x/2).get(y/2 + y/2).setType(TileType.STONE);
-
+					else if(tillMoveOnX < 16 && tillMoveOnY == 0){
+						tile.setType(TileType.DIRT);
+					}
+					else if(tillMoveOnX < 5 && tillMoveOnY == 4){
+						tile.setType(TileType.WALL_BOTTOM);
+					}
+					else if(tillMoveOnX < 16 && tillMoveOnY == 15){
+						tile.setType(TileType.DIRT);
+					} else {
+						tile.setType(regType.baseType);
+					}
+				}
+				
+				else if (regType == RegionType.CITY)
+				{
+					tile.setType(regType.baseType);
+				}
+				
+				else if (regType == RegionType.HOUSE)
+				{
+					tile.setType(regType.baseType);
+				}
+				
+				else if (regType == RegionType.QUARRY) {
+					tile.setType(regType.baseType);
 				}
 
-				tile.getLocation().setX(
-						location.getX() * sizeCorrection + x * Game.TILE_SIZE
-								+ xStart + Display.getWidth() / 2);
-				tile.getLocation().setY(
-						location.getY() * sizeCorrection + y * Game.TILE_SIZE
-								+ yStart + Display.getHeight() / 2);
+				tile.getLocation().setX(location.getX() * sizeCorrection + x * Game.TILE_SIZE + xStart + Display.getWidth() / 2);
+				tile.getLocation().setY(location.getY() * sizeCorrection + y * Game.TILE_SIZE + yStart + Display.getHeight() / 2);
 
 			}
 		}
