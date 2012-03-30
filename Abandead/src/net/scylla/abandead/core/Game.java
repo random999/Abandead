@@ -12,6 +12,9 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
+import net.scylla.abandead.entities.*;
+import net.scylla.abandead.gui.*;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
@@ -25,18 +28,22 @@ public class Game implements Serializable {
 	private static Game game;
 	private static String homeDir = System.getProperty("user.home");
 	private static String directory = homeDir + File.separator + "InsanerGamer"
-			+ File.separator + "Abandead" + File.separator + "Saves" + File.separator;
+			+ File.separator + "Abandead" + File.separator + "Saves"
+			+ File.separator;
 	private static File mapFile = new File(directory + "map.obj");
 	private static File playerFile = new File(directory + "player.obj");
 	private static File gameFile = new File(directory + "game.obj");
 
 	public static final int TILE_SIZE = 64;
-	//public static final int MAP_WIDTH = 10;
-	//public static final int MAP_HEIGHT = 10;
+	// public static final int MAP_WIDTH = 10;
+	// public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 8;
 	public static final int LOADED_REGIONS = 3;
 	private Map map;
 	private Time time;
+
+	// GUI variables
+	private HUD hud;
 
 	public static void main(String[] args) {
 
@@ -55,15 +62,14 @@ public class Game implements Serializable {
 
 		player = new Player();
 		map = new Map();
+		hud = new HUD(player, true);
+
 
 		while (running) {
 			if(time.update()){
-				//setTime();
 				pollInput();
 				render();
-				//changeDayLight();
 			}
-			//updateTime();
 		}
 
 		System.out.println("Exiting game...");
@@ -72,7 +78,7 @@ public class Game implements Serializable {
 
 	private void enableOpenGL() {
 		glEnable(GL_BLEND);
-    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, 800, 0, 600, 1, -1);
@@ -86,11 +92,10 @@ public class Game implements Serializable {
 
 		glLoadIdentity();
 
-		//glColor3f(.2f,.2f,.2f);
 		map.render(player);
 		player.render();
-		
-		
+		hud.renderHud();
+
 		Display.update();
 	}
 
@@ -111,14 +116,17 @@ public class Game implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			running = false;
 		}
-
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
 			saveGame();
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
 			loadGame();
-		}		
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
+			
+		}
 
 		if (Display.isCloseRequested()) {
 			running = false;
@@ -143,14 +151,14 @@ public class Game implements Serializable {
 				e.printStackTrace();
 			}
 		}
-		if(!gameFile.exists()){
+		if (!gameFile.exists()) {
 			try {
 				gameFile.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-			
+
 	}
 
 	/**
@@ -169,7 +177,7 @@ public class Game implements Serializable {
 				player = (Player) inP.readObject();
 				map = (Map) inM.readObject();
 				game = (Game) inG.readObject();
-				
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -181,6 +189,7 @@ public class Game implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -197,7 +206,7 @@ public class Game implements Serializable {
 			outP = new ObjectOutputStream(new FileOutputStream(playerFile));
 			outG = new ObjectOutputStream(new FileOutputStream(gameFile));
 			outM.writeObject(map);
-		    outP.writeObject(player);
+			outP.writeObject(player);
 			outG.writeObject(this);
 			outM.flush();
 			outP.flush();

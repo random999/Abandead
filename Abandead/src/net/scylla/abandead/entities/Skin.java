@@ -10,7 +10,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public enum Skin {
 	PLAYER("player"),
-	ZOMBIE("zombie");
+	ZOMBIE("zombie_sidearms");
 	Texture texture;
 	Skin(String textureName) {
 		try {
