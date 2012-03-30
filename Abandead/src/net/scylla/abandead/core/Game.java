@@ -165,7 +165,11 @@ public class Game implements Serializable {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-			
+			if(hud.isOn()){
+				hud.turnOff();
+			} else {
+				hud.turnOn();
+			}
 		}
 
 		if (Display.isCloseRequested()) {
