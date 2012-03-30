@@ -11,7 +11,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-import net.scylla.abandead.entities.Player;
+import net.scylla.abandead.entities.*;
+import net.scylla.abandead.gui.*;
+
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -29,21 +31,22 @@ public class Game implements Serializable {
 	private static Game game;
 	private static String homeDir = System.getProperty("user.home");
 	private static String directory = homeDir + File.separator + "InsanerGamer"
-			+ File.separator + "Abandead" + File.separator + "Saves" + File.separator;
+			+ File.separator + "Abandead" + File.separator + "Saves"
+			+ File.separator;
 	private static File mapFile = new File(directory + "map.obj");
 	private static File playerFile = new File(directory + "player.obj");
 	private static File gameFile = new File(directory + "game.obj");
 
 	public static final int TILE_SIZE = 64;
-	//public static final int MAP_WIDTH = 10;
-	//public static final int MAP_HEIGHT = 10;
+	// public static final int MAP_WIDTH = 10;
+	// public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 8;
 	public static final int LOADED_REGIONS = 3;
 	private Map map;
-	
-	//GUI variables
+
+	// GUI variables
 	private HUD hud;
-	
+
 	// Time variables
 	private boolean updateTime;
 	private int FPS = 60;
@@ -75,8 +78,9 @@ public class Game implements Serializable {
 		map = new Map();
 		hud = new HUD(player, true);
 
+
 		while (running) {
-			if(updateTime){
+			if (updateTime) {
 				setTime();
 				pollInput();
 				render();
@@ -90,7 +94,7 @@ public class Game implements Serializable {
 
 	private void enableOpenGL() {
 		glEnable(GL_BLEND);
-    	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		glOrtho(0, 800, 0, 600, 1, -1);
@@ -106,8 +110,7 @@ public class Game implements Serializable {
 	    map.render(player);
 		player.render(xPosition, yPosition);
 		hud.renderHud();
-		
-		
+
 		Display.update();
 	}
 
@@ -132,25 +135,25 @@ public class Game implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			yPosition -= player.getSpeed();
-			
+
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			yPosition += player.getSpeed();
-			
+
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			xPosition -= player.getSpeed();
-			
+
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			xPosition += player.getSpeed();
-			
+
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
@@ -160,13 +163,9 @@ public class Game implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
 			loadGame();
 		}
-		
+
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-			if(!hud.isOn()){
-				hud.turnOn();
-			} else {
-				hud.turnOff();
-			}
+			
 		}
 
 		if (Display.isCloseRequested()) {
@@ -174,68 +173,67 @@ public class Game implements Serializable {
 		}
 
 	}
-	
-	private void updateTime(){
+
+	private void updateTime() {
 		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
-		if (newTime - prevTime >= 1000/FPS) {
+		if (newTime - prevTime >= 1000 / FPS) {
 			updateTime = true;
-			System.out.print("Day: " + day + " " + hour + ":" + minute1 + minute + " " + AmPm + "\n");
+
 			prevTime = newTime;
 		} else {
 			updateTime = false;
 		}
-	
-		
+
 	}
-	
-	public int getDay(){
+
+	public int getDay() {
 		return day;
 	}
-	
-	public int getHour(){
+
+	public int getHour() {
 		return hour;
 	}
-	
-	public int getMinute(){
+
+	public int getMinute() {
 		return minute + minute1;
 	}
-	
-	public String getAMPM(){
+
+	public String getAMPM() {
 		return AmPm;
 	}
-	public void setTime(){
 
-	    	  seconds += 3;
-		      if(seconds > 60){
-		          minute++;
-		          seconds = 1;
-		          if(minute > 9){
-		              minute1++;
-		              minute = 0;
-		              if(minute1 == 5){
-		                  hour++;
-		                   minute1 = 0;
-		              if(hour == 12){
-		                  if(AmPm == "AM"){
-		                      AmPm = "PM";
-		                  } else {
-		                      AmPm = "AM";
-		                  }
-		                  
-		                  halfDay ++;
-		                    if(halfDay > 2){
-		                        day++;
-		                    }
-		                  } else if (hour > 12){
-		                	  hour = 1;
-		                  }
-		                  
-		              }
-		          }
-		      }
-			
-	      
-	  }
+	public void setTime() {
+
+		seconds += 3;
+		if (seconds > 60) {
+			minute++;
+			seconds = 1;
+			if (minute > 9) {
+				minute1++;
+				minute = 0;
+				if (minute1 == 5) {
+					hour++;
+					minute1 = 0;
+					if (hour == 12) {
+						if (AmPm == "AM") {
+							AmPm = "PM";
+						} else {
+							AmPm = "AM";
+						}
+
+						halfDay++;
+						if (halfDay > 2) {
+							day++;
+						}
+					} else if (hour > 12) {
+						hour = 1;
+					}
+
+				}
+			}
+		}
+
+	}
 
 	private void outputFPS() {
 
@@ -267,14 +265,14 @@ public class Game implements Serializable {
 				e.printStackTrace();
 			}
 		}
-		if(!gameFile.exists()){
+		if (!gameFile.exists()) {
 			try {
 				gameFile.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-			
+
 	}
 
 	/**
@@ -293,7 +291,7 @@ public class Game implements Serializable {
 				player = (Player) inP.readObject();
 				map = (Map) inM.readObject();
 				game = (Game) inG.readObject();
-				
+
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -305,6 +303,7 @@ public class Game implements Serializable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -321,7 +320,7 @@ public class Game implements Serializable {
 			outP = new ObjectOutputStream(new FileOutputStream(playerFile));
 			outG = new ObjectOutputStream(new FileOutputStream(gameFile));
 			outM.writeObject(map);
-		    outP.writeObject(player);
+			outP.writeObject(player);
 			outG.writeObject(this);
 			outM.flush();
 			outP.flush();
