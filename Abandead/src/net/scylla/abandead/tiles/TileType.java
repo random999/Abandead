@@ -11,6 +11,14 @@ import org.newdawn.slick.opengl.TextureLoader;
 
 public enum TileType implements Serializable{
 	
+	WALL_LEFT("wall_left"),
+	WALL_RIGHT("wall_right"),
+	WALL_TOP("wall_top"),
+	WALL_BOTTOM("wall_bottom"),
+	WALL_TOPLEFT("wall_corner_topleft"),
+	WALL_TOPRIGHT("wall_corner_topright"),
+	WALL_BOTTOMLEFT("wall_corner_bottomleft"),
+	WALL_BOTTOMRIGHT("wall_corner_bottomright"),
 	WOOD("wood"),
 	PLAYER("player"),
 	STONE("stone"),
