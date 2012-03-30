@@ -47,14 +47,13 @@ public class Game implements Serializable {
 	// Time variables
 	private boolean updateTime;
 	private int FPS = 60;
-	private int currentTime;
 	private String AmPm = "AM";
-	private int halfDay;
-	private int seconds;
-	private int minute;
-	private int minute1;
+	private int halfDay = 0;
+	private int seconds = 0;
+	private int minute = 0;
+	private int minute1 = 0;
 	private int hour = 1;
-	private int day;
+	private int day = 0;
 
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 
@@ -74,6 +73,7 @@ public class Game implements Serializable {
 
 		player = new Player();
 		map = new Map();
+		hud = new HUD(player, true);
 
 		while (running) {
 			if(updateTime){
@@ -101,14 +101,11 @@ public class Game implements Serializable {
 	private void render() {
 
 		glClear(GL_COLOR_BUFFER_BIT);
-
 		glLoadIdentity();
 		
-		hud = new HUD(player, true);
-		
-		map.render(player);
+	    map.render(player);
 		player.render(xPosition, yPosition);
-		//hud.renderHud();
+		hud.renderHud();
 		
 		
 		Display.update();
@@ -182,7 +179,6 @@ public class Game implements Serializable {
 		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 		if (newTime - prevTime >= 1000/FPS) {
 			updateTime = true;
-			currentTime++;
 			System.out.print("Day: " + day + " " + hour + ":" + minute1 + minute + " " + AmPm + "\n");
 			prevTime = newTime;
 		} else {

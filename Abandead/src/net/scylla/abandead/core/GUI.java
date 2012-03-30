@@ -25,6 +25,9 @@ public class GUI implements Serializable{
 	private TrueTypeFont font;
 	private TrueTypeFont font2;
 	
+	public GUI(){
+		init();
+	}
 	public void drawWindow(int sizeX, int sizeY, float x, float y, Texture text){
 				glLoadIdentity();
 				glTranslatef(x,y,0f);
@@ -38,27 +41,27 @@ public class GUI implements Serializable{
 				glEnd();
 	}
 	
-	public void drawText(float x, float y, String s, Color c){
-		font2.drawString(x, y, s, c);
+	public void drawText(int x, int y, String s){
+		font2.drawString(x, y, s);
 	}
-	public  TrueTypeFont loadFont(String f){
+	
+	public void init() {
+		// load a default java font
 		Font awtFont = new Font("Times New Roman", Font.BOLD, 24);
 		font = new TrueTypeFont(awtFont, false);
 	 
+		// load font from a .ttf file
 		try {
-			InputStream inputStream	= ResourceLoader.getResourceAsStream("res/font/" + f);
+			InputStream inputStream	= ResourceLoader.getResourceAsStream("res/font/OldLondon.ttf");
 	 
 			Font awtFont2 = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			awtFont2 = awtFont2.deriveFont(24f); // set font size
 			font2 = new TrueTypeFont(awtFont2, false);
-			return font2;
 	 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return null;
+		}	
 	}
-	
 }
 
 
