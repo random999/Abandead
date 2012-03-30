@@ -1,10 +1,11 @@
-package net.scylla.abandead.core;
+package net.scylla.abandead.gui;
 
 import java.io.Serializable;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 
+import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Player;
 
 public class HUD implements Serializable{

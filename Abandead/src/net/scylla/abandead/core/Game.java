@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
+import net.scylla.abandead.gui.HUD;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
