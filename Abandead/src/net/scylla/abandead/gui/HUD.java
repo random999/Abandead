@@ -48,7 +48,7 @@ public class HUD implements Serializable{
 	public void renderHud(){
 		if(offon){
 			//gui.drawWindow(200, 50, 50, Display.getHeight() - 75, dirt, 1, 1, 1);
-			gui.drawText( Display.getWidth()/2,Display.getHeight()/2 , timeOfDay, 1,1,1);
+			gui.drawText( 400,Display.getHeight()/2 , timeOfDay, 1f,0f,0f);
 		}
 
 	}

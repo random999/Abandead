@@ -28,7 +28,7 @@ public class Time {
 		double sine = Math.sin(ratio * currentTime);
 		double change = .45 * sine + .55;
 		glColor3d(change,change,change);
-		System.out.println(change + ": " + getHour());
+		//System.out.println(change + ": " + getHour());
 	}
 	
 	public int getMinute() {
