@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.opengl.Texture;
 
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Player;
@@ -13,14 +14,16 @@ public class HUD implements Serializable{
 	private Game game;
 	private boolean offon;
 	private Player player;
+	private Texture dirt;
 	
-	private String time;
+	private String timeOfDay;
 	
 	public HUD(Player p, boolean b){
 		player = p;
 		offon = b;
 		gui = new GUI();
-		time = "Checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
+		loadTextures();
+		timeOfDay = "Checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
 	}
 	private void displayTime(){
 		
@@ -38,9 +41,14 @@ public class HUD implements Serializable{
 		return offon;
 	}
 	
+	private void loadTextures(){
+		dirt = gui.loadTexture("dirt");
+	}
+	
 	public void renderHud(){
 		if(offon){
-			gui.drawText( 50,Display.getHeight() - 50 , time);
+			//gui.drawWindow(200, 50, 50, Display.getHeight() - 75, dirt, 1, 1, 1);
+			gui.drawText( Display.getWidth()/2,Display.getHeight()/2 , timeOfDay, 1,1,1);
 		}
 
 	}
