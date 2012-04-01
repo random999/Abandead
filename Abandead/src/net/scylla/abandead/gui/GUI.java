@@ -1,6 +1,5 @@
 package net.scylla.abandead.gui;
 
-
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
 import static org.lwjgl.opengl.GL11.glEnd;
@@ -27,38 +26,47 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
 import org.newdawn.slick.util.ResourceLoader;
 
-public class GUI implements Serializable{
+public class GUI implements Serializable {
 	private StringText text;
 	private Texture fTexture;
-	
-	public GUI(){
+
+	public GUI() {
 		text = new StringText();
 		fTexture = loadFont();
 	}
-	public void drawWindow(int sizeX, int sizeY, float x, float y, Texture text, float red, float green, float blue){
-				glLoadIdentity();
-				glTranslatef(x,y,0f);
-				if(text != null){
-					text.bind();
-				}
-				glColor3f(red,green,blue);
-				
-				glBegin(GL_QUADS);
-					glTexCoord2f(0,0); glVertex2f(0,0);
-					glTexCoord2f(1,0); glVertex2f(sizeX,0);
-					glTexCoord2f(1,1); glVertex2f(sizeX,sizeY);
-					glTexCoord2f(0,1); glVertex2f(0,sizeY);
-				glEnd();
+
+	public void drawWindow(int sizeX, int sizeY, float x, float y,
+			Texture text, float red, float green, float blue) {
+		
+		glPushMatrix();
+		glTranslatef(x, y, 0f);
+		if (text != null) {
+			text.bind();
+		}
+		glColor3f(red, green, blue);
+
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1, 0);
+		glVertex2f(sizeX, 0);
+		glTexCoord2f(1, 1);
+		glVertex2f(sizeX, sizeY);
+		glTexCoord2f(0, 1);
+		glVertex2f(0, sizeY);
+		glEnd();
+		glPopMatrix();
 	}
-	
-	public void drawText(int spacing, int size, String s, float red, float green, float blue, float x, float y){
-		text.DrawString(fTexture, s, spacing, size, red, green, blue,x, y);
+
+	public void drawText(int spacing, int size, String s, float red, float green, float blue, float x, float y) {
+		text.DrawString(fTexture, s, spacing, size, red, green, blue, x, y);
 	}
-	
-	public Texture loadTexture(String s){
+
+	public Texture loadTexture(String s) {
 		try {
-			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+s+".png")));
-			
+			return TextureLoader.getTexture("PNG", new FileInputStream(
+					new File("res/" + s + ".png")));
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -66,11 +74,12 @@ public class GUI implements Serializable{
 		}
 		return null;
 	}
-	
-	public Texture loadFont(){
+
+	public Texture loadFont() {
 		try {
-			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/font/font.png")));
-			
+			return TextureLoader.getTexture("PNG", new FileInputStream(
+					new File("res/font/tinyfont.png")));
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -78,7 +87,5 @@ public class GUI implements Serializable{
 		}
 		return null;
 	}
-	
+
 }
-
-

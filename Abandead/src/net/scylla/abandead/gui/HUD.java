@@ -2,12 +2,12 @@ package net.scylla.abandead.gui;
 
 import java.io.Serializable;
 
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.opengl.Texture;
-
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Player;
+
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.opengl.Texture;
 
 public class HUD implements Serializable {
 	private GUI gui;
@@ -48,9 +48,15 @@ public class HUD implements Serializable {
 	}
 
 	public void renderHud() {
-		if (offon) {
+		if (offon)
+		{
+			GL11.glPushMatrix();
+			GL11.glLoadIdentity();
+			
 			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, sand, 1, 1, 1);
-			gui.drawText(1, 8, timeOfDay, 1f, 0f, 0f,50,50);
+			gui.drawText(6, 8, "123456789abcdefghijklmnopqrstuvwxyz", 1f, 1f, 1f, 100, 150);
+			
+			GL11.glPopMatrix();
 		}
 
 	}
