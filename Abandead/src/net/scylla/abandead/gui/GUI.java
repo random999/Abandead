@@ -29,9 +29,11 @@ import org.newdawn.slick.util.ResourceLoader;
 
 public class GUI implements Serializable{
 	private StringText text;
+	private Texture fTexture;
 	
 	public GUI(){
 		text = new StringText();
+		fTexture = loadFont();
 	}
 	public void drawWindow(int sizeX, int sizeY, float x, float y, Texture text, float red, float green, float blue){
 				glLoadIdentity();
@@ -49,14 +51,26 @@ public class GUI implements Serializable{
 				glEnd();
 	}
 	
-	public void drawText(int x, int y, String s, float red, float green, float blue){
-		text.drawText(s, x, y,red,green,blue );
+	public void drawText(int spacing, int size, String s, float red, float green, float blue, float x, float y){
+		text.DrawString(fTexture, s, spacing, size, red, green, blue,x, y);
 	}
 	
 	public Texture loadTexture(String s){
 		try {
-			Texture rt = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+s+".png")));
-			return rt;
+			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+s+".png")));
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Texture loadFont(){
+		try {
+			return TextureLoader.getTexture("PNG", new FileInputStream(new File("res/font/font.png")));
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

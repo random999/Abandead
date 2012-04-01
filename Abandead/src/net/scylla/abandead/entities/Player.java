@@ -58,7 +58,6 @@ public class Player implements Serializable {
 			glTexCoord2f(1,1);glVertex2d(width / 2, height / 2);
 			glTexCoord2f(0,1);glVertex2d(-width / 2, height / 2);
 		glEnd();
-
 	}
 
 	private float calcRotation() {

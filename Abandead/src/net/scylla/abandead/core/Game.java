@@ -61,9 +61,8 @@ public class Game implements Serializable {
 		map = new Map();
 		hud = new HUD(player, true);
 
-
 		while (running) {
-			if(time.update()){
+			if (time.update()) {
 				pollInput();
 				render();
 			}
@@ -122,7 +121,7 @@ public class Game implements Serializable {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-			if(hud.isOn()){
+			if (hud.isOn()) {
 				hud.turnOff();
 			} else {
 				hud.turnOn();

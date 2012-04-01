@@ -9,46 +9,48 @@ import org.newdawn.slick.opengl.Texture;
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Player;
 
-public class HUD implements Serializable{
+public class HUD implements Serializable {
 	private GUI gui;
 	private Game game;
 	private boolean offon;
 	private Player player;
-	private Texture dirt;
-	
+	private Texture sand;
+	private Texture blank;
+
 	private String timeOfDay;
-	
-	public HUD(Player p, boolean b){
+
+	public HUD(Player p, boolean b) {
 		player = p;
 		offon = b;
 		gui = new GUI();
 		loadTextures();
-		timeOfDay = "A";
+		timeOfDay = "A bunch of stuff";
 	}
-	private void displayTime(){
-		
+
+	private void displayTime() {
+
 	}
-	
-	public void turnOn(){
+
+	public void turnOn() {
 		offon = true;
 	}
-	
-	public void turnOff(){
+
+	public void turnOff() {
 		offon = false;
 	}
-	
-	public boolean isOn(){
+
+	public boolean isOn() {
 		return offon;
 	}
-	
-	private void loadTextures(){
-		dirt = gui.loadTexture("dirt");
+
+	private void loadTextures() {
+		sand = gui.loadTexture("sand");
 	}
-	
-	public void renderHud(){
-		if(offon){
-			//gui.drawWindow(200, 50, 50, Display.getHeight() - 75, dirt, 1, 1, 1);
-			gui.drawText( 400,Display.getHeight()/2 , timeOfDay, 1f,0f,0f);
+
+	public void renderHud() {
+		if (offon) {
+			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, sand, 1, 1, 1);
+			gui.drawText(1, 8, timeOfDay, 1f, 0f, 0f,50,50);
 		}
 
 	}
