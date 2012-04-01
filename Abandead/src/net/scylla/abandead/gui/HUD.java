@@ -54,7 +54,7 @@ public class HUD implements Serializable {
 			GL11.glLoadIdentity();
 			
 			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, sand, 1, 1, 1);
-			gui.drawText(6, 8, "123456789abcdefghijklmnopqrstuvwxyz", 1f, 1f, 1f, 100, 150);
+			gui.drawText(1, 8, "123456789abcdefghijklmnopqrstuvwxyz", 1f, 1f, 1f, 100, 150);
 			
 			GL11.glPopMatrix();
 		}
