@@ -15,7 +15,7 @@ public class HUD implements Serializable {
 	private Game game;
 	private boolean offon;
 	private Player player;
-	private Texture sand;
+	private Texture clock;
 	private Time time;
 
 	private String timeOfDay;
@@ -46,21 +46,21 @@ public class HUD implements Serializable {
 	}
 
 	private void loadTextures() {
-		sand = gui.loadTexture("sand");
+		clock = gui.loadTexture("clockbacking");
 	}
 
 	public void renderHud() {
 		
-		timeOfDay = "Time: " + time.getHour() + ":" + time.getMinute2() + time.getMinute1() + " " + time.getAMPM();
+		timeOfDay = time.getHour() + ":" + time.getMinute2() + time.getMinute1() + " " + time.getAMPM();
 		
 		if (offon)
 		{
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
 			
-			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, sand, 1, 1, 1);
+			gui.drawWindow(clock.getImageWidth(), clock.getTextureHeight(), Display.getWidth() * 0.065f, Display.getHeight() * 0.88f, clock, 1, 1, 1);
 
-			gui.drawText(1.5f, 18, timeOfDay, 1f, 0f, 0f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
+			gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
 
 			
 			GL11.glPopMatrix();

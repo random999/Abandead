@@ -46,14 +46,10 @@ public class GUI implements Serializable {
 		glColor3f(red, green, blue);
 
 		glBegin(GL_QUADS);
-		glTexCoord2f(0, 0);
-		glVertex2f(0, 0);
-		glTexCoord2f(1, 0);
-		glVertex2f(sizeX, 0);
-		glTexCoord2f(1, 1);
-		glVertex2f(sizeX, sizeY);
-		glTexCoord2f(0, 1);
-		glVertex2f(0, sizeY);
+		glTexCoord2f(0, 0);glVertex2f(0, 0);
+		glTexCoord2f(1, 0); glVertex2f(sizeX, 0);
+		glTexCoord2f(1, 1);glVertex2f(sizeX, sizeY);
+		glTexCoord2f(0, 1);glVertex2f(0, sizeY);
 		glEnd();
 		glPopMatrix();
 	}
