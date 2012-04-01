@@ -58,7 +58,7 @@ public class GUI implements Serializable {
 		glPopMatrix();
 	}
 
-	public void drawText(int spacing, int size, String s, float red, float green, float blue, float x, float y) {
+	public void drawText(float spacing, int size, String s, float red, float green, float blue, float x, float y) {
 		text.DrawString(fTexture, s, spacing, size, red, green, blue, x, y);
 	}
 

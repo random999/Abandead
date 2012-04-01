@@ -65,7 +65,7 @@ public class StringText {
 		//drawTextArea(size, s.length(), xT, yT);
 		for (int i = 0; i < s.length(); ++i) {
 			char c = s.charAt(i);
-			DrawCharacter2D(font, (byte) c, xT + (i * 8), yT, size, size, red, green, blue);
+			DrawCharacter2D(font, (byte) c, xT + (i * 8 * spacing), yT, size, size, red, green, blue);
 		}
 
 		glBindTexture(GL_TEXTURE_2D, 0);
