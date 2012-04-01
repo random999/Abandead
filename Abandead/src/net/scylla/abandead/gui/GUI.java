@@ -50,7 +50,7 @@ public class GUI implements Serializable{
 	}
 	
 	public void drawText(int x, int y, String s, float red, float green, float blue){
-		text.drawText(s, x, y,red,green,blue );
+		text.DrawString(loadTexture("font/font"), s, 1, 8);
 	}
 	
 	public Texture loadTexture(String s){
