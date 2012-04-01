@@ -25,7 +25,7 @@ public class Player implements Serializable {
 
 	private int width;
 	private int height;
-	private int speed = 3;
+	private int speed =  3;
 	private static int mY;
 	private static int mX;
 	private float centerX;

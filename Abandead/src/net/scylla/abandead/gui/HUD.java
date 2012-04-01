@@ -23,7 +23,7 @@ public class HUD implements Serializable{
 		offon = b;
 		gui = new GUI();
 		loadTextures();
-		timeOfDay = "Checkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
+		timeOfDay = "A";
 	}
 	private void displayTime(){
 		
