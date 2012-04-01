@@ -34,7 +34,7 @@ public class Player implements Serializable {
 	private Location tileLocation;
 	private Location regionLocation;
 	private Skin skin;
-
+	private int health;
 	
 	public Player() {
 		this.width = 40;
@@ -43,6 +43,7 @@ public class Player implements Serializable {
 		this.tileLocation = new Location();
 		this.regionLocation = new Location();
 		skin = Skin.PLAYER;
+		health = 10;
 	}
 	
 	public void render() {
@@ -70,6 +71,14 @@ public class Player implements Serializable {
 		double angle = Math.atan2(YDistance, XDistance) * 180 / Math.PI;
 		return (float) angle;
 
+	}
+	
+	public int getHealth(){
+		return health;
+	}
+	
+	public void heal(int amount){
+		this.health = getHealth() + amount;
 	}
 	
 	public int getSpeed(){
@@ -151,6 +160,10 @@ public class Player implements Serializable {
 			location.setX(location.getX() + speed);
 			//xPosition += player.getSpeed();
 			
+		}
+		
+		if(Keyboard.isKeyDown(Keyboard.KEY_M)){
+			this.heal(-1);
 		}
 	}
 }
