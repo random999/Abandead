@@ -50,21 +50,8 @@ public class HUD implements Serializable {
 	}
 
 	public void renderHud() {
-		if(time.getHour() <= 0){
-			timeOfDay = "Time: " + 1 + ":0" + time.getMinute();
-			if(time.getMinute() < 10){
-				timeOfDay = "Time: " + 1 + ":0" + time.getMinute();
-			} else{
-				timeOfDay = "Time: " + 1 + ":" + time.getMinute();
-			}
-			
-		} else {
-			if(time.getMinute() < 10){
-				timeOfDay = "Time: " + time.getHour() + ":0" + time.getMinute();
-			}
-			timeOfDay = "Time: " + time.getHour() + ":" + time.getMinute();
-		}
-			
+		
+		timeOfDay = "Time: " + time.getHour() + ":" + time.getMinute2() + time.getMinute1() + " " + time.getAMPM();
 		
 		if (offon)
 		{
@@ -73,7 +60,7 @@ public class HUD implements Serializable {
 			
 			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, sand, 1, 1, 1);
 
-			gui.drawText(1.5f, 18, timeOfDay, 1f, 0f, 0f, 75, Display.getHeight() - 50);
+			gui.drawText(1.5f, 18, timeOfDay, 1f, 0f, 0f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
 
 			
 			GL11.glPopMatrix();
