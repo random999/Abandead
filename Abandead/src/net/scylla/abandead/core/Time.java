@@ -8,13 +8,14 @@ public class Time {
 	private int currentTime = 0;
 	private long prevTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 	private static int FPS = 60;
+	private String AmPm = "am";
 	
 	public boolean update() {
 		long newTime = (Sys.getTime() * 1000) / Sys.getTimerResolution();
 		if (newTime - prevTime >= 1000/FPS) {
 			currentTime+=10;
 			changeDayLight();
-			displayTime();
+			//displayTime();
 			prevTime = newTime;
 			return true;
 			//System.out.print("Day: " + day + " " + hour + ":" + minute1 + minute + " " + AmPm + "\n");

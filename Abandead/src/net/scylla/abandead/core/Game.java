@@ -59,7 +59,7 @@ public class Game implements Serializable {
 
 		player = new Player();
 		map = new Map();
-		hud = new HUD(player, true);
+		hud = new HUD(player, true, time);
 
 		while (running) {
 			if (time.update()) {
@@ -87,7 +87,8 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-
+		
+		time.update();
 		map.render(player);
 		player.render();
 		hud.renderHud();
