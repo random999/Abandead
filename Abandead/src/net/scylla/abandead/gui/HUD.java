@@ -58,9 +58,9 @@ public class HUD implements Serializable {
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
 			
-			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, sand, 1, 1, 1);
+			gui.drawWindow(200, 50, 50, Display.getHeight() - 75, gui.loadTexture("clockbacking"), 1, 1, 1);
 
-			gui.drawText(1.5f, 18, timeOfDay, 1f, 0f, 0f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
+			gui.drawText(1.5f, 18, timeOfDay, 1f, 0f, 0f, Display.getWidth() * 0.08f, Display.getHeight() * 0.90f);
 
 			
 			GL11.glPopMatrix();
