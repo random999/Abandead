@@ -96,13 +96,10 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-		if(!menu.isOn()){
 			map.render(player);
 			player.render();
 			hud.renderHud();
-		} else {
-			menu.renderMenu();
-		}
+		
 
 		Display.update();
 	}
