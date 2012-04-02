@@ -18,16 +18,39 @@ public class Button {
 	private final int BUTTON_HEIGHT = 32;
 	private GUI gui;
 	private Texture button;
-	private boolean isDown;
+	private boolean pressed;
+	private boolean held;
 	
 	public Button(){
 		gui = new GUI();
 		button = gui.loadTexture("buttons");
 	}
 	
+	public boolean isPressed(){
+		return pressed;
+	}
+	
+	public boolean isHeld(){
+		return held;
+	}
 	public void drawButton(float x, float y, String s){
 		float buttonLength = (x + (s.length()*20) - x);
 
+		glPushMatrix();
+		glTranslatef(x, y, 0f);
+		button.bind();
+		glColor3f(1f,1f,1f);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);glVertex2f(0, 0);
+			glTexCoord2f(1, 0); glVertex2f(s.length()*20, 0);
+			glTexCoord2f(1, 0.5f);glVertex2f(s.length()*20, BUTTON_HEIGHT);
+			glTexCoord2f(0, 0.5f);glVertex2f(0, BUTTON_HEIGHT);
+		glEnd();
+		glPopMatrix();
+		
+		gui.drawText(1.5f, 18, s, 1f, 1f, 1f, x + (buttonLength/5), y + (BUTTON_HEIGHT/3));
+		
 		if(Mouse.getX() > x && Mouse.getX() < x + buttonLength &&
 		   Mouse.getY() > y && Mouse.getY() < y + BUTTON_HEIGHT){
 
@@ -39,32 +62,25 @@ public class Button {
 				
 				glBegin(GL_QUADS);
 					glTexCoord2f(0, 0.5f);glVertex2f(0, 0);
-					glTexCoord2f(1, 0.5f); glVertex2f(s.length()*21, 0);
-					glTexCoord2f(1, 1);glVertex2f(s.length()*21, BUTTON_HEIGHT);
+					glTexCoord2f(1, 0.5f); glVertex2f(s.length()*20, 0);
+					glTexCoord2f(1, 1);glVertex2f(s.length()*20, BUTTON_HEIGHT);
 					glTexCoord2f(0, 1);glVertex2f(0, BUTTON_HEIGHT);
 				glEnd();
 				glPopMatrix();
 			
 				gui.drawText(1.5f, 18, s, 0f, 0f, 0f, x + (buttonLength/5) -1, y + (BUTTON_HEIGHT/3)- 1);
-				
+				if(pressed){
+					held = true;
+					pressed = false;
+				}else if(!held){
+					pressed = true;
+				}
+				return;
 			} 
 		}
-			
-			glPushMatrix();
-			glTranslatef(x, y, 0f);
-			button.bind();
-			glColor3f(1f,1f,1f);
+		held = false;
+		pressed = false;
 
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);glVertex2f(0, 0);
-				glTexCoord2f(1, 0); glVertex2f(s.length()*21, 0);
-				glTexCoord2f(1, 0.5f);glVertex2f(s.length()*21, BUTTON_HEIGHT);
-				glTexCoord2f(0, 0.5f);glVertex2f(0, BUTTON_HEIGHT);
-			glEnd();
-			glPopMatrix();
-			
-			gui.drawText(1.5f, 18, s, 1f, 1f, 1f, x + (buttonLength/5), y + (BUTTON_HEIGHT/3));
-			
 	}
 
 }
