@@ -20,6 +20,8 @@ import java.util.ArrayList;
 
 import net.scylla.abandead.entities.Location;
 
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
@@ -29,6 +31,7 @@ import org.newdawn.slick.util.ResourceLoader;
 public class GUI implements Serializable {
 	private StringText text;
 	private Texture fTexture;
+	private Texture heartTexture = loadTexture("dirt");
 
 	public GUI() {
 		text = new StringText();
@@ -37,7 +40,7 @@ public class GUI implements Serializable {
 
 	public void drawWindow(int sizeX, int sizeY, float x, float y,
 			Texture text, float red, float green, float blue) {
-		
+
 		glPushMatrix();
 		glTranslatef(x, y, 0f);
 		if (text != null) {
@@ -54,8 +57,24 @@ public class GUI implements Serializable {
 		glPopMatrix();
 	}
 
-	public void drawText(float spacing, int size, String s, float red, float green, float blue, float x, float y) {
+	public void drawText(float spacing, int size, String s, float red,
+			float green, float blue, float x, float y) {
 		text.DrawString(fTexture, s, spacing, size, red, green, blue, x, y);
+	}
+
+	public void drawIcon(Texture tex, float x, float y) {
+		tex.bind();
+
+		GL11.glBegin(GL11.GL_QUADS);
+		GL11.glTexCoord2f(0, 0);
+		GL11.glVertex2f(x, y);
+		GL11.glTexCoord2f(1, 0);
+		GL11.glVertex2f(x + tex.getTextureWidth(), y);
+		GL11.glTexCoord2f(1, -1);
+		GL11.glVertex2f(x + tex.getTextureWidth(), y + tex.getTextureHeight());
+		GL11.glTexCoord2f(0, -1);
+		GL11.glVertex2f(x, y + tex.getTextureHeight());
+		GL11.glEnd();
 	}
 
 	public Texture loadTexture(String s) {

@@ -21,7 +21,7 @@ import org.lwjgl.opengl.Display;
 public class Game implements Serializable {
 
 	private boolean running = true;
-	private Player player;
+	public Player player;
 	private static Game game;
 	private static String homeDir = System.getProperty("user.home");
 	private static String directory = homeDir + File.separator + "InsanerGamer"
