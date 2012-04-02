@@ -61,10 +61,10 @@ public class HUD implements Serializable {
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
 			
-			if(button.drawButton(100, 100, "Hold to display clock.")){
-				gui.drawWindow(timeOfDay.length()*20, 32, Display.getWidth() * 0.065f, Display.getHeight() * 0.89f, clock, 1, 1, 1);
-				gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
-			}
+			gui.drawWindow(timeOfDay.length()*20, 32, Display.getWidth() * 0.065f, Display.getHeight() * 0.89f, clock, 1, 1, 1);
+			gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
+			
+			
 		
 			for(int health1 = 0; health1 < player.getHealth(); health1++){
 				gui.drawIcon(heart, health1 * 33 + 10, 20);

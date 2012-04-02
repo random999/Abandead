@@ -42,8 +42,6 @@ public class MainMenu {
 	}
 	
 	public void renderMenu(){
-		if(button.drawButton(Display.getWidth() * 0.40f, Display.getHeight() * 0.8f, "New Game")){
-			turnOff();
-		}
+		
 	}
 }

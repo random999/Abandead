@@ -25,7 +25,7 @@ public class Button {
 		button = gui.loadTexture("buttons");
 	}
 	
-	public boolean drawButton(float x, float y, String s){
+	public void drawButton(float x, float y, String s){
 		float buttonLength = (x + (s.length()*20) - x);
 
 		if(Mouse.getX() > x && Mouse.getX() < x + buttonLength &&
@@ -46,7 +46,7 @@ public class Button {
 				glPopMatrix();
 			
 				gui.drawText(1.5f, 18, s, 0f, 0f, 0f, x + (buttonLength/5) -1, y + (BUTTON_HEIGHT/3)- 1);
-				return true;
+				
 			} 
 		}
 			
@@ -64,7 +64,7 @@ public class Button {
 			glPopMatrix();
 			
 			gui.drawText(1.5f, 18, s, 1f, 1f, 1f, x + (buttonLength/5), y + (BUTTON_HEIGHT/3));
-			return false;
+			
 	}
 
 }
