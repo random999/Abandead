@@ -12,7 +12,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
+import net.scylla.abandead.gui.Button;
+import net.scylla.abandead.gui.GUI;
 import net.scylla.abandead.gui.HUD;
+import net.scylla.abandead.gui.MainMenu;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -41,6 +44,9 @@ public class Game implements Serializable {
 
 	// GUI variables
 	private HUD hud;
+	private MainMenu menu;
+	private GUI gui;
+	private Button button;
 
 	public static void main(String[] args) {
 
@@ -60,12 +66,15 @@ public class Game implements Serializable {
 		player = new Player();
 		map = new Map();
 		hud = new HUD(player, true, time);
+		menu = new MainMenu(player,true,time);
 
 		while (running) {
+			pollInput();
 			if (time.update()) {
-				pollInput();
-				render();
+						render();
+					
 			}
+	
 		}
 
 		System.out.println("Exiting game...");
@@ -87,11 +96,13 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-		
-		time.update();
-		map.render(player);
-		player.render();
-		hud.renderHud();
+		if(!menu.isOn()){
+			map.render(player);
+			player.render();
+			hud.renderHud();
+		} else {
+			menu.renderMenu();
+		}
 
 		Display.update();
 	}
@@ -122,11 +133,7 @@ public class Game implements Serializable {
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-			if (hud.isOn()) {
-				hud.turnOff();
-			} else {
-				hud.turnOn();
-			}
+	
 		}
 
 		if (Display.isCloseRequested()) {

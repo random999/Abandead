@@ -32,11 +32,6 @@ public class HUD implements Serializable {
 		loadTextures();
 		timeOfDay = "A bucnch of stuff";
 	}
-
-	private void displayTime() {
-
-	}
-
 	public void turnOn() {
 		offon = true;
 	}

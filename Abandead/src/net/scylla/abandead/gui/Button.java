@@ -25,8 +25,8 @@ public class Button {
 		button = gui.loadTexture("buttons");
 	}
 	
-	public boolean drawButton(int x, int y, String s){
-		int buttonLength = (x + (s.length()*20) - x);
+	public boolean drawButton(float x, float y, String s){
+		float buttonLength = (x + (s.length()*20) - x);
 
 		if(Mouse.getX() > x && Mouse.getX() < x + buttonLength &&
 		   Mouse.getY() > y && Mouse.getY() < y + BUTTON_HEIGHT){
