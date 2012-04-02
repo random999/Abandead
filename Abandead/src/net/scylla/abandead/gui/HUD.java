@@ -66,8 +66,9 @@ public class HUD implements Serializable {
 	
 			gui.drawWindow(timeOfDay.length()*20, 32, Display.getWidth() * 0.065f, Display.getHeight() * 0.89f, clock, 1, 1, 1);
 			gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
-
-			
+			gui.drawButton(100, 100, "Test this button", true);
+			gui.drawButton(100, 200, "Test agian", true);
+		
 			for(int health1 = 0; health1 < player.getHealth(); health1++){
 				gui.drawIcon(heart, health1 * 33 + 10, 20);
 			}
