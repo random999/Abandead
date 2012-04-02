@@ -16,10 +16,12 @@ import net.scylla.abandead.gui.Button;
 import net.scylla.abandead.gui.GUI;
 import net.scylla.abandead.gui.HUD;
 import net.scylla.abandead.gui.MainMenu;
+import net.scylla.abandead.gui.SplashScreen;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.opengl.Texture;
 
 public class Game implements Serializable {
 
@@ -46,11 +48,11 @@ public class Game implements Serializable {
 	private HUD hud;
 	private MainMenu menu;
 	private GUI gui;
-	private Button button;
+	private SplashScreen splash;
 
 	public static void main(String[] args) {
 
-		System.out.println(homeDir);
+		//System.out.println(homeDir);
 
 		game = new Game();
 		game.start();
@@ -65,8 +67,10 @@ public class Game implements Serializable {
 
 		player = new Player();
 		map = new Map();
-		hud = new HUD(player, true, time);
-		menu = new MainMenu(player,true,time);
+		hud = new HUD(player, false, time);
+		menu = new MainMenu(player,false,time);
+		gui = new GUI();
+		splash = new SplashScreen(player,true,time);
 
 		while (running) {
 			pollInput();
@@ -91,10 +95,15 @@ public class Game implements Serializable {
 	}
 
 	private void render() {
-
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
+		if(splash.isOn() && time.getTotal() < 3500){
+			splash.renderMenu();
+		} else if(splash.isOn() && time.getTotal() == 3500){
+			splash.turnOff();
+			menu.turnOn();
+		}
 		
 		if(menu.isOn()){
 			menu.renderMenu();
@@ -104,6 +113,7 @@ public class Game implements Serializable {
 			menu.turnOff();
 			map.render(player);
 			player.render();
+			hud.turnOn();
 			hud.renderHud();
 		}
 		
@@ -118,8 +128,9 @@ public class Game implements Serializable {
 		
 		if(menu.getChoice() == "exit"){
 			running = false;
+			System.exit(0);
 		}
-
+	
 		
 
 		Display.update();
