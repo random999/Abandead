@@ -20,7 +20,7 @@ public class Button {
 	private Texture button;
 	private boolean pressed;
 	private boolean held;
-	
+	private float buttonLength;
 	public Button(){
 		gui = new GUI();
 		button = gui.loadTexture("buttons");
@@ -33,8 +33,12 @@ public class Button {
 	public boolean isHeld(){
 		return held;
 	}
+	
+	public float getButtonLength(){
+		return buttonLength;
+	}
 	public void drawButton(float x, float y, String s){
-		float buttonLength = (x + (s.length()*20) - x);
+		buttonLength = (x + (s.length()*20) - x);
 
 		glPushMatrix();
 		glTranslatef(x, y, 0f);

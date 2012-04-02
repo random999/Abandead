@@ -71,8 +71,7 @@ public class Game implements Serializable {
 		while (running) {
 			pollInput();
 			if (time.update()) {
-						render();
-					
+				render();		
 			}
 	
 		}
@@ -96,9 +95,31 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
+		
+		if(menu.isOn()){
+			menu.renderMenu();
+		}
+		
+		if(menu.getChoice() == "new"){
+			menu.turnOff();
 			map.render(player);
 			player.render();
 			hud.renderHud();
+		}
+		
+		if(menu.getChoice() == "load"){
+			loadGame();
+			menu.setChoice("new");
+		}
+		
+		if(menu.getChoice() == "options"){
+			
+		}
+		
+		if(menu.getChoice() == "exit"){
+			running = false;
+		}
+
 		
 
 		Display.update();

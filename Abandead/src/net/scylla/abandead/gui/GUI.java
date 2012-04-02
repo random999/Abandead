@@ -89,7 +89,7 @@ public class GUI implements Serializable {
 		}
 		return null;
 	}
-
+	
 	public Texture loadFont() {
 		try {
 			return TextureLoader.getTexture("PNG", new FileInputStream(

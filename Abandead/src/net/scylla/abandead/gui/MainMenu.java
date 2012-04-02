@@ -13,16 +13,31 @@ public class MainMenu {
 	private Game game;
 	private boolean offon;
 	private Player player;
-	private Button button;
+	private Button newG;
+	private Button loadG;
+	private Button opt;
+	private Button exit;
 	private Time time;
+	private String choice;
 	
 	public MainMenu(Player p, boolean b, Time t) {
 		player = p;
 		offon = b;
 		gui = new GUI();
-		button = new Button();
+		newG = new Button();
+		loadG = new Button();
+		opt = new Button();
+		exit= new Button();
 		time = t;
 		loadTextures();
+	}
+	
+	public String getChoice(){
+		return choice;
+	}
+	
+	public void setChoice(String s){
+		choice = s;
 	}
 	
 	public void turnOn() {
@@ -42,6 +57,16 @@ public class MainMenu {
 	}
 	
 	public void renderMenu(){
+		gui.drawText(1.3f, 18, "AbanDead V0.0.1 Alpha", 1, 1, 1, 0, 0);
+		gui.drawText(1.3f, 18, "Insaner Gamer - All Rights Reserved", 1, 1, 1, Display.getWidth()/2, 0);
+		newG.drawButton(Display.getWidth()/2 - newG.getButtonLength()/2, Display.getHeight() * 0.70f, "New Game");
+		loadG.drawButton(Display.getWidth()/2 - loadG.getButtonLength()/2, Display.getHeight() * 0.60f, "Load Game");
+		opt.drawButton(Display.getWidth()/2 - opt.getButtonLength()/2, Display.getHeight() * 0.50f, "Options");
+		exit.drawButton(Display.getWidth()/2 - exit.getButtonLength()/2, Display.getHeight() * 0.40f, "Exit");
+		
+		if(newG.isPressed()){
+			setChoice("new");
+		}
 		
 	}
 }
