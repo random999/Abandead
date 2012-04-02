@@ -34,50 +34,12 @@ public class GUI implements Serializable {
 	private StringText text;
 	private Texture fTexture;
 	private Texture heartTexture = loadTexture("dirt");
-	private Texture button = loadTexture("buttons");
 
 	public GUI() {
 		text = new StringText();
 		fTexture = loadFont();
 	}
-	
-	public void drawButton(int x, int y, String s, boolean pressed){
-		int buttonLength = (x + (s.length()*21) - x);
-		glPushMatrix();
-		glTranslatef(x, y, 0f);
-		button.bind();
-		glColor3f(1f,1f,1f);
 
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);glVertex2f(0, 0);
-			glTexCoord2f(1, 0); glVertex2f(s.length()*21, 0);
-			glTexCoord2f(1, 0.5f);glVertex2f(s.length()*21, BUTTON_HEIGHT);
-			glTexCoord2f(0, 0.5f);glVertex2f(0, BUTTON_HEIGHT);
-		glEnd();
-		glPopMatrix();
-		
-		drawText(1.5f, 18, s, 1f, 1f, 1f, x + (buttonLength/5), y + (BUTTON_HEIGHT/3));
-		if(Mouse.getX() > x && Mouse.getX() < x + (s.length()*20) &&
-		   Mouse.getY() > y && Mouse.getY() < y + BUTTON_HEIGHT){
-
-			if(Mouse.isButtonDown(0)){
-				glPushMatrix();
-				glTranslatef(x, y, 0f);
-				button.bind();
-				glColor3f(1f,1f,1f);
-				
-				glBegin(GL_QUADS);
-					glTexCoord2f(0, 0.5f);glVertex2f(0, 0);
-					glTexCoord2f(1, 0.5f); glVertex2f(s.length()*21, 0);
-					glTexCoord2f(1, 1);glVertex2f(s.length()*21, BUTTON_HEIGHT);
-					glTexCoord2f(0, 1);glVertex2f(0, BUTTON_HEIGHT);
-				glEnd();
-				glPopMatrix();
-			
-				drawText(1.5f, 18, s, 0f, 0f, 0f, x + (buttonLength/5) -1, y + (BUTTON_HEIGHT/3)- 1);
-			}
-		}
-	}
 
 	public void drawWindow(int sizeX, int sizeY, float x, float y,
 			Texture text, float red, float green, float blue) {

@@ -15,6 +15,7 @@ public class HUD implements Serializable {
 	private Game game;
 	private boolean offon;
 	private Player player;
+	private Button button;
 	private Texture clock;
 	private Texture sand;
 	private Texture heart;
@@ -26,6 +27,7 @@ public class HUD implements Serializable {
 		player = p;
 		offon = b;
 		gui = new GUI();
+		button = new Button();
 		time = t;
 		loadTextures();
 		timeOfDay = "A bucnch of stuff";
@@ -63,11 +65,11 @@ public class HUD implements Serializable {
 		{
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
-	
-			gui.drawWindow(timeOfDay.length()*20, 32, Display.getWidth() * 0.065f, Display.getHeight() * 0.89f, clock, 1, 1, 1);
-			gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
-			gui.drawButton(100, 100, "Test this button", true);
-			gui.drawButton(100, 200, "Test agian", true);
+			
+			if(button.drawButton(100, 100, "Hold to display clock.")){
+				gui.drawWindow(timeOfDay.length()*20, 32, Display.getWidth() * 0.065f, Display.getHeight() * 0.89f, clock, 1, 1, 1);
+				gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
+			}
 		
 			for(int health1 = 0; health1 < player.getHealth(); health1++){
 				gui.drawIcon(heart, health1 * 33 + 10, 20);
