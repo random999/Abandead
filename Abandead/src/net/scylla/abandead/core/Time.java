@@ -33,6 +33,10 @@ public class Time {
 		}
 	}
 	
+	public int getTotal(){
+		return currentTime;
+	}
+	
 	private void changeDayLight() {
 		double ratio = Math.PI/43200;
 		double sine = Math.sin(ratio * currentTime);
