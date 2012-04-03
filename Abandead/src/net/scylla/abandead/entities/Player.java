@@ -13,6 +13,9 @@ import java.io.Serializable;
 
 import net.scylla.abandead.core.Animation;
 import net.scylla.abandead.core.Game;
+import net.scylla.abandead.core.Time;
+import net.scylla.abandead.gui.DeathScreen;
+import net.scylla.abandead.gui.MainMenu;
 import net.scylla.abandead.tiles.Region;
 import net.scylla.abandead.tiles.TileType;
 
@@ -30,6 +33,7 @@ public class Player implements Serializable {
 	private static int mX;
 	private float centerX;
 	private float centerY;
+	private Location spawnLocation;
 	private Location location;
 	private Skin skin;
 	private int health;
@@ -40,6 +44,7 @@ public class Player implements Serializable {
 		this.location = new Location();
 		skin = Skin.PLAYER;
 		health = 10;
+		spawnLocation = new Location(0, 0);
 	}
 	
 	public void render() {
@@ -66,6 +71,22 @@ public class Player implements Serializable {
 		double angle = Math.atan2(YDistance, XDistance) * 180 / Math.PI;
 		return (float) angle;
 
+	}
+	
+	public void respawn(){
+		health = 10;
+		speed = 3;
+		location.setX(spawnLocation.getX());
+		location.setY(spawnLocation.getY());
+	}
+	
+	public void setDead(){
+		health = 0;
+		speed = 0;
+	}
+	
+	public void setHealth(int i){
+		health = i;
 	}
 	
 	public int getHealth(){

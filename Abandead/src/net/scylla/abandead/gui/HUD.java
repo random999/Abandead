@@ -15,6 +15,8 @@ public class HUD implements Serializable {
 	private Game game;
 	private boolean offon;
 	private Player player;
+	private Button button;
+	private Texture clock;
 	private Texture sand;
 	private Texture heart;
 	private Time time;
@@ -25,15 +27,11 @@ public class HUD implements Serializable {
 		player = p;
 		offon = b;
 		gui = new GUI();
+		button = new Button();
 		time = t;
 		loadTextures();
 		timeOfDay = "A bucnch of stuff";
 	}
-
-	private void displayTime() {
-
-	}
-
 	public void turnOn() {
 		offon = true;
 	}
@@ -47,23 +45,34 @@ public class HUD implements Serializable {
 	}
 
 	private void loadTextures() {
+
+		clock = gui.loadTexture("clockbacking");
 		sand = gui.loadTexture("sand");
 		heart = gui.loadTexture("heart");
+
 	}
 
 	public void renderHud() {
 		
-		timeOfDay = "Time: " + time.getHour() + ":" + time.getMinute2() + time.getMinute1() + " " + time.getAMPM();
+		timeOfDay = time.getHour() + ":" + time.getMinute2() + time.getMinute1() + " " + time.getAMPM();
 		
 		if (offon)
 		{
 			GL11.glPushMatrix();
 			GL11.glLoadIdentity();
 			
-			gui.drawWindow(200, 50, 25, Display.getHeight() - 75, gui.loadTexture("clockbacking"), 1, 1, 1);
-
-			gui.drawText(1.5f, 18, timeOfDay, 1f, 0f, 0f, Display.getWidth() * 0.06f, Display.getHeight() * 0.90f);
+			gui.drawWindow(timeOfDay.length()*20, 32, Display.getWidth() * 0.065f, Display.getHeight() * 0.89f, clock, 1, 1, 1);
+			gui.drawText(1.5f, 18, timeOfDay, 0f, 1f, 0.2f, Display.getWidth() * 0.10f, Display.getHeight() * 0.90f);
 			
+			button.drawButton(100, 100, "Durp your health.");
+			
+			if(button.isPressed()){
+				if(player.getHealth() > 0){
+					player.heal(-1);
+				}
+			}
+			
+		
 			for(int health1 = 0; health1 < player.getHealth(); health1++){
 				gui.drawIcon(heart, health1 * 33 + 10, 20);
 			}

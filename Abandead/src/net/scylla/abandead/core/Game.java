@@ -12,11 +12,17 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
+import net.scylla.abandead.gui.Button;
+import net.scylla.abandead.gui.DeathScreen;
+import net.scylla.abandead.gui.GUI;
 import net.scylla.abandead.gui.HUD;
+import net.scylla.abandead.gui.MainMenu;
+import net.scylla.abandead.gui.SplashScreen;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.opengl.Texture;
 
 public class Game implements Serializable {
 
@@ -34,14 +40,19 @@ public class Game implements Serializable {
 	public static final int TILE_SIZE = 64;
 	public static final int REGION_SIZE = 16;
 	private Map map;
-	private Time time;
+	public Time time;
 
 	// GUI variables
+	private GUI gui;
+
 	private HUD hud;
+	private MainMenu menu;
+	private SplashScreen splash;
+	private DeathScreen deathScreen;
 
 	public static void main(String[] args) {
 
-		System.out.println(homeDir);
+		// System.out.println(homeDir);
 
 		game = new Game();
 		game.start();
@@ -56,13 +67,18 @@ public class Game implements Serializable {
 
 		player = new Player();
 		map = new Map();
-		hud = new HUD(player, true, time);
+		hud = new HUD(player, false, time);
+		menu = new MainMenu(player, false, time);
+		gui = new GUI();
+		splash = new SplashScreen(player, true, time);
+		deathScreen = new DeathScreen(player, false, time);
 
 		while (running) {
+			pollInput();
 			if (time.update()) {
-				pollInput();
 				render();
 			}
+
 		}
 
 		System.out.println("Exiting game...");
@@ -80,15 +96,51 @@ public class Game implements Serializable {
 	}
 
 	private void render() {
-
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-		
-		time.update();
-		map.render(player);
-		player.render();
-		hud.renderHud();
+
+		if (splash.isOn() && time.getTotal() < 1750) {
+			splash.renderMenu();
+		} else if(splash.isOn() && time.getTotal() == 2500){
+
+		} else if (splash.isOn() && time.getTotal() == 1750) {
+
+			splash.turnOff();
+			menu.turnOn();
+		}
+
+		if (menu.isOn()) {
+			menu.renderMenu();
+		}
+
+		if (menu.getChoice() == "new") {
+			menu.turnOff();
+			map.render(player);
+			player.render();
+			hud.turnOn();
+			hud.renderHud();
+		}
+
+		if (menu.getChoice() == "load") {
+			loadGame();
+			menu.setChoice("new");
+		}
+
+		if (menu.getChoice() == "options") {
+
+		}
+
+		if (menu.getChoice() == "exit") {
+			running = false;
+			System.exit(0);
+		}
+
+		if (player.getHealth() < 1) {
+			player.setDead();
+			deathScreen.turnOn();
+			deathScreen.renderMenu();
+		}
 
 		Display.update();
 	}
@@ -111,19 +163,15 @@ public class Game implements Serializable {
 			running = false;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
-			saveGame();
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
-			loadGame();
+		
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-			if (hud.isOn()) {
-				hud.turnOff();
-			} else {
-				hud.turnOn();
-			}
+
 		}
 
 		if (Display.isCloseRequested()) {
@@ -193,7 +241,7 @@ public class Game implements Serializable {
 	/**
 	 * Saves game objects to object files.
 	 */
-	private void saveGame() {
+	public void saveGame() {
 
 		ObjectOutputStream outM;
 		ObjectOutputStream outP;
