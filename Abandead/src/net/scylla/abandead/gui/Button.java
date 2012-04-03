@@ -43,7 +43,7 @@ public class Button {
 		buttonLength = (x + (s.length()*20) - x);
 
 		glPushMatrix();
-		glTranslatef(x, y, 0f);
+		glTranslatef(x -400, y - 300, 0f);
 		button.bind();
 		glColor3f(1f,1f,1f);
 
@@ -62,7 +62,7 @@ public class Button {
 
 			if(Mouse.isButtonDown(0)){
 				glPushMatrix();
-				glTranslatef(x, y, 0f);
+				glTranslatef(x - 400, y - 300, 0f);
 				button.bind();
 				glColor3f(1f,1f,1f);
 				

@@ -82,7 +82,7 @@ public class GUI implements Serializable {
 		float boxL = ((x + l)- x);
 		
 		glPushMatrix();
-		glTranslatef(x, y, 0f);
+		glTranslatef(x - 400, y - 300, 0f);
 		t.bind();
 		glColor3f(1f,1f,1f);
 		if(selected){

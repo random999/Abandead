@@ -75,7 +75,6 @@ public class MainMenu {
 	}
 	
 	public void renderMenu(){
-		
 		window.drawWindow(Display.getWidth(), Display.getHeight(), 0, 0, bg, 1, 1, 1);
 		version.drawText(1.3f, 18, "AbanDead V0.0.1 Alpha", 1, 1, 1, 0, 0);
 		copy.drawText(1.3f, 18, "Insaner Gamer - All Rights Reserved", 1, 1, 1, Display.getWidth()/2, 0);
