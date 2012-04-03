@@ -18,9 +18,9 @@ public class Tile implements Serializable {
 
 	public Tile(Region region, int x, int y) {
 		float newX = region.getLocation().getX() * Region.sizeCorrection + x
-				* Game.TILE_SIZE;// + Display.getWidth() / 2;
+				* Game.TILE_SIZE;
 		float newY = region.getLocation().getY() * Region.sizeCorrection + y
-				* Game.TILE_SIZE;// + Display.getHeight() / 2;
+				* Game.TILE_SIZE;
 		location = new Location(newX, newY);
 	}
 

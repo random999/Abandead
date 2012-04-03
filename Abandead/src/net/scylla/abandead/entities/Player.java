@@ -31,8 +31,6 @@ public class Player implements Serializable {
 	private float centerX;
 	private float centerY;
 	private Location location;
-	private Location tileLocation;
-	private Location regionLocation;
 	private Skin skin;
 	private int health;
 	
@@ -40,8 +38,6 @@ public class Player implements Serializable {
 		this.width = 40;
 		this.height = 40;
 		this.location = new Location();
-		this.tileLocation = new Location();
-		this.regionLocation = new Location();
 		skin = Skin.PLAYER;
 		health = 10;
 	}
@@ -50,7 +46,6 @@ public class Player implements Serializable {
 		updateLocation();
 
 		glLoadIdentity();
-		//glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
 		skin.texture.bind();
 		glBegin(GL_QUADS);
@@ -126,9 +121,6 @@ public class Player implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
 			location.setY(location.getY() - speed);
-			//yPosition = player.getLocation().getY();
-			//yPosition -= player.getSpeed();
-			
 		}
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS) && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
@@ -142,23 +134,18 @@ public class Player implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
 			location.setY(location.getY() + speed);
-			//player.getLocation().setY(player.getLocation().getY() + player.getSpeed());
-			//yPosition = player.getLocation().getY();
-			//yPosition += player.getSpeed();
 			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
 			location.setX(location.getX() - speed);
-			//xPosition -= player.getSpeed();
 			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
 			location.setX(location.getX() + speed);
-			//xPosition += player.getSpeed();
 			
 		}
 		

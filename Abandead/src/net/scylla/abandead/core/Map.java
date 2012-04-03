@@ -45,14 +45,12 @@ public class Map implements Serializable {
 			Location regionLoc = region.getLocation();
 			if (Math.floor(regionLoc.getX()) == x
 					&& Math.floor(regionLoc.getY()) == y) {
-				//region.setType(RegionType.DESERT);
 				return region;
 			}
 		}
 		Region region;
 		int chance = rand.nextInt(100);
 		chance = 49;
-		//int chance = rand.nextInt(51);
 		if(chance < 50) {
 			region = new Region((int) x, (int) y, RegionType.DESERT);
 		} else if (chance >= 50 && chance < 75) {

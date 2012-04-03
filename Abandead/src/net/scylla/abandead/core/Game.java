@@ -74,7 +74,6 @@ public class Game implements Serializable {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		//glOrtho(0, 800, 0, 600, 1, -1);
 		glOrtho(-400,400,-300,300,1,-1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);

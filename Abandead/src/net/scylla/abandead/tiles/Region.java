@@ -18,14 +18,6 @@ public class Region implements Serializable {
 	private Random rand;
 	public static final int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
 	
-	//public Region(int xx, int yy, float sX, float sY) {
-	//	location = new Location(xx,yy);
-	//	location.setX(xx);
-	//	location.setY(yy);
-	//	
-	//	rand = new Random();
-	//}
-
 	public Region(int xx, int yy, RegionType type) {
 		this.regType = type;
 		location = new Location(xx, yy);
