@@ -42,7 +42,7 @@ public class Time {
 	}
 	
 	private void setTime(){
-		if(currentTime % 60 == 0){
+		if(currentTime % 120 == 0){
 			seconds ++;
 			if(seconds > 10){
 				minutes1++;

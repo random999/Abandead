@@ -50,7 +50,7 @@ public class Player implements Serializable {
 		updateLocation();
 
 		glLoadIdentity();
-		glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
+		//glTranslatef(Display.getWidth() / 2, Display.getHeight() / 2, 0.0f);
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
 		skin.texture.bind();
 		glBegin(GL_QUADS);
