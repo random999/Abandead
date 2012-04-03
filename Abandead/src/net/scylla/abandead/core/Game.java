@@ -98,9 +98,9 @@ public class Game implements Serializable {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glLoadIdentity();
-		if(splash.isOn() && time.getTotal() < 3500){
+		if(splash.isOn() && time.getTotal() < 2500){
 			splash.renderMenu();
-		} else if(splash.isOn() && time.getTotal() == 3500){
+		} else if(splash.isOn() && time.getTotal() == 2500){
 			splash.turnOff();
 			menu.turnOn();
 		}
@@ -154,11 +154,11 @@ public class Game implements Serializable {
 			running = false;
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
-			saveGame();
+			
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
-			loadGame();
+		
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {

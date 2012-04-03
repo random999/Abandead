@@ -22,6 +22,7 @@ public class MainMenu {
 	
 	//Textures
 	private Texture bg;
+	private Texture test;
 	
 	public MainMenu(Player p, boolean b, Time t) {
 		player = p;
@@ -57,6 +58,7 @@ public class MainMenu {
 	
 	private void loadTextures() {
 		bg = gui.loadTexture("splashscreen");
+		test = gui.loadTexture("dirt");
 	}
 	
 	public void renderMenu(){
@@ -67,7 +69,7 @@ public class MainMenu {
 		loadG.drawButton(Display.getWidth()/2 - loadG.getButtonLength()/2, Display.getHeight() * 0.60f, "Load Game");
 		opt.drawButton(Display.getWidth()/2 - opt.getButtonLength()/2, Display.getHeight() * 0.50f, "Options");
 		exit.drawButton(Display.getWidth()/2 - exit.getButtonLength()/2, Display.getHeight() * 0.40f, "Exit");
-		
+		gui.inputBox(10, 10, 100, test);
 		if(newG.isPressed()){
 			setChoice("new");
 		}
