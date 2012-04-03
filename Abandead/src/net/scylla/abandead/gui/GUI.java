@@ -59,6 +59,8 @@ public class GUI implements Serializable {
 	public void drawWindow(int sizeX, int sizeY, float x, float y,
 			Texture text, float red, float green, float blue) {
 
+		x-=Display.getWidth()/2;
+		y-=Display.getHeight()/2;
 		glPushMatrix();
 		glTranslatef(x, y, 0f);
 		if (text != null) {
@@ -189,11 +191,14 @@ public class GUI implements Serializable {
 
 	public void drawText(float spacing, int size, String s, float red,
 			float green, float blue, float x, float y) {
-		text.DrawString(fTexture, s, spacing, size, red, green, blue, x, y);
+		text.DrawString(fTexture, s, spacing, size, red, green, blue, x - Display.getWidth()/2, y - Display.getHeight()/2);
 	}
 
 	public void drawIcon(Texture tex, float x, float y) {
 		tex.bind();
+		
+		x-=Display.getWidth()/2;
+		y-=Display.getHeight()/2;
 		glColor3f(1f,1f,1f);
 
 		GL11.glBegin(GL11.GL_QUADS);

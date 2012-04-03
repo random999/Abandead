@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.lwjgl.opengl.Display;
-
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.entities.Location;
 import net.scylla.abandead.entities.Player;
@@ -18,18 +16,9 @@ public class Region implements Serializable {
 	private Location location;
 	private RegionType regType;
 	private Random rand;
-	private RegionType type;
 	public static final int sizeCorrection = Game.REGION_SIZE*Game.TILE_SIZE;
 	
-	public Region(int xx, int yy, float sX, float sY) {
-		location = new Location(xx,yy);
-		location.setX(xx);
-		location.setY(yy);
-		
-		rand = new Random();
-	}
-
-	public Region(int xx, int yy, float sX, float sY, RegionType type) {
+	public Region(int xx, int yy, RegionType type) {
 		this.regType = type;
 		location = new Location(xx, yy);
 
@@ -38,20 +27,7 @@ public class Region implements Serializable {
 		for (int x = 0; x < Game.REGION_SIZE; x++) {
 			cols = new ArrayList<Tile>();
 			for (int y = 0; y < Game.REGION_SIZE; y++) {
-				Tile tile = new Tile();
-
-				tile.getLocation().setX(location.getX()*sizeCorrection + x*Game.TILE_SIZE + sX + Display.getWidth()/2);
-				tile.getLocation().setY(location.getY()*sizeCorrection + y*Game.TILE_SIZE + sY + Display.getHeight()/2);
-				tile.setType(TileType.SAND);
-				
-						
-				
-
-				float newX = location.getX() * sizeCorrection + x
-						* Game.TILE_SIZE + sX + Display.getWidth() / 2;
-				float newY = location.getY() * sizeCorrection + y
-						* Game.TILE_SIZE + sY + Display.getHeight() / 2;
-				tile.setLocation(new Location(newX, newY));
+				Tile tile = new Tile(this, x, y);				
 				tile.setType(regType.baseType);
 				cols.add(tile);
 			}
@@ -63,7 +39,7 @@ public class Region implements Serializable {
 		this.regType = type;
 	}
 
-	public void populateTileTypes(float xStart, float yStart) {
+	public void populateTileTypes() {
 		Random rand = new Random();
 
 		for (int x = 0; x < Game.REGION_SIZE; x++)
@@ -108,10 +84,6 @@ public class Region implements Serializable {
 				else if (regType == RegionType.QUARRY) {
 					tile.setType(regType.baseType);
 				}
-
-				tile.getLocation().setX(location.getX() * sizeCorrection + x * Game.TILE_SIZE + xStart + Display.getWidth() / 2);
-				tile.getLocation().setY(location.getY() * sizeCorrection + y * Game.TILE_SIZE + yStart + Display.getHeight() / 2);
-
 			}
 		}
 	}
@@ -231,22 +203,11 @@ public class Region implements Serializable {
 		return tileList.get(0).get(0);
 	}
 
-	public void render(float xStart, float yStart) {
-		int x = 0;
+	public void render(Player player) {
 		for (ArrayList<Tile> list : tileList) {
-			float y = 0;
 			for (Tile tile : list) {
-				float newX = location.getX() * sizeCorrection + x
-						* Game.TILE_SIZE + xStart + Display.getWidth() / 2;
-				float newY = location.getY() * sizeCorrection + y
-						* Game.TILE_SIZE + yStart + Display.getHeight() / 2;
-				tile.setLocation(new Location(newX, newY));
-				tile.getLocation().setX(newX);
-				tile.getLocation().setY(newY);
-				tile.render();
-				y++;
+				tile.render(player);
 			}
-			x++;
 		}
 	}
 }

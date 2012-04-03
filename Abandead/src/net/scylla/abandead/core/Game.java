@@ -38,10 +38,7 @@ public class Game implements Serializable {
 	private static File gameFile = new File(directory + "game.obj");
 
 	public static final int TILE_SIZE = 64;
-	// public static final int MAP_WIDTH = 10;
-	// public static final int MAP_HEIGHT = 10;
 	public static final int REGION_SIZE = 16;
-	public static final int LOADED_REGIONS = 3;
 	private Map map;
 	public Time time;
 
@@ -93,7 +90,7 @@ public class Game implements Serializable {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		glOrtho(0, 800, 0, 600, 1, -1);
+		glOrtho(-400,400,-300,300,1,-1);
 		glMatrixMode(GL_MODELVIEW);
 		glEnable(GL_TEXTURE_2D);
 	}

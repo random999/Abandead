@@ -1,19 +1,13 @@
 package net.scylla.abandead.core;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-
-import org.lwjgl.opengl.Display;
 
 import net.scylla.abandead.entities.Location;
 import net.scylla.abandead.entities.Player;
 import net.scylla.abandead.tiles.Region;
 import net.scylla.abandead.tiles.RegionType;
-import net.scylla.abandead.tiles.Tile;
-import net.scylla.abandead.tiles.TileType;
 
 public class Map implements Serializable {
 	private ArrayList<Region> mapRegions;
@@ -39,8 +33,7 @@ public class Map implements Serializable {
 				int diffY = (int) (regionLoc.getY() - playerLoc.getY());
 
 				if (Math.abs(diffX) <= 1 && Math.abs(diffY) <= 1) {
-					region.render(-player.getLocation().getX(), -player
-							.getLocation().getY());
+					region.render(player);
 				} 
 			}
 		}
@@ -52,23 +45,22 @@ public class Map implements Serializable {
 			Location regionLoc = region.getLocation();
 			if (Math.floor(regionLoc.getX()) == x
 					&& Math.floor(regionLoc.getY()) == y) {
-				//region.setType(RegionType.DESERT);
 				return region;
 			}
 		}
 		Region region;
-		int chance = 49;
-		//int chance = rand.nextInt(51);
+		int chance = rand.nextInt(100);
+		chance = 49;
 		if(chance < 50) {
-			region = new Region((int) x, (int) y,-p.getLocation().getX(), -p.getLocation().getY(), RegionType.DESERT);
+			region = new Region((int) x, (int) y, RegionType.DESERT);
 		} else if (chance >= 50 && chance < 75) {
-			region = new Region((int) x, (int) y,-p.getLocation().getX(), -p.getLocation().getY(), RegionType.HOUSE);
+			region = new Region((int) x, (int) y, RegionType.HOUSE);
 		} else if (chance >= 75 && chance < 90) {
-			region = new Region((int) x, (int) y,-p.getLocation().getX(), -p.getLocation().getY(), RegionType.QUARRY);
+			region = new Region((int) x, (int) y, RegionType.QUARRY);
 		} else {
-			region = new Region((int) x, (int) y,-p.getLocation().getX(), -p.getLocation().getY(), RegionType.CITY);
+			region = new Region((int) x, (int) y, RegionType.CITY);
 		}
-		region.populateTileTypes(-p.getLocation().getX(), -p.getLocation().getY());
+		region.populateTileTypes();
 		mapRegions.add(region);
 		return region;
 	}
