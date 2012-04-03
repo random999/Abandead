@@ -14,6 +14,7 @@ import java.io.Serializable;
 import net.scylla.abandead.core.Animation;
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.core.Time;
+import net.scylla.abandead.gui.CharClasses;
 import net.scylla.abandead.gui.DeathScreen;
 import net.scylla.abandead.gui.MainMenu;
 import net.scylla.abandead.tiles.Region;
@@ -29,6 +30,7 @@ public class Player implements Serializable {
 	private int width;
 	private int height;
 	private int speed =  3;
+	private int stamina;
 	private static int mY;
 	private static int mX;
 	private float centerX;
@@ -38,16 +40,37 @@ public class Player implements Serializable {
 	private Skin skin;
 	private int health;
 	
+	//Player attributes
+	private String name;
+	private CharClasses pclass;
+	private int healthSum;
+	private int CarryComp;
+	private int stamSum;
+	private int Con;
+	private int Dex;
+	private int Str;
+	private int Intel;
+	private int Wis;
+	private int MaxDamage;
+	private int MinDamage;
+	private boolean infected;
+	
 	public Player() {
 		this.width = 40;
 		this.height = 40;
 		this.location = new Location();
 		skin = Skin.PLAYER;
-		health = 10;
+		health = healthSum;
+		stamina = stamSum;
 		spawnLocation = new Location(0, 0);
 	}
 	
+	public void setType(CharClasses charc){
+		pclass = charc;
+	}
+	
 	public void render() {
+		calcStats();
 		updateLocation();
 
 		glLoadIdentity();
@@ -59,6 +82,15 @@ public class Player implements Serializable {
 			glTexCoord2f(1,1);glVertex2d(width / 2, height / 2);
 			glTexCoord2f(0,1);glVertex2d(-width / 2, height / 2);
 		glEnd();
+	}
+	
+	private void calcStats(){
+		healthSum = Con * 2;
+		CarryComp = Str * 11;
+		speed += Dex/2;
+		stamSum = Dex * 5;
+		MaxDamage = Str * 2;
+		MinDamage = Str / 2;
 	}
 
 	private float calcRotation() {
@@ -74,7 +106,7 @@ public class Player implements Serializable {
 	}
 	
 	public void respawn(){
-		health = 10;
+		health = healthSum;
 		speed = 3;
 		location.setX(spawnLocation.getX());
 		location.setY(spawnLocation.getY());

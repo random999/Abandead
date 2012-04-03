@@ -111,14 +111,18 @@ public class Game implements Serializable {
 			menu.renderMenu();
 		}
 
-		if (menu.getChoice() == "new") {
+		if (menu.getChoice() == "newM") {
 			menu.turnOff();
 			map.render(player);
 			player.render();
 			hud.turnOn();
 			hud.renderHud();
 		}
-
+		
+		if(menu.getChoice() == "newC"){
+			
+		}
+		
 		if (menu.getChoice() == "load") {
 			loadGame();
 			menu.setChoice("new");
