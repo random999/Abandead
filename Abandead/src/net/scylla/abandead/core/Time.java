@@ -45,6 +45,10 @@ public class Time {
 		//System.out.println(change + ": " + getHour());
 	}
 	
+	public void timeReset(){
+		currentTime = 0;
+	}
+	
 	private void setTime(){
 		if(currentTime % 60 == 0){
 			seconds ++;

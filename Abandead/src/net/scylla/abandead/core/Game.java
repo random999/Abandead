@@ -72,7 +72,7 @@ public class Game implements Serializable {
 		map = new Map();
 		hud = new HUD(player, false, time);
 		menu = new MainMenu(player, false, time);
-		gui = new GUI();
+		gui = new GUI(time);
 		splash = new SplashScreen(player, true, time);
 		deathScreen = new DeathScreen(player, false, time);
 
@@ -105,10 +105,7 @@ public class Game implements Serializable {
 
 		if (splash.isOn() && time.getTotal() < 1750) {
 			splash.renderMenu();
-		} else if(splash.isOn() && time.getTotal() == 2500){
-
 		} else if (splash.isOn() && time.getTotal() == 1750) {
-
 			splash.turnOff();
 			menu.turnOn();
 		}
@@ -164,17 +161,6 @@ public class Game implements Serializable {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			running = false;
-		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_O)) {
-			
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_I)) {
-		
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_F)) {
-
 		}
 
 		if (Display.isCloseRequested()) {

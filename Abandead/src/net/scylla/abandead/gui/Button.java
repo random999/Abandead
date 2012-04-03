@@ -10,6 +10,8 @@ import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
 
+import net.scylla.abandead.core.Time;
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
@@ -21,8 +23,8 @@ public class Button {
 	private boolean pressed;
 	private boolean held;
 	private float buttonLength;
-	public Button(){
-		gui = new GUI();
+	public Button(Time t){
+		gui = new GUI(t);
 		button = gui.loadTexture("buttons");
 	}
 	

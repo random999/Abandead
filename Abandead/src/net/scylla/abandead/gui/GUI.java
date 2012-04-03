@@ -21,6 +21,7 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import net.scylla.abandead.core.Time;
 import net.scylla.abandead.entities.Location;
 
 import org.lwjgl.input.Mouse;
@@ -38,6 +39,7 @@ public class GUI implements Serializable {
 	private Texture fTexture;
 	private Texture heartTexture = loadTexture("dirt");
 	private String stringTotal = "";
+	private Time time;
 	
 	//input box variables
 	private boolean pressed;
@@ -46,7 +48,8 @@ public class GUI implements Serializable {
 	private StringBuffer bInput;
 	private float boxL;
 
-	public GUI() {
+	public GUI(Time t) {
+		time = t;
 		text = new StringText();
 		fTexture = loadFont();
 		bInput = new StringBuffer();
@@ -72,24 +75,31 @@ public class GUI implements Serializable {
 		glPopMatrix();
 	}
 	
-	public void inputBox(float x, float y, float l,Texture t){
-		
-		
-		
+	public String inputBox(float x, float y, float l, int maxL, Texture t){
+	
 		float boxL = ((x + l)- x);
 		
 		glPushMatrix();
 		glTranslatef(x, y, 0f);
 		t.bind();
 		glColor3f(1f,1f,1f);
-		
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 0.5f);glVertex2f(0, 0);
-			glTexCoord2f(1, 0.5f); glVertex2f(l, 0);
-			glTexCoord2f(1, 1);glVertex2f(l, BUTTON_HEIGHT);
-			glTexCoord2f(0, 1);glVertex2f(0, BUTTON_HEIGHT);
-		glEnd();
-		glPopMatrix();
+		if(selected){
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0.5f);glVertex2f(0, 0);
+				glTexCoord2f(1, 0.5f); glVertex2f(l, 0);
+				glTexCoord2f(1, 1);glVertex2f(l, BUTTON_HEIGHT);
+				glTexCoord2f(0, 1);glVertex2f(0, BUTTON_HEIGHT);
+			glEnd();
+			glPopMatrix();
+		} else {
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);glVertex2f(0, 0);
+				glTexCoord2f(1, 0f); glVertex2f(l, 0);
+				glTexCoord2f(1, 0.5f);glVertex2f(l, BUTTON_HEIGHT);
+				glTexCoord2f(0, 0.5f);glVertex2f(0, BUTTON_HEIGHT);
+			glEnd();
+			glPopMatrix();
+		}
 		
 		
 		
@@ -97,10 +107,9 @@ public class GUI implements Serializable {
 		   Mouse.getY() > y && Mouse.getY() < y + BUTTON_HEIGHT){
 
 				if(Mouse.isButtonDown(0)){			
-					if(pressed){
-						
+					if(pressed){		
 						held = true;
-						pressed = false;
+						pressed = false;	
 					}else if(!held){
 						pressed = true;
 						if(selected){
@@ -110,24 +119,72 @@ public class GUI implements Serializable {
 						}
 					}
 				}
-		}	
+		} else {
+			if(Mouse.isButtonDown(0)){
+				selected = false;
+			}
+		}
 		if(selected){
-			Keyboard.enableRepeatEvents(false);
-			if(Keyboard.next()){
-				if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
-					bInput.append(" ");
-				} else if(Keyboard.isKeyDown(Keyboard.KEY_BACK)){
-					bInput.deleteCharAt(bInput.toString().length() - 1);
-				} else {
-					bInput.append(Keyboard.getKeyName(Keyboard.getEventKey()));
+			if(bInput.toString().length() < maxL){
+				if(Keyboard.next()){
+					if(Keyboard.getEventKey() == Keyboard.KEY_SPACE){
+						if(!Keyboard.getEventKeyState()){
+							bInput.append(" ");
+						}
+					}else if(Keyboard.getEventKey() == Keyboard.KEY_BACK){
+						if(!Keyboard.getEventKeyState()){
+							if(bInput.length() > 0){
+								bInput.deleteCharAt(bInput.toString().length() - 1);
+							}
+						}
+					} else if(Keyboard.getEventKey() == Keyboard.KEY_LSHIFT || Keyboard.getEventKey() == Keyboard.KEY_RSHIFT){
+						
+					} else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN){
+						selected = false;
+						if(bInput.toString().endsWith("|")){
+							bInput.deleteCharAt(bInput.toString().length() - 1);
+						}
+						return bInput.toString();
+						
+					}else  {
+						if(!Keyboard.getEventKeyState()){
+							bInput.append(Keyboard.getKeyName(Keyboard.getEventKey()));
+						}
+					}
+					
+				}
+			} else {
+				if(Keyboard.next()){
+					if(Keyboard.getEventKey() == Keyboard.KEY_BACK){
+						if(!Keyboard.getEventKeyState()){
+							if(bInput.length() > 0){
+								bInput.deleteCharAt(bInput.toString().length() - 1);
+							}
+						}
+					}else if(Keyboard.getEventKey() == Keyboard.KEY_RETURN){
+						selected = false;
+						if(bInput.toString().endsWith("|")){
+							bInput.deleteCharAt(bInput.toString().length() - 1);
+						}
+						return bInput.toString();
+						
+					}
 				}
 			}
-			System.out.println(bInput);
-			drawText(1.5f, 18, bInput.toString(), 0f, 0f, 0f, x + (boxL/5) -1, y + (BUTTON_HEIGHT/3)- 1);
-			return;
+				
+			if(!bInput.toString().endsWith("|")){
+					bInput.append("|");
+			}
+		}
+		//System.out.println(bInput);
+		drawText(1.5f, 18, bInput.toString(), 0f, 0f, 0f, x + (boxL/5) -1, y + (BUTTON_HEIGHT/3)- 1);
+
+		if(bInput.toString().endsWith("|")){
+			bInput.deleteCharAt(bInput.toString().length() - 1);
 		}
 		pressed = false;
 		held = false;
+		return bInput.toString();
 	}
 
 	public void drawText(float spacing, int size, String s, float red,

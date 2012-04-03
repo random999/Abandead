@@ -21,7 +21,7 @@ public class SplashScreen {
 	public SplashScreen(Player p, boolean b, Time t) {
 		player = p;
 		offon = b;
-		gui = new GUI();
+		gui = new GUI(t);
 		time = t;
 		loadTextures();
 	}

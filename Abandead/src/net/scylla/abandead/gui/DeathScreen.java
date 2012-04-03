@@ -25,9 +25,9 @@ public class DeathScreen {
 	public DeathScreen(Player p, boolean b, Time t) {
 		player = p;
 		offon = b;
-		gui = new GUI();
-		respawn = new Button();
-		quitToMenu = new Button();
+		gui = new GUI(t);
+		respawn = new Button(t);
+		quitToMenu = new Button(t);
 		time = t;
 		loadTextures();
 	}

@@ -26,8 +26,8 @@ public class HUD implements Serializable {
 	public HUD(Player p, boolean b, Time t) {
 		player = p;
 		offon = b;
-		gui = new GUI();
-		button = new Button();
+		gui = new GUI(t);
+		button = new Button(t);
 		time = t;
 		loadTextures();
 		timeOfDay = "A bucnch of stuff";
