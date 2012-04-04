@@ -20,7 +20,7 @@ public class MainMenu {
 	private GUI input;
 	
 	//buttons
-	private Button newM;
+	private Button newC;
 	private Button loadG;
 	private Button opt;
 	private Button exit;
@@ -34,6 +34,7 @@ public class MainMenu {
 	public MainMenu(Player p, boolean b, Time t) {
 		player = p;
 		offon = b;
+		choice = "";
 		//GUI
 		copy = new GUI(t);
 		version = new GUI(t);
@@ -41,7 +42,7 @@ public class MainMenu {
 		window = new GUI(t);
 		
 		//button
-		newM = new Button(t);
+		newC = new Button(t);
 		loadG = new Button(t);
 		opt = new Button(t);
 		exit = new Button(t);

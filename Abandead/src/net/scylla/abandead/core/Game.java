@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 import net.scylla.abandead.entities.Player;
 import net.scylla.abandead.gui.Button;
+import net.scylla.abandead.gui.CharCreation;
 import net.scylla.abandead.gui.DeathScreen;
 import net.scylla.abandead.gui.GUI;
 import net.scylla.abandead.gui.HUD;
@@ -49,6 +50,7 @@ public class Game implements Serializable {
 	private MainMenu menu;
 	private SplashScreen splash;
 	private DeathScreen deathScreen;
+	private CharCreation charCreation;
 
 	public static void main(String[] args) {
 
@@ -72,6 +74,7 @@ public class Game implements Serializable {
 		gui = new GUI(time);
 		splash = new SplashScreen(player, true, time);
 		deathScreen = new DeathScreen(player, false, time);
+		charCreation = new CharCreation(player, false, time);
 
 		while (running) {
 			pollInput();
@@ -110,22 +113,25 @@ public class Game implements Serializable {
 		if (menu.isOn()) {
 			menu.renderMenu();
 		}
-
-		if (menu.getChoice() == "newM") {
+		
+		if(menu.getChoice() == "start"){
 			menu.turnOff();
 			map.render(player);
 			player.render();
 			hud.turnOn();
 			hud.renderHud();
 		}
-		
-		if(menu.getChoice() == "newC"){
-			
+
+		if (menu.getChoice() == "newC") {
+			menu.turnOff();
+			charCreation.turnOn();
+			charCreation.renderMenu();
 		}
+
 		
 		if (menu.getChoice() == "load") {
 			loadGame();
-			menu.setChoice("new");
+			menu.setChoice("newC");
 		}
 
 		if (menu.getChoice() == "options") {

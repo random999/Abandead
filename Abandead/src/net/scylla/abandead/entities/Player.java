@@ -60,7 +60,7 @@ public class Player implements Serializable {
 		this.height = 40;
 		this.location = new Location();
 		skin = Skin.PLAYER;
-		health = healthSum;
+		health = 1;
 		stamina = stamSum;
 		spawnLocation = new Location(0, 0);
 	}
