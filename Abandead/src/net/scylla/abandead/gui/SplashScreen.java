@@ -11,32 +11,22 @@ public class SplashScreen {
 	
 	private GUI gui;
 	private Game game;
-	private boolean offon;
 	private Player player;
 	private Time time;
 	
 	//Textures
 	private Texture bg;
 	
-	public SplashScreen(Player p, boolean b, Time t) {
+	private MenuOptions mopt;
+	
+	public SplashScreen(Player p, boolean b, Time t, Game g) {
+		game = g;
 		player = p;
-		offon = b;
 		gui = new GUI(t);
 		time = t;
 		loadTextures();
 	}
 	
-	public void turnOn() {
-		offon = true;
-	}
-
-	public void turnOff() {
-		offon = false;
-	}
-
-	public boolean isOn() {
-		return offon;
-	}
 	
 	private void loadTextures() {
 		bg = gui.loadTexture("splashscreen");

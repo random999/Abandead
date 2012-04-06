@@ -10,7 +10,6 @@ import net.scylla.abandead.entities.Player;
 public class MainMenu {
 	
 	private Game game;
-	private boolean offon;
 	private Player player;
 	
 	//gui's
@@ -25,17 +24,17 @@ public class MainMenu {
 	private Button opt;
 	private Button exit;
 	private Time time;
-	private String choice;
 	
 	//Textures
 	private Texture bg;
 	private Texture test;
 	
-	public MainMenu(Player p, boolean b, Time t) {
+	private MenuOptions mopt;
+	
+	public MainMenu(Player p, boolean b, Time t, Game g) {
+		game = g;
 		player = p;
-		offon = b;
-		choice = "";
-		//GUI
+	//GUI
 		copy = new GUI(t);
 		version = new GUI(t);
 		input = new GUI(t);
@@ -48,26 +47,6 @@ public class MainMenu {
 		exit = new Button(t);
 		time = t;
 		loadTextures();
-	}
-	
-	public String getChoice(){
-		return choice;
-	}
-	
-	public void setChoice(String s){
-		choice = s;
-	}
-	
-	public void turnOn() {
-		offon = true;
-	}
-
-	public void turnOff() {
-		offon = false;
-	}
-
-	public boolean isOn() {
-		return offon;
 	}
 	
 	private void loadTextures() {
@@ -87,10 +66,10 @@ public class MainMenu {
 		
 
 		if(newC.isPressed()){
-			setChoice("newC");
+			game.setMopt(MenuOptions.NEWCHAR);
 		}
 		if(exit.isPressed()){
-			setChoice("exit");
+			game.setMopt(MenuOptions.EXIT);
 		}
 		
 	}

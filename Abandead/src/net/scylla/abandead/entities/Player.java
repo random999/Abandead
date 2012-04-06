@@ -84,10 +84,17 @@ public class Player implements Serializable {
 		glEnd();
 	}
 	
+	public void setStats(int str, int dex, int con, int wis, int intel){
+		Con += con;
+		Str += str;
+		Dex += dex; 
+		Wis += wis;
+		Intel += intel;
+	}
 	private void calcStats(){
-		healthSum = Con * 2;
+		healthSum =(int)(Con * 1.5f);
 		CarryComp = Str * 11;
-		speed += Dex/2;
+		speed = Dex/3;
 		stamSum = Dex * 5;
 		MaxDamage = Str * 2;
 		MinDamage = Str / 2;

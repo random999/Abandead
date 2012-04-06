@@ -18,6 +18,7 @@ import net.scylla.abandead.gui.DeathScreen;
 import net.scylla.abandead.gui.GUI;
 import net.scylla.abandead.gui.HUD;
 import net.scylla.abandead.gui.MainMenu;
+import net.scylla.abandead.gui.MenuOptions;
 import net.scylla.abandead.gui.SplashScreen;
 
 import org.lwjgl.input.Keyboard;
@@ -51,11 +52,11 @@ public class Game implements Serializable {
 	private SplashScreen splash;
 	private DeathScreen deathScreen;
 	private CharCreation charCreation;
+	private MenuOptions mopt;
 
 	public static void main(String[] args) {
 
 		// System.out.println(homeDir);
-
 		game = new Game();
 		game.start();
 	}
@@ -66,15 +67,16 @@ public class Game implements Serializable {
 
 		IGDisplay.create(800, 600);
 		enableOpenGL();
-
+		
+		mopt = MenuOptions.MAIN;
 		player = new Player();
 		map = new Map();
-		hud = new HUD(player, false, time);
-		menu = new MainMenu(player, false, time);
+		hud = new HUD(player, false, time, game);
+		menu = new MainMenu(player, false, time, game);
 		gui = new GUI(time);
-		splash = new SplashScreen(player, true, time);
+		splash = new SplashScreen(player, true, time, game);
 		deathScreen = new DeathScreen(player, false, time);
-		charCreation = new CharCreation(player, false, time);
+		charCreation = new CharCreation(player, false, time, game);
 
 		while (running) {
 			pollInput();
@@ -103,42 +105,36 @@ public class Game implements Serializable {
 
 		glLoadIdentity();
 
-		if (splash.isOn() && time.getTotal() < 1750) {
+		if (time.getTotal() < 3050) {
 			splash.renderMenu();
-		} else if (splash.isOn() && time.getTotal() == 1750) {
-			splash.turnOff();
-			menu.turnOn();
+		} else if (time.getTotal() == 1750) {
+			mopt = MenuOptions.MAIN;
 		}
 
-		if (menu.isOn()) {
+		if (mopt == MenuOptions.MAIN) {
 			menu.renderMenu();
 		}
 		
-		if(menu.getChoice() == "start"){
-			menu.turnOff();
+		if(mopt == MenuOptions.STARTG){
 			map.render(player);
 			player.render();
-			hud.turnOn();
 			hud.renderHud();
 		}
 
-		if (menu.getChoice() == "newC") {
-			menu.turnOff();
-			charCreation.turnOn();
+		if (mopt == MenuOptions.NEWCHAR) {
 			charCreation.renderMenu();
 		}
 
 		
-		if (menu.getChoice() == "load") {
+		if (mopt == MenuOptions.LOAD) {
 			loadGame();
-			menu.setChoice("newC");
 		}
 
-		if (menu.getChoice() == "options") {
+		if (mopt == MenuOptions.OPTIONS){
 
 		}
 
-		if (menu.getChoice() == "exit") {
+		if (mopt == MenuOptions.EXIT) {
 			running = false;
 			System.exit(0);
 		}
@@ -150,6 +146,10 @@ public class Game implements Serializable {
 		}
 
 		Display.update();
+	}
+	
+	public void setMopt(MenuOptions m){
+		mopt = m;
 	}
 
 	private void pollInput() {
