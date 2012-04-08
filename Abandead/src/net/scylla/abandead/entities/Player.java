@@ -13,6 +13,7 @@ import java.io.Serializable;
 
 import net.scylla.abandead.core.Animation;
 import net.scylla.abandead.core.Game;
+import net.scylla.abandead.core.Options;
 import net.scylla.abandead.core.Time;
 import net.scylla.abandead.gui.CharClasses;
 import net.scylla.abandead.gui.DeathScreen;
@@ -179,8 +180,23 @@ public class Player implements Serializable {
 	private void updateLocation() {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
-				|| Keyboard.isKeyDown(Keyboard.KEY_S)) {
+				|| Keyboard.isKeyDown(Options.getBackwardKey())) {
 			location.setY(location.getY() - speed);
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
+				|| Keyboard.isKeyDown(Options.getForwardKey())) {
+			location.setY(location.getY() + speed);
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
+				|| Keyboard.isKeyDown(Options.getStrafeLeftKey())) {
+			location.setX(location.getX() - speed);
+		}
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
+				|| Keyboard.isKeyDown(Options.getStrafeRightKey())) {
+			location.setX(location.getX() + speed);
 		}
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS) && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
@@ -189,24 +205,6 @@ public class Player implements Serializable {
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_MINUS)) {
 			speed--;
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
-				|| Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			location.setY(location.getY() + speed);
-			
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
-				|| Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			location.setX(location.getX() - speed);
-			
-		}
-
-		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
-				|| Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			location.setX(location.getX() + speed);
-			
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_M)){

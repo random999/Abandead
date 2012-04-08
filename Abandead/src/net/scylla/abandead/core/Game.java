@@ -32,12 +32,14 @@ public class Game implements Serializable {
 	public Player player;
 	private static Game game;
 	private static String homeDir = System.getProperty("user.home");
-	private static String directory = homeDir + File.separator + "InsanerGamer"
-			+ File.separator + "Abandead" + File.separator + "Saves"
-			+ File.separator;
-	private static File mapFile = new File(directory + "map.obj");
-	private static File playerFile = new File(directory + "player.obj");
-	private static File gameFile = new File(directory + "game.obj");
+	public static String gameDirectory = homeDir + File.separator + "InsanerGamer"
+			+ File.separator + "Abandead" + File.separator;
+	private static File mapFile = new File(gameDirectory + "Saves"
+			+ File.separator + "map.obj");
+	private static File playerFile = new File(gameDirectory + "Saves"
+			+ File.separator + "player.obj");
+	private static File gameFile = new File(gameDirectory + "Saves"
+			+ File.separator + "game.obj");
 
 	public static final int TILE_SIZE = 64;
 	public static final int REGION_SIZE = 16;
@@ -53,6 +55,7 @@ public class Game implements Serializable {
 	private DeathScreen deathScreen;
 	private CharCreation charCreation;
 	private MenuOptions mopt;
+	private Options options;
 
 	public static void main(String[] args) {
 
@@ -63,6 +66,7 @@ public class Game implements Serializable {
 
 	private void start() {
 		time = new Time();
+		
 		createFiles();
 
 		IGDisplay.create(800, 600);
@@ -77,6 +81,9 @@ public class Game implements Serializable {
 		splash = new SplashScreen(player, true, time, game);
 		deathScreen = new DeathScreen(player, false, time);
 		charCreation = new CharCreation(player, false, time, game);
+		
+		options = new Options();
+		options.loadOptions();
 
 		while (running) {
 			pollInput();
@@ -180,8 +187,8 @@ public class Game implements Serializable {
 	}
 
 	private void createFiles() {
-		if (new File(directory).exists() == false) {
-			new File(directory).mkdirs();
+		if (new File(gameDirectory).exists() == false) {
+			new File(gameDirectory).mkdirs();
 		}
 		if (!mapFile.exists()) {
 			try {
