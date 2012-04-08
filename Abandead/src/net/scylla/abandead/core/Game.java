@@ -169,6 +169,10 @@ public class Game implements Serializable {
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			running = false;
 		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_F11)) {
+			IGDisplay.toggleFullScreen();
+		}
 
 		if (Display.isCloseRequested()) {
 			running = false;

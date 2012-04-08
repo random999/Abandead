@@ -54,5 +54,23 @@ public class IGDisplay implements Serializable{
 			e.printStackTrace();
 		}
 	}
+	
+	public static void toggleFullScreen(){
+		if(!Display.isFullscreen()){
+			try {
+				Display.setFullscreen(true);
+			} catch (LWJGLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else {
+			try {
+				Display.setFullscreen(false);
+			} catch (LWJGLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 }
