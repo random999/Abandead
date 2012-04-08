@@ -25,7 +25,7 @@ public class Button {
 	private float buttonLength;
 	public Button(Time t){
 		gui = new GUI(t);
-		button = gui.loadTexture("buttons");
+		button = gui.loadTexture("gui/buttons");
 	}
 	
 	public boolean isPressed(){

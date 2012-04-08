@@ -15,19 +15,14 @@ public enum TileType implements Serializable{
 	WALL_RIGHT("wall_right"),
 	WALL_BOTTOM("wall_top"),
 	WALL_TOP("wall_bottom"),
-	WALL_TOPLEFT("wall_corner_topleft"),
-	WALL_TOPRIGHT("wall_corner_topright"),
-	WALL_BOTTOMLEFT("wall_corner_bottomleft"),
-	WALL_BOTTOMRIGHT("wall_corner_bottomright"),
 	WOOD("wood"),
-	PLAYER("player"),
 	STONE("stone"),
 	DIRT("dirt"),
 	SAND("sand");
 	Texture texture;
 	TileType(String tex) {
 		try {
-			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/"+tex+".png")));
+			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/texture/tile/"+tex+".png")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

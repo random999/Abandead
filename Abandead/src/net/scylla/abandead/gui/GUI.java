@@ -37,7 +37,7 @@ public class GUI implements Serializable {
 	private final int BUTTON_HEIGHT = 32;
 	private StringText text;
 	private Texture fTexture;
-	private Texture heartTexture = loadTexture("dirt");
+	private Texture heartTexture = loadTexture("tile/dirt");
 	private String stringTotal = "";
 	private Time time;
 	
@@ -212,7 +212,7 @@ public class GUI implements Serializable {
 	public Texture loadTexture(String s) {
 		try {
 			return TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("res/" + s + ".png")));
+					new File("res/texture/" + s + ".png")));
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -225,7 +225,7 @@ public class GUI implements Serializable {
 	public Texture loadFont() {
 		try {
 			return TextureLoader.getTexture("PNG", new FileInputStream(
-					new File("res/font/tinyfont.png")));
+					new File("res/texture/font/tinyfont.png")));
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

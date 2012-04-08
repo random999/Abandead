@@ -53,7 +53,7 @@ public class DeathScreen {
 	}
 
 	private void loadTextures() {
-		bg = gui.loadTexture("blankgui");
+		bg = gui.loadTexture("gui/blankgui");
 	}
 
 	public void renderMenu() {

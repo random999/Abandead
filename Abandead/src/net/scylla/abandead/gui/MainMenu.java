@@ -50,8 +50,8 @@ public class MainMenu {
 	}
 	
 	private void loadTextures() {
-		bg = copy.loadTexture("splashscreen");
-		test = copy.loadTexture("selectionstatus");
+		bg = copy.loadTexture("gui/bg");
+		test = copy.loadTexture("gui/selectionstatus");
 	}
 	
 	public void renderMenu(){

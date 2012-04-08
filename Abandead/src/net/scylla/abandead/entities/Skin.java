@@ -14,7 +14,7 @@ public enum Skin {
 	Texture texture;
 	Skin(String textureName) {
 		try {
-			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/" + textureName + ".png")));
+			this.texture = TextureLoader.getTexture("PNG", new FileInputStream(new File("res/texture/entity/" + textureName + ".png")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

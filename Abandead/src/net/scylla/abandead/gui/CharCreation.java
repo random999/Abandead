@@ -104,7 +104,7 @@ public class CharCreation {
 	}
 	
 	private void loadTextures() {
-		backT = back.loadTexture("blankgui");
+		backT = back.loadTexture("gui/blankgui");
 	}
 	
 	public void renderMenu(){

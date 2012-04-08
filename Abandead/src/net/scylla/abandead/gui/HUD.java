@@ -36,9 +36,9 @@ public class HUD implements Serializable {
 
 	private void loadTextures() {
 
-		clock = gui.loadTexture("clockbacking");
-		sand = gui.loadTexture("sand");
-		heart = gui.loadTexture("heart");
+		clock = gui.loadTexture("gui/clockbacking");
+		sand = gui.loadTexture("tile/sand");
+		heart = gui.loadTexture("gui/heart");
 
 	}
 

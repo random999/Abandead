@@ -26,11 +26,14 @@ public class Options {
 			try {
 				input = new FileInputStream(optionsFile);
 				options.load(input);
+				System.out.println("Successfully loaded the settings file!");
 			} catch (IOException e) {
 				e.printStackTrace();
+				System.err.println("There was an error while trying to load the settings file!");
 			}
 			getConfiguration();
 		} else {
+			System.out.println("Couldn't find settings file, creating it now...");
 			writeOptionsFile();
 			loadOptions();
 		}
@@ -59,8 +62,10 @@ public class Options {
 			config.write("Strafe-Right-Key: " + Keyboard.KEY_D);
 			///////////////////////////////////////
 			config.close();
+			System.out.println("Successfully written the settings file!");
 		} catch (IOException e) {
 			e.printStackTrace();
+			System.err.println("There was an error while trying to write the settings file...");
 		}
 	}
 

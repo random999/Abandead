@@ -29,7 +29,7 @@ public class SplashScreen {
 	
 	
 	private void loadTextures() {
-		bg = gui.loadTexture("splashscreen");
+		bg = gui.loadTexture("gui/splashscreen");
 	}
 	
 	public void renderMenu(){
