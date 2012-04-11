@@ -2,42 +2,33 @@ package net.scylla.abandead.gui;
 
 import static org.lwjgl.opengl.GL11.GL_QUADS;
 import static org.lwjgl.opengl.GL11.glBegin;
+import static org.lwjgl.opengl.GL11.glColor3f;
 import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
-import static org.lwjgl.opengl.GL11.*;
 
-import java.awt.Font;
-import org.lwjgl.input.Keyboard;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import net.scylla.abandead.core.Time;
-import net.scylla.abandead.entities.Location;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureLoader;
-import org.newdawn.slick.util.ResourceLoader;
 
 public class GUI implements Serializable {
 	private final int BUTTON_HEIGHT = 32;
 	private StringText text;
 	private Texture fTexture;
-	private Texture heartTexture = loadTexture("tile/dirt");
 	private String stringTotal = "";
 	private Time time;
 	
@@ -133,7 +124,23 @@ public class GUI implements Serializable {
 						if(!Keyboard.getEventKeyState()){
 							bInput.append(" ");
 						}
-					}else if(Keyboard.getEventKey() == Keyboard.KEY_BACK){
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_COMMA){
+						if(!Keyboard.getEventKeyState()){
+							bInput.append(",");
+						}
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_PERIOD){
+						if(!Keyboard.getEventKeyState()){
+							bInput.append(".");
+						}
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_GRAVE){
+						if(!Keyboard.getEventKeyState()){
+							bInput.append("'");
+						}
+					}
+					else if(Keyboard.getEventKey() == Keyboard.KEY_BACK){
 						if(!Keyboard.getEventKeyState()){
 							if(bInput.length() > 0){
 								bInput.deleteCharAt(bInput.toString().length() - 1);

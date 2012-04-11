@@ -9,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 
-
-
 import net.scylla.abandead.core.Animation;
 import net.scylla.abandead.core.Game;
 import net.scylla.abandead.core.Options;
@@ -30,7 +28,7 @@ public class Player implements Serializable {
 
 	private int width;
 	private int height;
-	private int speed =  3;
+	private int speed = 3;
 	private int stamina;
 	private static int mY;
 	private static int mX;
@@ -40,8 +38,8 @@ public class Player implements Serializable {
 	private Location location;
 	private Skin skin;
 	private int health;
-	
-	//Player attributes
+
+	// Player attributes
 	private String name;
 	private CharClasses pclass;
 	private int healthSum;
@@ -52,24 +50,26 @@ public class Player implements Serializable {
 	private int Str;
 	private int Intel;
 	private int Wis;
+	private int Chari;
+	private int Spe;
 	private int MaxDamage;
 	private int MinDamage;
 	private boolean infected;
-	
+
 	public Player() {
 		this.width = 40;
 		this.height = 40;
 		this.location = new Location();
 		skin = Skin.PLAYER;
-		health = 1;
+		health = 3;
 		stamina = stamSum;
 		spawnLocation = new Location(0, 0);
 	}
-	
-	public void setType(CharClasses charc){
+
+	public void setType(CharClasses charc) {
 		pclass = charc;
 	}
-	
+
 	public void render() {
 		calcStats();
 		updateLocation();
@@ -78,27 +78,39 @@ public class Player implements Serializable {
 		glRotatef(calcRotation(), 0.0f, 0.0f, 1.0f);
 		skin.texture.bind();
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);glVertex2d(-width / 2, -height / 2);
-			glTexCoord2f(1,0);glVertex2d(width / 2, -height / 2);
-			glTexCoord2f(1,1);glVertex2d(width / 2, height / 2);
-			glTexCoord2f(0,1);glVertex2d(-width / 2, height / 2);
+		glTexCoord2f(0, 0);
+		glVertex2d(-width / 2, -height / 2);
+		glTexCoord2f(1, 0);
+		glVertex2d(width / 2, -height / 2);
+		glTexCoord2f(1, 1);
+		glVertex2d(width / 2, height / 2);
+		glTexCoord2f(0, 1);
+		glVertex2d(-width / 2, height / 2);
 		glEnd();
 	}
-	
-	public void setStats(int str, int dex, int con, int wis, int intel){
+
+	public void setStats(int str, int dex, int con, int wis, int intel,
+			int chari, int spe) {
 		Con += con;
 		Str += str;
-		Dex += dex; 
+		Dex += dex;
 		Wis += wis;
 		Intel += intel;
+		Chari += chari;
+		Spe += spe;
 	}
-	private void calcStats(){
-		healthSum =(int)(Con * 1.5f);
+
+	private void calcStats() {
+		healthSum = (int) (Con * 1.5f);
 		CarryComp = Str * 11;
-		speed = Dex/3;
 		stamSum = Dex * 5;
 		MaxDamage = Str * 2;
 		MinDamage = Str / 2;
+		if(Dex <= 2){
+			speed = 1;
+		} else {
+			speed = Dex / 2;
+		}
 	}
 
 	private float calcRotation() {
@@ -112,41 +124,42 @@ public class Player implements Serializable {
 		return (float) angle;
 
 	}
-	
-	public void respawn(){
+
+	public void respawn() {
 		health = healthSum;
 		speed = 3;
 		location.setX(spawnLocation.getX());
 		location.setY(spawnLocation.getY());
 	}
-	
-	public void setDead(){
+
+	public void setDead() {
 		health = 0;
 		speed = 0;
 	}
-	
-	public void setHealth(int i){
+
+	public void setHealth(int i) {
 		health = i;
 	}
-	
-	public int getHealth(){
+
+	public int getHealth() {
 		return health;
 	}
-	
-	public void heal(int amount){
+
+	public void heal(int amount) {
 		this.health = getHealth() + amount;
 	}
-	
-	public int getSpeed(){
+
+	public int getSpeed() {
 		return speed;
 	}
-	
+
 	public void setSpeed(int newSpeed) {
 		this.speed = newSpeed;
 	}
-	
+
 	public Location getRegionLocation() {
-		return new Location(location.getX()/Region.sizeCorrection, location.getY()/Region.sizeCorrection);
+		return new Location(location.getX() / Region.sizeCorrection,
+				location.getY() / Region.sizeCorrection);
 	}
 
 	public void setMouseX(int x) {
@@ -176,38 +189,40 @@ public class Player implements Serializable {
 	public Location getLocation() {
 		return location;
 	}
-	
+
 	private void updateLocation() {
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_DOWN)
 				|| Keyboard.isKeyDown(Options.getBackwardKey())) {
-			location.setY(location.getY() - speed);
+			location.setY(location.getY() - getSpeed());
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_UP)
 				|| Keyboard.isKeyDown(Options.getForwardKey())) {
-			location.setY(location.getY() + speed);
+			location.setY(location.getY() + getSpeed());
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LEFT)
 				|| Keyboard.isKeyDown(Options.getStrafeLeftKey())) {
-			location.setX(location.getX() - speed);
+			location.setX(location.getX() - getSpeed());
 		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_RIGHT)
 				|| Keyboard.isKeyDown(Options.getStrafeRightKey())) {
-			location.setX(location.getX() + speed);
+			location.setX(location.getX() + getSpeed());
 		}
-		
-		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS) && (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))) {
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_EQUALS)
+				&& (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard
+						.isKeyDown(Keyboard.KEY_RSHIFT))) {
 			speed++;
 		}
-		
+
 		if (Keyboard.isKeyDown(Keyboard.KEY_MINUS)) {
 			speed--;
 		}
-		
-		if(Keyboard.isKeyDown(Keyboard.KEY_M)){
+
+		if (Keyboard.isKeyDown(Keyboard.KEY_M)) {
 			this.heal(-1);
 		}
 	}

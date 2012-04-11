@@ -39,6 +39,7 @@ public class Button {
 	public float getButtonLength(){
 		return buttonLength;
 	}
+	
 	public void drawButton(float x, float y, String s){
 		buttonLength = (x + (s.length()*20) - x);
 
@@ -75,6 +76,55 @@ public class Button {
 				glPopMatrix();
 			
 				gui.drawText(1.5f, 18, s, 0f, 0f, 0f, x + (buttonLength/5) -1, y + (BUTTON_HEIGHT/3)- 1);
+				if(pressed){
+					held = true;
+					pressed = false;
+				}else if(!held){
+					pressed = true;
+				}
+				return;
+			} 
+		}
+		held = false;
+		pressed = false;
+	}
+	
+	public void drawButton(float x, float y, String s, float f){
+		buttonLength = f;
+
+		glPushMatrix();
+		glTranslatef(x -400, y - 300, 0f);
+		button.bind();
+		glColor3f(1f, 1f, 1f);
+
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);glVertex2f(0, 0);
+			glTexCoord2f(1, 0); glVertex2f(f, 0);
+			glTexCoord2f(1, 0.5f);glVertex2f(f, BUTTON_HEIGHT);
+			glTexCoord2f(0, 0.5f);glVertex2f(0, BUTTON_HEIGHT);
+		glEnd();
+		glPopMatrix();
+		
+		gui.drawText(1.5f, 18, s, 1f, 1f, 1f, x + (buttonLength / 2) - ((s.length() * 20) / 3), y + (BUTTON_HEIGHT / 3));
+		
+		if(Mouse.getX() > x && Mouse.getX() < x + buttonLength &&
+		   Mouse.getY() > y && Mouse.getY() < y + BUTTON_HEIGHT){
+
+			if(Mouse.isButtonDown(0)){
+				glPushMatrix();
+				glTranslatef(x - 400, y - 300, 0f);
+				button.bind();
+				glColor3f(1f,1f,1f);
+				
+				glBegin(GL_QUADS);
+					glTexCoord2f(0, 0.5f);glVertex2f(0, 0);
+					glTexCoord2f(1, 0.5f); glVertex2f(f, 0);
+					glTexCoord2f(1, 1);glVertex2f(f, BUTTON_HEIGHT);
+					glTexCoord2f(0, 1);glVertex2f(0, BUTTON_HEIGHT);
+				glEnd();
+				glPopMatrix();
+			
+				gui.drawText(1.5f, 18, s, 0f, 0f, 0f, x + (buttonLength / 2) - ((s.length() * 20) / 3), y + (BUTTON_HEIGHT / 3));
 				if(pressed){
 					held = true;
 					pressed = false;
