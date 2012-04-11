@@ -16,7 +16,6 @@ public class MainMenu {
 	private GUI version;
 	private GUI copy;
 	private GUI window;
-	private GUI input;
 
 	// buttons
 	private Button newC;
@@ -27,7 +26,6 @@ public class MainMenu {
 
 	// Textures
 	private Texture bg;
-	private Texture test;
 
 	private MenuOptions mopt;
 
@@ -37,7 +35,6 @@ public class MainMenu {
 		// GUI
 		copy = new GUI(t);
 		version = new GUI(t);
-		input = new GUI(t);
 		window = new GUI(t);
 
 		// button
@@ -51,7 +48,6 @@ public class MainMenu {
 
 	private void loadTextures() {
 		bg = copy.loadTexture("gui/bg");
-		test = copy.loadTexture("gui/selectionstatus");
 	}
 
 	public void renderMenu(){
@@ -62,7 +58,6 @@ public class MainMenu {
 		loadG.drawButton(Display.getWidth()/2 - loadG.getButtonLength()/2, Display.getHeight() * 0.50f, "Load Game");
 		opt.drawButton(Display.getWidth()/2 - opt.getButtonLength()/2, Display.getHeight() * 0.40f, "Options");
 		exit.drawButton(Display.getWidth()/2 - exit.getButtonLength()/2, Display.getHeight() * 0.30f, "Exit");
-		input.inputBox(Display.getWidth()/2.7f, Display.getHeight() * 0.20f, 300, 10, test);
 		
 
 		if(newC.isPressed()){
